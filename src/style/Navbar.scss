@@ -1,0 +1,269 @@
+@import './Variables.scss';
+
+.navbar{
+    position: fixed;
+    padding: 1.1rem 7%;
+    background-color: rgb(255,255,255,.5);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    top: 0;
+    right: 0;
+    left: 0;
+    font-size: 1.2rem;
+    z-index: 999;
+
+    &-logo{
+        img{
+            width: 80px;
+        }
+    }
+
+    &-link{
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        a:hover{
+            color: $orange;
+        }
+
+        .link{
+            transition: all .2s;
+            position: relative;
+            cursor: pointer;
+
+            &:hover{
+
+                .booknow-popup{
+                    transform: scale(1);
+                }
+
+                .material-symbols-rounded{
+                    color: black;
+                    transform: rotate(-180deg);             
+                }
+            }
+            
+            span{
+                display: flex;
+                align-items: center;
+
+                &:hover{
+                    color: $orange;
+                }
+
+                .material-symbols-rounded{
+                    transition: all .3s;
+                }
+            }
+
+            .booknow-popup{
+                position: absolute;
+                background-color: white;
+                box-shadow: 0 0 10px -2px rgb(0,0,0,.3);
+                padding: 1.2rem .7rem;
+                padding-right: 3rem;
+                border-radius: .5rem;
+                top: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                transform: scale(0);
+                transition: all .1s;
+                transform-origin: top left;
+
+                .popup-link{
+                    display: flex;
+                    align-items: center;
+                    gap: .5rem;
+
+                    &:hover{
+                        color: $orange;
+
+                        svg{
+                            color: black;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &-extra{
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .login-btn{
+            transition: all .2s;
+
+            &:hover{
+                color: $orange;
+            }
+        }
+
+        .signup-btn{
+            padding: .5rem;
+            background-color: $green;
+            border-radius: .2rem;
+            color: white;
+        }
+
+        .account-btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all .2s;
+            cursor: pointer;
+
+            &:hover{
+                color: $orange;
+            }
+        }
+    }
+
+    .mobile-menu,.mobile-link{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .navbar{
+        padding: 1rem 3%;
+
+        &-link,&-extra{
+            display: none;
+        }
+
+        .mobile-menu{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            .humberger-menu,.account-btn-mobile{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:hover{
+                    color: $orange;
+                }
+            }
+        }
+
+        .mobile-link{
+            position: absolute;
+            background-color: white;
+            box-shadow: 0 0 10px -2px rgb(0,0,0,.3);
+            top: calc(100% + 5px);
+            border-radius: .5rem;
+            right: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem;
+            transition: all .1s;
+            transform-origin: top right;
+            transform: scale(0);
+
+            a{
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+                padding-right: 2rem;
+
+                &:hover{
+                    span{
+                        color: $orange;
+                    }
+                }
+            }
+
+            .line{
+                height: 1px;
+                background-color: black;
+            }
+        }
+
+        .active{
+            transform: scale(1);
+        }
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1023px) {
+    .navbar{
+        padding: 1rem 3%;
+
+        &-link,&-extra{
+            display: none;
+        }
+
+        .mobile-menu{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            .humberger-menu,.account-btn-mobile{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                .material-symbols-rounded{
+                    font-size: 1.5rem;
+                }
+
+                &:hover{
+                    color: $orange;
+                }
+            }
+        }
+
+        .mobile-link{
+            position: absolute;
+            background-color: white;
+            box-shadow: 0 0 10px -2px rgb(0,0,0,.3);
+            top: calc(100% + 5px);
+            border-radius: .5rem;
+            right: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem;
+            transition: all .1s;
+            transform-origin: top right;
+            transform: scale(0);
+
+            a{
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+                font-size: 1.2rem;
+                padding-right: 3rem;
+
+                svg{
+                    width: 1.5rem;
+                    height: 1.5rem;
+                }
+
+                &:hover{
+                    span{
+                        color: $orange;
+                    }
+                }
+            }
+
+            .line{
+                height: 1px;
+                background-color: black;
+            }
+        }
+
+        .active{
+            transform: scale(1);
+        }
+    }
+}

@@ -1,0 +1,45 @@
+@import './Variables.scss';
+
+.footer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.5rem;
+    color: white;
+    background-color: $green;
+
+    &-link{
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        
+        .link{
+            cursor: pointer;
+            
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &-sosmed{
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+
+        .sosmed-link{
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            &:hover{
+                background-color: $hov;
+            }
+        }
+    }
+}

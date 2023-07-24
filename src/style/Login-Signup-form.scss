@@ -1,0 +1,111 @@
+@import "./Variables.scss";
+
+.body-form{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.form-text{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    
+    img{
+        width: 200px;
+    }
+}
+
+.form-side{
+    width: 50%;
+    height: 100%;
+    background-image: url("../images/form-bg.jpg");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .form{
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 3rem;
+        border-radius: 1rem;
+        background-color: $hov;
+        backdrop-filter: blur(.4rem);
+        box-shadow: 0 0 10px -2px rgb(0,0,0,.6);
+
+        .email,.phone,.password,.confirm-password{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            background-color: #eee;
+            padding-left: .8rem;
+            border-radius: .5rem;
+
+            label{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                user-select: none;
+            }
+
+            input{
+                width: 100%;
+                padding: 0.7rem;
+                padding-left: 0;
+                font-size: 1.2rem;
+                outline: none;
+                border: none;
+                background-color: transparent;
+            }
+        }
+
+        button{
+            padding: 0.7rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            border-radius: .5rem;
+            background-color: $green;
+            color: white;
+        }
+
+        .move{
+            font-size: 1.1rem;
+
+            a{
+                color: $orange;
+
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .body-form{
+        flex-direction: column;
+    }
+
+    .form-text{
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+    .form-side{
+        width: 100%;
+        padding: 1.5rem;
+
+        .form{
+            width: 100%;
+        }
+    }
+}

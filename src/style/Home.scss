@@ -1,0 +1,498 @@
+@import "./Variables.scss";
+
+.body-home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-header{
+    width: 100%;
+    height: 100vh;
+    background-image: url('../images/home-bg.jpg');
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .tagline{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        width: 70%;
+
+        h1{
+            text-shadow: 0 0 10px rgb(0,0,0,.5);
+        }
+
+        img{
+            width: 200px;
+        }
+
+        .header-input{
+            width: 60%;
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            padding: .8rem;
+            border-radius: 300px;
+            background-color: rgb(255, 255, 255,.8);
+            backdrop-filter: blur(3px);
+            box-shadow: 0 0 10px -2px rgb(0,0,0);
+
+            label{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                svg{
+                    color: $orange;
+                }
+            }
+
+            input{
+                width: 100%;
+                font-size: 1.2rem;
+                border: none;
+                outline: none;
+                background-color: transparent;
+            }
+        }
+
+        .trips{
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            
+            .trip{
+                background-color: rgb(255, 255, 255,.5);
+                backdrop-filter: blur(3px);
+                box-shadow: 0 0 10px -2px rgb(0,0,0);
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0.5rem;
+                position: relative;
+
+                &:hover{
+                    .trip-name{
+                        transform: scale(1);
+                    }
+                }
+
+                svg{
+                    width: 2rem;
+                    height: 2rem;
+                }
+
+                .trip-name{
+                    padding: .1rem 0.3rem;
+                    border-radius: .2rem;
+                    background-color: white;
+                    box-shadow: 0 0 10px -2px rgb(0,0,0);
+                    position: absolute;
+                    top: 120%;
+                    transition: all .1s;
+                    transform-origin: top;
+                    transform: scale(0);
+                }
+            }
+        }
+    }
+}
+
+.trending-now,.book-hotels,.book-flights{
+    margin: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 80vw;
+    position: relative;
+
+    .countries,.areas{
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+
+        .country,.area{
+            padding: .5rem 0.8rem;
+            background-color: white;
+            box-shadow: 0 0 10px -2px rgb(0,0,0,.5);
+            border-radius: 200px;
+            cursor: pointer;
+        }
+
+        .selected{
+            background-color: $green;
+            color: white;
+        }
+    }
+
+    button{
+        position: absolute;
+        padding: 0.5rem;
+        cursor: pointer;
+        background-color: rgb(255, 255, 255,.9);
+        box-shadow: 0 0 10px -2px rgb(0,0,0,.3);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        bottom: 12rem;
+        z-index: 10;
+    }
+
+    .left-btn{
+        left: -1.2rem;
+    }
+
+    .right-btn{
+        right: -1.2rem;
+    }
+
+    .trending-container,.hotel-container,.flight-container{
+        width: 80vw;
+        overflow-x: hidden;
+        
+        .trending-list,.hotel-list,.flight-list{
+            transition: all .5s;
+            display: grid;
+            width: calc(160vw + 1rem);
+            grid-template-columns: repeat(10, 1fr);
+            gap: 1rem;
+
+            .trending,.hotel,.flight{
+                background-color: white;
+                border-radius: 1rem;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+                border: 2px solid $hov;
+
+                &:hover{
+                    border: 2px solid $green;
+                }
+
+                img{
+                    width: 100%;
+                }
+
+                &-info{
+                    display: flex;
+                    flex-direction: column;
+                    gap: .5rem;
+                    padding: 0.8rem;
+
+                    .trending-rating,.hotel-rating{
+                        display: flex;
+                        align-items: center;
+                        
+                        svg{
+                            color: gold;
+                            fill: gold;
+                        }
+                    }
+
+                    .trending-price,.hotel-price,.flight-price{
+                        font-weight: 700;
+                        color: $orange;
+                    }
+
+                    .flight-routes{
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+
+        .to-right{
+            transform: translateX(calc(-80vw - 1rem));
+        }
+    }
+}
+
+.travel-now{
+    width: 80vw;
+    height: 20vw;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 1.2rem;
+    gap: 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid $green;
+    
+    img{
+        height: calc(20vw - 2.4rem);
+    }
+
+    .text{
+        font-size: 1.1rem;
+
+        &-header{
+            font-size: 2rem;
+        }
+
+        &-tag{
+            font-size: 1.5rem;
+        }
+    }
+}
+
+.why-book-here{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 80vw;
+    margin: 3rem 0;
+    margin-bottom: 5rem;
+
+    .header{
+        font-size: 1.8rem;
+    }
+
+    .content{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4rem;
+
+        .item{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid $orange;
+            box-shadow: 0 0 10px -2px rgb(0,0,0,.3);
+            padding: 1rem;
+            border-radius: 0 2rem 0 2rem;
+
+            img{
+                width: 80px;
+            }
+
+            .title{
+                font-weight: 600;
+                font-size: 1.2rem;
+                text-align: center;
+            }
+
+            .text{
+                text-align: center;
+            }
+        }
+    }
+}
+
+.download-our-app{
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    height: 400px;
+    margin: 5rem 0;
+
+    .left{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .header{
+            font-size: 2rem;
+        }
+
+        .store{
+            .playstore{
+                display: flex;
+                align-items: center;
+                gap: .7rem;
+
+                img{
+                    cursor: pointer;
+                    height: 3rem;
+                }
+            }
+
+        }
+    }
+
+    .right{
+        img{
+            width: 250px;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .home-header{
+
+        .tagline{
+            width: 90vw;
+
+            img{
+                width: 40vw;
+            }
+
+            .header-input{
+                width: 100%;
+            }
+
+            .trips{
+                width: 90vw;
+                justify-content: center;
+            }
+        }
+    }
+
+    .trending-now,.book-hotels,.book-flights{
+        width: 90vw;
+
+        .countries{
+            justify-content: space-between;
+            gap: 0;
+
+            .country,.area{
+                padding: 0.3rem .5rem;
+            }
+        }
+        
+        .areas{
+            gap: 1rem;
+
+            .area{
+                padding: 0.3rem .5rem;
+            }
+        }
+
+        button{
+            display: none;
+        }
+
+        .trending-container,.hotel-container,.flight-container{
+            overflow-x: auto;
+            width: 90vw;
+
+            .trending-list,.hotel-list,.flight-list{
+                width: calc((90vw * 10) + (1rem * 9));
+            }
+        }
+    }
+
+    .travel-now{
+        width: 90vw;
+        flex-direction: column;
+        height: fit-content;
+
+        img{
+            width: 80vw;
+            height: fit-content;
+        }
+    }
+
+    .why-book-here{
+        width: 90vw;
+        gap: 2rem;
+
+        .content{
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+    }
+
+    .download-our-app{
+        flex-direction: column;
+        width: 90vw;
+        height: fit-content;
+        align-items: center;
+        margin: 0;
+        margin-bottom: 2rem;
+
+        .left{
+            align-items: center;
+            text-align: center;
+            .store{
+                .playstore{
+                    img{
+                        height: 40px;
+                    }
+                }
+            }
+        }
+
+        .right{
+            display: none;
+        }
+    }
+}
+
+@media screen and (min-width: 601px) and  (max-width: 1023px) {
+    .home-header{
+        .tagline{
+            width: 90vw;
+
+            img{
+                width: 30vw;
+            }
+
+            .header-input{
+                width: 80%;
+            }
+        }
+    }
+
+    .trending-now,.book-hotels,.book-flights{
+        width: 90vw;
+
+        button{
+            bottom: 10rem;
+        }
+
+        .trending-container,.hotel-container,.flight-container{
+            width: 90vw;
+            overflow-x: hidden;
+
+            .trending-list,.hotel-list,.flight-list{
+                width: calc(180vw + (90vw / 2) + .75rem);
+                gap: .5rem;
+            }
+
+            .to-right{
+                transform: translateX(calc(-90vw - .5rem));
+            }
+
+            .to-right-2{
+                transform: translate(calc(-90vw - .75rem - 45vw));
+            }
+        }
+    }
+
+    .travel-now{
+        width: 90vw;
+        height: 30vw;
+    }
+
+    .why-book-here{
+        width: 90vw;
+        
+        .content{
+            align-items: flex-start;
+            gap: 1rem;
+        }
+    }
+
+    .download-our-app{
+        width: 90vw;
+    }
+}

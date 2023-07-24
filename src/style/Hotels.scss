@@ -1,0 +1,396 @@
+@import "./Variables.scss";
+
+.hotels-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hotel-search-container{
+    display: flex;
+    width: 80vw;
+    margin: 8rem 0;
+    font-size: 1.1rem;
+    gap: 1rem;
+
+    .hotel-search-filter{
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border-radius: .5rem;
+        overflow: hidden;
+        box-shadow: 0 0 10px -2px rgb(0,0,0,.2);
+        height: fit-content;
+
+        .head{
+            display: flex;
+            padding: 0.5rem;
+            justify-content: space-between;
+            align-items: center;
+
+            .header{
+                display: flex;
+                align-items: center;
+
+                .material-symbols-rounded{
+                    display: none;
+                }
+            }
+
+            .reset-filter{
+                padding: 0.3rem .5rem;
+                background-color: $orange;
+                border-radius: 5rem;
+                cursor: pointer;
+                color: #f3f4f6;
+            }
+        }
+
+        .filter-content{
+
+            .line{
+                height: 1px;
+                background-color: rgb(0,0,0,.3);
+            }
+    
+            .city,.price,.star-rating,.facilities{
+                display: flex;
+                flex-direction: column;
+    
+                .head{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0.5rem;
+                    cursor: pointer;
+    
+                    .material-symbols-rounded{
+                        transition: all .2s
+                    }
+    
+                    .rotate{
+                        transform: rotate(-180deg);
+                    }
+                }
+    
+                .content{
+                    display: flex;
+                    flex-direction: column;
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: all .2s cubic-bezier(0,1,0,1);
+    
+                    .city-option,.sort-option,.star-item,.facility-option{
+                        padding: 0.5rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        cursor: pointer;
+    
+                        .checkbox{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 0.2rem;
+                            border-radius: .2rem;
+                            border: 1px solid $green;
+                            transition: all .1s;
+                        }
+                        
+                        .checked{
+                            background-color: $green;
+                            color: white;
+                        }
+    
+                        .star-sum{
+                            display: flex;
+                            align-items: center;
+    
+                            svg{
+                                color: gold;
+                                fill: gold;
+                            }
+                        }
+    
+                        .circle{
+                            padding: 0.4rem;
+                            border-radius: 50px;
+                            border: 1px solid black;
+                            transition: all .1s;
+                        }
+                        
+                        .selected{
+                            background-color: $green;
+                        }
+                    }
+    
+                    .sort-option,.city-option{
+    
+                        &:hover{
+                            background-color: $hov;
+                        }
+                    }
+    
+                    .stars-footer,.facilities-footer{
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        
+                        .select-all-stars,.reset-stars,.select-all-facilities,.reset-facilities{
+                            padding: 0.5rem;
+                            cursor: pointer;
+                            transition: all .2s;
+                            width: fit-content;
+        
+                            &:hover{
+                                color: $orange;
+                            }
+                        }
+                    }
+                }
+    
+                .active{
+                    height: auto;
+                    max-height: 9999px;
+                    transition: all .2s cubic-bezier(1,0,1,0);
+                }
+            }
+        }
+    }
+
+    .hotel-search-grid{
+        width: 75%;
+        display: grid;
+        gap: .5rem;
+        grid-template-columns: repeat(1, 1fr);
+        height: fit-content;
+
+        .hotel{
+            background-color: white;
+            border-radius: .5rem;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            border: 2px solid $hov;
+            cursor: pointer;
+            height: 180px;
+            transition: all .1s;
+
+            &:hover{
+                border: 2px solid $green;
+            }
+
+            &-left{
+                display: flex;
+                gap: .5rem;
+
+                img{
+                    height: 100%;
+                }
+    
+                .hotel-info{
+                    display: flex;
+                    flex-direction: column;
+                    padding: .5rem;
+                    justify-content: space-between;
+    
+                    .hotel-rating{
+                        display: flex;
+                        align-items: center;
+    
+                        svg{
+                            color: gold;
+                            fill: gold;
+                        }
+                    }
+    
+                    .hotel-city{
+                        display: flex;
+                        align-items: center;
+                        gap: 0.2rem;
+    
+                        svg{
+                            width: 1.2rem;
+                            height: 1.2rem;
+                            color: #787878;
+                        }
+                    }
+                }
+            }
+
+            &-right{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: space-between;
+                align-content: flex-end;
+                padding: 0.5rem;
+
+                .hotel-price{
+                    font-weight: 700;
+                    color: $orange;
+                }
+
+                .save-btn{
+                    border-radius: 5rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0.2rem;
+
+                    &:hover{
+                        background-color: $hov;
+                    }
+
+                    svg{
+                        color: rgb(0,0,0,.3);
+                        width: 2rem;
+                        height: 2rem;
+                        transition: all .2s;
+                    }
+                }
+    
+                .saved{
+                    svg{
+                        color: $green;
+                        fill: $green;
+                    }
+                }
+            }
+        }
+    }
+
+    .empty-hotel{
+        display: flex;
+        justify-content: center;
+
+        .no-hotels{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            svg{
+                width: 10rem;
+                height: 10rem;
+            }
+
+            .text-head{
+                font-size: 2rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .hotel-search-container{
+        width: 90vw;
+        flex-direction: column;
+
+        .hotel-search-filter{
+            width: 100%;
+            box-shadow: none;
+            border: 1px solid rgb(0,0,0,.3);
+            user-select: none;
+
+            .head{
+                user-select: none;
+                
+                .header{
+                    cursor: pointer;
+
+                    .material-symbols-rounded{
+                        display: inline;
+                        transition: all .2s;
+                    }
+
+                    .rotate{
+                        transform: rotate(-180deg);
+                    }
+                }
+            }
+
+            .filter-content{
+                max-height: 0;
+                overflow: hidden;
+                transition: all .2s cubic-bezier(0,1,0,1);
+            }
+
+            .active{
+                height: auto;
+                max-height: 9999px;
+                transition: all .2s cubic-bezier(1,0,1,0);
+            }
+        }
+
+        .hotel-search-grid{
+            width: 100%;
+
+            .hotel{
+                width: 90vw;
+                flex-direction: column;
+                height: fit-content;
+                justify-content: flex-start;
+
+                &-left{
+                    flex-direction: column;
+
+                    .hotel-info{
+                        gap: 0.5rem;
+                        justify-content: flex-start;
+                    }
+                }
+
+                &-right{
+                    flex-direction: row;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1023px) {
+    .hotel-search-container{
+        width: 90vw;
+        flex-direction: column;
+
+        .hotel-search-filter{
+            width: 50%;
+            box-shadow: none;
+            border: 1px solid rgb(0,0,0,.3);
+            user-select: none;
+
+            .head{
+                .header{
+                    cursor: pointer;
+
+                    .material-symbols-rounded{
+                        display: inline;
+                        transition: all .2s;
+                    }
+
+                    .rotate{
+                        transform: rotate(-180deg);
+                    }
+                }
+            }
+
+            .filter-content{
+                max-height: 0;
+                overflow: hidden;
+                transition: all .2s cubic-bezier(0,1,0,1);
+            }
+
+            .active{
+                height: auto;
+                max-height: 9999px;
+                transition: all .2s cubic-bezier(1,0,1,0);
+            }
+        }
+
+        .hotel-search-grid{
+            width: 100%;
+        }
+    }
+}
