@@ -110,18 +110,6 @@
             border-radius: .2rem;
             color: white;
         }
-
-        .account-btn{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all .2s;
-            cursor: pointer;
-
-            &:hover{
-                color: $orange;
-            }
-        }
     }
 
     .mobile-menu,.mobile-link{
@@ -142,7 +130,7 @@
             align-items: center;
             gap: 1rem;
 
-            .humberger-menu,.account-btn-mobile{
+            .humberger-menu{
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -206,7 +194,7 @@
             align-items: center;
             gap: 1rem;
 
-            .humberger-menu,.account-btn-mobile{
+            .humberger-menu{
                 display: flex;
                 justify-content: center;
                 align-items: center;
