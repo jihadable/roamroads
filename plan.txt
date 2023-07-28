@@ -1,5 +1,5 @@
 roam-road, help you to find the best roads for your trip
-flights, hotels, trains
+flights, hotels, trains.
 
 color: #03ac0e, #ff4d30
 
