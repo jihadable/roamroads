@@ -1,4 +1,4 @@
-const TrainsList = [
+const trainsArray = [
     {
         id: 1,
         trainName: "Crimson Arrow",
@@ -421,10 +421,4 @@ const TrainsList = [
     }
 ]
 
-function shuffle(array){
-    return array.sort(() => .5 - Math.random())
-}
-
-let shuffleTrainsList = shuffle(TrainsList)
-
-export default shuffleTrainsList
+export default trainsArray

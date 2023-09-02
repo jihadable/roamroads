@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer"
 import "../style/Trains.scss"
 import { useState, useEffect, useRef } from "react";
-import shuffleTrainsList from "../components/TrainsData";
+import trainsArray from "../components/TrainsData";
 
 function Trains(){
 
@@ -448,7 +448,7 @@ function TrainSearchGrid(props){
 
     let arrayTrains = []
 
-    shuffleTrainsList.forEach(train => {
+    trainsArray.forEach(train => {
         if (
             // routes
             ((filters.routes[0] === "Station" || filters.routes[0] === train.route[0]) && (filters.routes[1] === "Station" || filters.routes[1] === train.route[1])) &&
@@ -613,7 +613,7 @@ function TrainSearchGrid(props){
                                         <div className="from-time">{train.departure < 10 ? `0${train.departure}:00` : `${train.departure}:00`}</div>
                                         <div className="from-city">{train.route[0]}</div>
                                     </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M5 12l14 0"></path>
                                         <path d="M15 16l4 -4"></path>

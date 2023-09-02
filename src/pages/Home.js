@@ -70,7 +70,7 @@ function HomeHeader(){
     return (
         <header className="home-header">
             <div className="tagline">
-                <img src={roamRoadsLogo} alt="Logo" />
+                {/* <img src={roamRoadsLogo} alt="Logo" /> */}
                 <h1>Help people to find their best roads for amazing trip</h1>
                 <div className="header-input">
                     <label htmlFor="header-search">
@@ -264,7 +264,7 @@ function BookHotels(){
                     {
                         arrayHotels.map((hotel, index) => {
                             return (
-                                <div className="hotel" key={index} >
+                                <a href="/hotels" className="hotel" key={index} >
                                     <img src={hotel.img} alt={hotel.name} />
                                     <div className="hotel-info">
                                         <h4 className="hotel-name">{hotel.name}</h4>
@@ -280,7 +280,7 @@ function BookHotels(){
                                         </div>
                                         <div className="hotel-price">{`$${hotel.price}`}</div>
                                     </div>
-                                </div>
+                                </a>
                             )
                         })
                     }
@@ -357,7 +357,7 @@ function BookFlights(){
                     {
                         arrayFlight.map((flight, index) => {
                             return (
-                                <div className="flight" key={index} >
+                                <a href="/flights" className="flight" key={index} >
                                     <img src={flight.img} alt={flight.route[1]} />
                                     <div className="flight-info">
                                         <h4 className="flight-routes">
@@ -374,7 +374,7 @@ function BookFlights(){
                                         <div className="flight-seat">{flight.seat}</div>
                                         <div className="flight-price">{`IDR ${flight.price}`}</div>
                                     </div>
-                                </div>
+                                </a>
                             )
                         })
                     }

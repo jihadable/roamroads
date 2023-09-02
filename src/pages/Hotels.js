@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer"
 import "../style/Hotels.scss"
-import { hotelsShuffleArray } from "../components/HotelsData";
+import { hotelsArray } from "../components/HotelsData";
 
 function Hotels(){
 
@@ -333,7 +333,7 @@ function HotelSearchGrid(props){
 
     let arrayHotels = []
 
-    hotelsShuffleArray.forEach((hotel) => {
+    hotelsArray.forEach((hotel) => {
         if (
             // city
             (hotel.city === filters.city || filters.city === "All") &&

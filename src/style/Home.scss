@@ -22,9 +22,10 @@
         align-items: center;
         gap: 1rem;
         width: 70%;
+        padding: 1rem 0;
 
         h1{
-            text-shadow: 0 0 10px rgb(0,0,0,.5);
+            text-align: center;
         }
 
         img{
@@ -32,6 +33,7 @@
         }
 
         .header-input{
+            margin-top: 2rem;
             width: 60%;
             display: flex;
             align-items: center;
@@ -333,7 +335,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 480px) {
 
     .home-header{
 
@@ -437,7 +439,7 @@
     }
 }
 
-@media screen and (min-width: 601px) and  (max-width: 1023px) {
+@media screen and (min-width: 481px) and  (max-width: 1023px) {
     .home-header{
         .tagline{
             width: 90vw;

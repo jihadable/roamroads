@@ -647,8 +647,4 @@ const baliHotelsList = [
     }
 ]
 
-function shuffle(array){
-    return array.sort(() => .5 - Math.random())
-}
-
-export let hotelsShuffleArray = shuffle([...kendariHotelList, ...jogjaHotelList, ...bandungHotelList, ...jakartaHotelList, /*...baliHotelsList*/])
+export let hotelsArray = [...kendariHotelList, ...jogjaHotelList, ...bandungHotelList, ...jakartaHotelList, /*...baliHotelsList*/]

@@ -342,10 +342,6 @@ const internationalFlightList = [
     }
 ]
 
-function shuffle(array){
-    return array.sort(() => .5 - Math.random())
-}
+let flightsArray = [...indonesiaFlightList, ...internationalFlightList]
 
-let flightShuffleArray = shuffle([...indonesiaFlightList, ...internationalFlightList])
-
-export { indonesiaFlightList, internationalFlightList, flightShuffleArray }
+export { indonesiaFlightList, internationalFlightList, flightsArray }

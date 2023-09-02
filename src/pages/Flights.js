@@ -3,7 +3,7 @@ import Slider from "react-slider";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer"
 import "../style/Flights.scss"
-import { flightShuffleArray } from "../components/FlightsData";
+import { flightsArray } from "../components/FlightsData";
 
 function Flights(){
 
@@ -648,7 +648,7 @@ function FlightGrid(props){
 
     let arrayFlights = []
 
-    flightShuffleArray.forEach((flight) => {
+    flightsArray.forEach((flight) => {
         if (
             // route
             ((filters.route[0] === flight.route[0] || filters.route[0] === "City") && (filters.route[1] === flight.route[1] || filters.route[1] === "City")) &&
