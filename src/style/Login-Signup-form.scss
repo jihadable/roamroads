@@ -1,6 +1,6 @@
 @import "./Variables.scss";
 
-.body-form{
+.form-container{
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -14,8 +14,19 @@
     gap: 1rem;
     align-items: center;
     
-    img{
-        width: 200px;
+    .img{
+        display: flex;
+        border-radius: 20rem;
+        overflow: hidden;
+        box-shadow: 0 0 20px -2px rgb(0,0,0,.3);
+
+        img{
+            width: 200px;
+        }
+    }
+
+    h2{
+        text-align: center;
     }
 }
 
@@ -90,8 +101,8 @@
     }
 }
 
-@media screen and (max-width: 600px) {
-    .body-form{
+@media screen and (max-width: 480px) {
+    .form-container{
         flex-direction: column;
     }
 
@@ -102,6 +113,16 @@
 
     .form-side{
         width: 100%;
+        padding: 1.5rem;
+
+        .form{
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 1023px) {
+    .form-side{
         padding: 1.5rem;
 
         .form{

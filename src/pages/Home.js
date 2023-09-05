@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import "../style/Home.scss"
-import roamRoadsLogo from '../images/roam-roads-logo.png'
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import { kendariHotelList, jogjaHotelList, bandungHotelList, jakartaHotelList } from "../components/HotelsData"
@@ -8,8 +7,6 @@ import { indonesiaTrendingList} from "../components/TrendingNow"
 import { indonesiaFlightList, internationalFlightList} from "../components/FlightsData"
 
 function Home(){
-
-    document.body.classList.add("body-home")
 
     return (
         <>
@@ -32,7 +29,7 @@ function HomeHeader(){
         {
             name: "Hotels",
             svg:
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-home-2" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
                 <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
@@ -43,7 +40,7 @@ function HomeHeader(){
         {
             name: "Flights",
             svg:
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plane-departure" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-plane-departure" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M14.639 10.258l4.83 -1.294a2 2 0 1 1 1.035 3.863l-14.489 3.883l-4.45 -5.02l2.897 -.776l2.45 1.414l2.897 -.776l-3.743 -6.244l2.898 -.777l5.675 5.727z"></path>
                 <path d="M3 21h18"></path>
@@ -53,7 +50,7 @@ function HomeHeader(){
         {
             name: "Trains",
             svg:
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-train" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-train" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M21 13c0 -3.87 -3.37 -7 -10 -7h-8"></path>
                 <path d="M3 15h16a2 2 0 0 0 2 -2"></path>
@@ -71,10 +68,13 @@ function HomeHeader(){
         <header className="home-header">
             <div className="tagline">
                 {/* <img src={roamRoadsLogo} alt="Logo" /> */}
-                <h1>Help people to find their best roads for amazing trip</h1>
+                <h1>
+                    <p>Help people to find</p>
+                    <p>the best roads for amazing trip</p>
+                </h1>
                 <div className="header-input">
                     <label htmlFor="header-search">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
                             <path d="M21 21l-6 -6"></path>
@@ -122,7 +122,7 @@ function TrendingNow(){
                         setToRight2(false)
                     }
                 }}>
-                    <span class="material-symbols-rounded">chevron_left</span>
+                    <span className="material-symbols-rounded">chevron_left</span>
                 </button>
             }
             {
@@ -137,7 +137,7 @@ function TrendingNow(){
                         setToRight(false)
                     }
                 }}>
-                    <span class="material-symbols-rounded">chevron_right</span>
+                    <span className="material-symbols-rounded">chevron_right</span>
                 </button>
             }
             <div className="trending-container">
@@ -241,7 +241,7 @@ function BookHotels(){
                         setToRight2(false)
                     }
                 }}>
-                    <span class="material-symbols-rounded">chevron_left</span>
+                    <span className="material-symbols-rounded">chevron_left</span>
                 </button>
             }
             {
@@ -256,7 +256,7 @@ function BookHotels(){
                         setToRight(false)
                     }
                 }}>
-                    <span class="material-symbols-rounded">chevron_right</span>
+                    <span className="material-symbols-rounded">chevron_right</span>
                 </button>
             }
             <div className="hotel-container">
@@ -269,7 +269,7 @@ function BookHotels(){
                                     <div className="hotel-info">
                                         <h4 className="hotel-name">{hotel.name}</h4>
                                         <div className="hotel-rating">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-star" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                 <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
                                             </svg>
@@ -334,7 +334,7 @@ function BookFlights(){
                         setToRight2(false)
                     }
                 }}>
-                    <span class="material-symbols-rounded">chevron_left</span>
+                    <span className="material-symbols-rounded">chevron_left</span>
                 </button>
             }
             {
@@ -349,7 +349,7 @@ function BookFlights(){
                         setToRight(false)
                     }
                 }}>
-                    <span class="material-symbols-rounded">chevron_right</span>
+                    <span className="material-symbols-rounded">chevron_right</span>
                 </button>
             }
             <div className="flight-container">
@@ -362,7 +362,7 @@ function BookFlights(){
                                     <div className="flight-info">
                                         <h4 className="flight-routes">
                                             <span className="route-1">{flight.route[0]}</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                 <path d="M5 12l14 0"></path>
                                                 <path d="M15 16l4 -4"></path>

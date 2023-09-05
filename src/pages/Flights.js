@@ -6,8 +6,6 @@ import "../style/Flights.scss"
 import { flightsArray } from "../components/FlightsData";
 
 function Flights(){
-
-    document.body.classList.add("flights-body")
     document.title = "RoamRoads | Flights"
 
     return (
@@ -104,7 +102,7 @@ function SearchFlights(){
     ]
 
     const facilities = [
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-luggage" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-luggage" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M6 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
             <path d="M9 6v-1a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v1"></path>
@@ -113,7 +111,7 @@ function SearchFlights(){
             <path d="M9 20v1"></path>
             <path d="M15 20v1"></path>
         </svg>,
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-salad" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-salad" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M4 11h16a1 1 0 0 1 1 1v.5c0 1.5 -2.517 5.573 -4 6.5v1a1 1 0 0 1 -1 1h-8a1 1 0 0 1 -1 -1v-1c-1.687 -1.054 -4 -5 -4 -6.5v-.5a1 1 0 0 1 1 -1z"></path>
             <path d="M18.5 11c.351 -1.017 .426 -2.236 .5 -3.714v-1.286h-2.256c-2.83 0 -4.616 .804 -5.64 2.076"></path>
@@ -121,14 +119,14 @@ function SearchFlights(){
             <path d="M8 8l1 -4l4 2.5"></path>
             <path d="M13 11v-.5a2.5 2.5 0 1 0 -5 0v.5"></path>
         </svg>,
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-wifi" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-wifi" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M12 18l.01 0"></path>
             <path d="M9.172 15.172a4 4 0 0 1 5.656 0"></path>
             <path d="M6.343 12.343a8 8 0 0 1 11.314 0"></path>
             <path d="M3.515 9.515c4.686 -4.687 12.284 -4.687 17 0"></path>
         </svg>,
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-usb" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-usb" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M12 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
             <path d="M12 17v-11.5"></path>
@@ -311,7 +309,7 @@ function SearchFlights(){
                         <div className="route">
                             <div className="route-result" onClick={() => {setShowRoutes1(!showRoutes1)}} ref={showRoute1Btn}>
                                 {route1}
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-caret-down" width="16" height="16" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                     <path d="M6 10l6 6l6 -6h-12"></path>
                                 </svg>
@@ -329,7 +327,7 @@ function SearchFlights(){
                                 }
                             </div>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M5 12l14 0"></path>
                             <path d="M15 16l4 -4"></path>
@@ -338,7 +336,7 @@ function SearchFlights(){
                         <div className="route">
                             <div className="route-result" onClick={() => {setShowRoutes2(!showRoutes2)}} ref={showRoute2Btn}>
                                 {route2}
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-caret-down" width="16" height="16" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                     <path d="M6 10l6 6l6 -6h-12"></path>
                                 </svg>
@@ -364,12 +362,12 @@ function SearchFlights(){
                 <div className="flight-search-content">
                     <div className="head">
                         <div className="header" onClick={() => {setShowFilter(!showFilter)}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-filter" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-filter" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z"></path>
                             </svg>
                             Filter
-                            <span class={`material-symbols-rounded ${showFilter ? "rotate" : ""}`}>expand_more</span>
+                            <span className={`material-symbols-rounded ${showFilter ? "rotate" : ""}`}>expand_more</span>
                         </div>
                         <div className="reset-filter" onClick={() => {
                             setFilters({
@@ -390,7 +388,7 @@ function SearchFlights(){
                         <div className="sort">
                             <h4 className="head" onClick={() => {setShowSort(!showSort)}}>
                                 Sort by
-                                <span class={`material-symbols-rounded ${showSort ? "rotate" : ""}`}>expand_more</span>
+                                <span className={`material-symbols-rounded ${showSort ? "rotate" : ""}`}>expand_more</span>
                             </h4>
                             <div className={`content ${showSort ? "active" : ""}`}>
                                 {
@@ -419,7 +417,7 @@ function SearchFlights(){
                         <div className="seat">
                             <h4 className="head" onClick={() => {setShowSeat(!showSeat)}}>
                                 Seat
-                                <span class={`material-symbols-rounded ${showSeat ? "rotate" : ""}`}>expand_more</span>
+                                <span className={`material-symbols-rounded ${showSeat ? "rotate" : ""}`}>expand_more</span>
                             </h4>
                             <div className={`content ${showSeat ? "active" : ""}`}>
                                 {
@@ -448,7 +446,7 @@ function SearchFlights(){
                         <div className="transit-number">
                             <h4 className="head" onClick={() => {setShowTransitNumber(!showTransitNumber)}}>
                                 No of transit
-                                <span class={`material-symbols-rounded ${showTransitNumber ? "rotate" : ""}`}>expand_more</span>
+                                <span className={`material-symbols-rounded ${showTransitNumber ? "rotate" : ""}`}>expand_more</span>
                             </h4>
                             <div className={`content ${showTransitNumber ? "active" : ""}`}>
                                 {
@@ -476,7 +474,7 @@ function SearchFlights(){
                         <div className="transit-duration">
                             <h4 className="head" onClick={() => {setShowTransitDuration(!showTransitDuration)}}>
                                 Transit duration (hour)
-                                <span class={`material-symbols-rounded ${showTransitDuration ? "rotate" : ""}`}>expand_more</span>
+                                <span className={`material-symbols-rounded ${showTransitDuration ? "rotate" : ""}`}>expand_more</span>
                             </h4>
                             <div className={`content ${showTransitDuration ? "active" : ""}`}>
                                 <div className="transit-duration-option" onClick={() => {}}>
@@ -497,7 +495,7 @@ function SearchFlights(){
                         <div className="airline">
                             <h4 className="head" onClick={() => {setShowAirline(!showAirline)}}>
                                 Airline
-                                <span class={`material-symbols-rounded ${showAirline ? "rotate" : ""}`}>expand_more</span>
+                                <span className={`material-symbols-rounded ${showAirline ? "rotate" : ""}`}>expand_more</span>
                             </h4>
                             <div className={`content ${showAirline ? "active" : ""}`}>
                                 {
@@ -505,7 +503,7 @@ function SearchFlights(){
                                         return (
                                             <div className="airline-option" key={index} onClick={() => {addRemoveFilter(airline, "airline")}}>
                                                 <span className={`checkbox ${filters.airline.includes(airline) ? "checked" : ""}`}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                         <path d="M5 12l5 5l10 -10"></path>
                                                     </svg>
@@ -529,7 +527,7 @@ function SearchFlights(){
                         <div className="departure">
                             <h4 className="head" onClick={() => {setShowDeparture(!showDeparture)}}>
                                 Departure time
-                                <span class={`material-symbols-rounded ${showDeparture ? "rotate" : ""}`}>expand_more</span>
+                                <span className={`material-symbols-rounded ${showDeparture ? "rotate" : ""}`}>expand_more</span>
                             </h4>
                             <div className={`content ${showDeparture ? "active" : ""}`}>
                                 {
@@ -539,7 +537,7 @@ function SearchFlights(){
                                                 addRemoveFilter(departure, "departure", departure.title, departure.time, departure.range)
                                             }}>
                                                 <span className={`checkbox ${checkDepartureArrival("departure", departure.title) ? "checked" : ""}`}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                         <path d="M5 12l5 5l10 -10"></path>
                                                     </svg>
@@ -566,7 +564,7 @@ function SearchFlights(){
                         <div className="arrival">
                             <h4 className="head" onClick={() => {setShowArrival(!showArrival)}}>
                                 Arrival time
-                                <span class={`material-symbols-rounded ${showArrival ? "rotate" : ""}`}>expand_more</span>
+                                <span className={`material-symbols-rounded ${showArrival ? "rotate" : ""}`}>expand_more</span>
                             </h4>
                             <div className={`content ${showArrival ? "active" : ""}`}>
                                 {
@@ -576,7 +574,7 @@ function SearchFlights(){
                                                 addRemoveFilter(arrival, "arrival", arrival.title, arrival.time, arrival.range)
                                             }}>
                                                 <span className={`checkbox ${checkDepartureArrival("arrival", arrival.title) ? "checked" : ""}`}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                         <path d="M5 12l5 5l10 -10"></path>
                                                     </svg>
@@ -603,7 +601,7 @@ function SearchFlights(){
                         <div className="facilities">
                             <h4 className="head" onClick={() => {setShowFacility(!showFacility)}}>
                                 Facilities
-                                <span class={`material-symbols-rounded ${showFacility ? "rotate" : ""}`}>expand_more</span>
+                                <span className={`material-symbols-rounded ${showFacility ? "rotate" : ""}`}>expand_more</span>
                             </h4>
                             <div className={`content ${showFacility ? "active" : ""}`}>
                                 {
@@ -613,7 +611,7 @@ function SearchFlights(){
                                                 addRemoveFilter(facility, "facilities")
                                             }}>
                                                 <span className={`checkbox ${filters.facilities.includes(facility) ? "checked" : ""}`}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                         <path d="M5 12l5 5l10 -10"></path>
                                                     </svg>
@@ -726,7 +724,7 @@ function FlightGrid(props){
 
     const facilities = {
         baggage: 
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-luggage" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-luggage" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M6 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
             <path d="M9 6v-1a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v1"></path>
@@ -736,7 +734,7 @@ function FlightGrid(props){
             <path d="M15 20v1"></path>
         </svg>,
         inflightmeal: 
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-salad" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-salad" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M4 11h16a1 1 0 0 1 1 1v.5c0 1.5 -2.517 5.573 -4 6.5v1a1 1 0 0 1 -1 1h-8a1 1 0 0 1 -1 -1v-1c-1.687 -1.054 -4 -5 -4 -6.5v-.5a1 1 0 0 1 1 -1z"></path>
             <path d="M18.5 11c.351 -1.017 .426 -2.236 .5 -3.714v-1.286h-2.256c-2.83 0 -4.616 .804 -5.64 2.076"></path>
@@ -745,7 +743,7 @@ function FlightGrid(props){
             <path d="M13 11v-.5a2.5 2.5 0 1 0 -5 0v.5"></path>
         </svg>,
         wifi: 
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-wifi" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-wifi" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M12 18l.01 0"></path>
             <path d="M9.172 15.172a4 4 0 0 1 5.656 0"></path>
@@ -753,7 +751,7 @@ function FlightGrid(props){
             <path d="M3.515 9.515c4.686 -4.687 12.284 -4.687 17 0"></path>
         </svg>,
         powerusbport:
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-usb" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-usb" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M12 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
             <path d="M12 17v-11.5"></path>
@@ -829,7 +827,7 @@ function FlightGrid(props){
             {
                 arrayFlights.length === 0 &&
                 <div className="no-flights">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plane-off" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-plane-off" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M9.788 5.758l-.788 -2.758h3l4 7h4a2 2 0 1 1 0 4h-2m-2.718 1.256l-3.282 5.744h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h3"></path>
                         <path d="M3 3l18 18"></path>
@@ -845,7 +843,7 @@ function FlightGrid(props){
                             <div className="flight-left">
                                 <div className="flight-name-seat">
                                     <h4 className="flight-name">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plane-inflight" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-plane-inflight" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <path d="M15 11.085h5a2 2 0 1 1 0 4h-15l-3 -6h3l2 2h3l-2 -7h3l4 7z"></path>
                                             <path d="M3 21h18"></path>
@@ -878,7 +876,7 @@ function FlightGrid(props){
                                         <div className="from-time">{flight.departure < 10 ? `0${flight.departure}:00` : `${flight.departure}:00`}</div>
                                         <div className="from-city">{flight.route[0]}</div>
                                     </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M5 12l14 0"></path>
                                         <path d="M15 16l4 -4"></path>
@@ -896,7 +894,7 @@ function FlightGrid(props){
                                     <div className={`save ${checkSavedItem(flight) ? "saved" : ""}`} onClick={() => {
                                         addRemoveSaved(flight)
                                     }}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bookmark" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-bookmark" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2"></path>
                                         </svg>
@@ -920,7 +918,7 @@ function FlightGrid(props){
                     <div className="header">
                         <div className="header-left">
                             <h4 className="airline-detail">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plane-inflight" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-plane-inflight" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                     <path d="M15 11.085h5a2 2 0 1 1 0 4h-15l-3 -6h3l2 2h3l-2 -7h3l4 7z"></path>
                                     <path d="M3 21h18"></path>
@@ -953,7 +951,7 @@ function FlightGrid(props){
                                         {flightDetail.route[0]}
                                     </div>
                                 </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-narrow-down" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                     <path d="M12 5l0 14"></path>
                                     <path d="M16 15l-4 4"></path>
@@ -987,9 +985,9 @@ function FlightGrid(props){
                             {
                                 flightDetail.transitNumber !== "Direct" &&
                                 <div className="transit-info">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-circle-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-alert-circle-filled" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm.01 13l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" stroke-width="0" fill="#ff4d30"></path>
+                                        <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm.01 13l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" strokeWidth="0" fill="#ff4d30"></path>
                                     </svg>
                                     Stop to change planes in {flightDetail.transitCity} ({flightDetail.transitDuration}h 0m)
                                 </div>
@@ -1005,7 +1003,7 @@ function FlightGrid(props){
                                             {flightDetail.transitCity}
                                         </div>
                                     </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-narrow-down" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M12 5l0 14"></path>
                                         <path d="M16 15l-4 4"></path>
@@ -1024,7 +1022,7 @@ function FlightGrid(props){
                         </div>
                         <div className="save-select-detail">
                             <div className={`save ${checkSavedItem(flightDetail) ? "saved" : ""}`} onClick={() => {addRemoveSaved(flightDetail)}}>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bookmark" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-bookmark" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                     <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2"></path>
                                 </svg>

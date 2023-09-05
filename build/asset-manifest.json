@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.be2a078d.css",
-    "main.js": "/static/js/main.60c94643.js",
+    "main.css": "/static/css/main.e9036132.css",
+    "main.js": "/static/js/main.587846ea.js",
     "static/media/play6.jpg": "/static/media/play6.391ddb57d852c924964c.jpg",
     "static/media/amsterdam.jpg": "/static/media/amsterdam.1c41d82e1ad4be6697a1.jpg",
     "static/media/yogyakarta.jpg": "/static/media/yogyakarta.2279c9afb06e475ce37f.jpg",
@@ -73,15 +73,15 @@
     "static/media/hotel19.jpg": "/static/media/hotel19.59fc3222585d4ea67ab8.jpg",
     "static/media/hotel28.jpg": "/static/media/hotel28.a4f0f7aa0ca10cc19b58.jpg",
     "static/media/hotel12.jpg": "/static/media/hotel12.6be41d61a8db69ad933f.jpg",
-    "static/media/roam-roads-logo.png": "/static/media/roam-roads-logo.c0a20d5dffb698c34ce2.png",
+    "static/media/roam-roads-logo.jpg": "/static/media/roam-roads-logo.dc495a82af6d19b4d2c4.jpg",
     "static/media/service.png": "/static/media/service.5b439c6ee01d456bf97d.png",
     "static/media/payment.png": "/static/media/payment.7c8eec7fd79a357d6825.png",
     "index.html": "/index.html",
-    "main.be2a078d.css.map": "/static/css/main.be2a078d.css.map",
-    "main.60c94643.js.map": "/static/js/main.60c94643.js.map"
+    "main.e9036132.css.map": "/static/css/main.e9036132.css.map",
+    "main.587846ea.js.map": "/static/js/main.587846ea.js.map"
   },
   "entrypoints": [
-    "static/css/main.be2a078d.css",
-    "static/js/main.60c94643.js"
+    "static/css/main.e9036132.css",
+    "static/js/main.587846ea.js"
   ]
 }

@@ -1,14 +1,8 @@
 @import "./Variables.scss";
 
-.saved-body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .saved-container{
     width: 80vw;
-    margin: 8rem 0;
+    margin: 8rem auto;
     margin-bottom: 10rem;
     display: flex;
     gap: 1.5rem;

@@ -1,14 +1,8 @@
 @import "./Variables.scss";
 
-.train-body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .train-search-container{
     width: 80vw;
-    margin: 8rem 0;
+    margin: 8rem auto;
     font-size: 1.1rem;
     display: flex;
     gap: .5rem;

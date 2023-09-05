@@ -5,8 +5,6 @@ import { useState, useEffect, useRef } from "react";
 import trainsArray from "../components/TrainsData";
 
 function Trains(){
-
-    document.body.classList.add("train-body")
     document.title = "RoamRoads | Trains"
 
     return (
@@ -245,7 +243,7 @@ function TrainSearchFilter(){
                     <div className="route">
                         <div className="route-result" onClick={() => {setShowStation1(!showStation1)}} ref={station1Btn}>
                             {station1}
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-caret-down" width="16" height="16" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                     <path d="M6 10l6 6l6 -6h-12"></path>
                             </svg>
@@ -265,7 +263,7 @@ function TrainSearchFilter(){
                             }
                         </div>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M5 12l14 0"></path>
                         <path d="M15 16l4 -4"></path>
@@ -274,7 +272,7 @@ function TrainSearchFilter(){
                     <div className="route">
                         <div className="route-result" onClick={() => {setShowStation2(!showStation2)}} ref={station2Btn}>
                             {station2}
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-caret-down" width="16" height="16" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                     <path d="M6 10l6 6l6 -6h-12"></path>
                             </svg>
@@ -302,12 +300,12 @@ function TrainSearchFilter(){
             <div className="content">
                 <div className="head">
                     <div className="filter-header" onClick={() => {setShowFilters(!showFilters)}}>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-filter" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-filter" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z"></path>
                         </svg>
                         Filter
-                        <span class={`material-symbols-rounded ${showFilters ? "rotate" : ""}`}>expand_more</span>
+                        <span className={`material-symbols-rounded ${showFilters ? "rotate" : ""}`}>expand_more</span>
                     </div>
                     <div className="reset-filter-btn" onClick={() => {
                         setFilters({
@@ -324,7 +322,7 @@ function TrainSearchFilter(){
                     <div className="sort">
                         <h4 className="head" onClick={() => {setShowSort(!showSort)}}>
                             Sort by
-                            <span class={`material-symbols-rounded ${showSort ? "rotate" : ""}`}>expand_more</span>
+                            <span className={`material-symbols-rounded ${showSort ? "rotate" : ""}`}>expand_more</span>
                         </h4>
                         <div className={`menu ${showSort ? "active" : ""}`}>
                             {
@@ -351,7 +349,7 @@ function TrainSearchFilter(){
                     <div className="train-name">
                         <h4 className="head" onClick={() => {setShowTrain(!showTrain)}}>
                             Train    
-                            <span class={`material-symbols-rounded ${showTrain ? "rotate" : ""}`}>expand_more</span>
+                            <span className={`material-symbols-rounded ${showTrain ? "rotate" : ""}`}>expand_more</span>
                         </h4>
                         <div className={`menu ${showTrain ? "active" : ""}`}>
                             {
@@ -359,7 +357,7 @@ function TrainSearchFilter(){
                                     return (
                                         <div className="train-name-option" key={index} onClick={() => {addRemoveFilter(train, "train")}}>
                                             <span className={`checkbox ${filters.train.includes(train) ? "checked" : ""}`}>
-                                                <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                     <path d="M5 12l5 5l10 -10"></path>
                                                 </svg>
@@ -379,7 +377,7 @@ function TrainSearchFilter(){
                     <div className="class">
                         <h4 className="head" onClick={() => {setShowClass(!showClass)}}>
                             Class
-                            <span class={`material-symbols-rounded ${showClass ? "rotate" : ""}`}>expand_more</span>
+                            <span className={`material-symbols-rounded ${showClass ? "rotate" : ""}`}>expand_more</span>
                         </h4>
                         <div className={`menu ${showClass ? "active" : ""}`}>
                             {
@@ -387,7 +385,7 @@ function TrainSearchFilter(){
                                     return (
                                         <div className="class-option" key={index} onClick={() => {addRemoveFilter(kelas, "class")}}>
                                             <span className={`checkbox ${filters.class.includes(kelas) ? "checked" : ""}`}>
-                                                <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                     <path d="M5 12l5 5l10 -10"></path>
                                                 </svg>
@@ -407,7 +405,7 @@ function TrainSearchFilter(){
                     <div className="departure">
                         <h4 className="head" onClick={() => {setShowDeparture(!showDeparture)}}>
                             Departue
-                            <span class={`material-symbols-rounded ${showDeparture ? "rotate" : ""}`}>expand_more</span>
+                            <span className={`material-symbols-rounded ${showDeparture ? "rotate" : ""}`}>expand_more</span>
                         </h4>
                         <div className={`menu ${showDeparture ? "active" : ""}`}>
                             {
@@ -415,7 +413,7 @@ function TrainSearchFilter(){
                                     return (
                                         <div className="departure-option" key={index} onClick={() => {addRemoveFilter(departure, "departure", departure.title, departure.time, departure.range)}}>
                                             <span className={`checkbox ${checkDeparture("departure", departure.title) ? "checked" : ""}`}>
-                                                <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-check`} width="18" height="18" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                     <path d="M5 12l5 5l10 -10"></path>
                                                 </svg>
@@ -578,7 +576,7 @@ function TrainSearchGrid(props){
             {
                 arrayTrains.length === 0 &&
                 <div className="no-trains">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-octagon-off" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-octagon-off" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M7.647 3.653l.353 -.353c.2 -.2 .4 -.3 .7 -.3h6.6c.3 0 .5 .1 .7 .3l4.7 4.7c.2 .2 .3 .4 .3 .7v6.6c0 .3 -.1 .5 -.3 .7l-.35 .35m-2 2l-2.353 2.353c-.2 .2 -.4 .3 -.7 .3h-6.6c-.3 0 -.5 -.1 -.7 -.3l-4.7 -4.7c-.2 -.2 -.3 -.4 -.3 -.7v-6.6c0 -.3 .1 -.5 .3 -.7l2.35 -2.35"></path>
                         <path d="M3 3l18 18"></path>
@@ -594,7 +592,7 @@ function TrainSearchGrid(props){
                             <div className="train-left">
                                 <div className="train-name-seat">
                                     <h4 className="train-name">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-train" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-train" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <path d="M21 13c0 -3.87 -3.37 -7 -10 -7h-8"></path>
                                             <path d="M3 15h16a2 2 0 0 0 2 -2"></path>
@@ -613,7 +611,7 @@ function TrainSearchGrid(props){
                                         <div className="from-time">{train.departure < 10 ? `0${train.departure}:00` : `${train.departure}:00`}</div>
                                         <div className="from-city">{train.route[0]}</div>
                                     </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M5 12l14 0"></path>
                                         <path d="M15 16l4 -4"></path>
@@ -629,7 +627,7 @@ function TrainSearchGrid(props){
                                 <div className="train-price">IDR {train.price}</div>
                                 <div className="save-select">
                                     <div className={`save ${checkSavedItem(train) ? "saved" : ""}`} onClick={() => {addRemoveSaved(train)}}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bookmark" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-bookmark" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2"></path>
                                         </svg>

@@ -2,8 +2,8 @@
 
 .navbar{
     position: fixed;
-    padding: 1.1rem 10vw;
-    background-color: rgb(255,255,255,.3);
+    padding: .5rem 10vw;
+    background-color: rgb(255,255,255,.5);
     backdrop-filter: blur(2px);
     display: flex;
     align-items: center;
@@ -15,8 +15,13 @@
     z-index: 20;
 
     &-logo{
+        display: flex;
+        border-radius: 10rem;
+        overflow: hidden;
+        box-shadow: 0 0 20px -2px rgb(0,0,0,.5);
+
         img{
-            width: 80px;
+            width: 3.5rem;
         }
     }
 
