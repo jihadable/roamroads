@@ -1,10 +1,10 @@
-@import './Variables.scss';
+@import './index.scss';
 
 .navbar{
     position: fixed;
     padding: .5rem 10vw;
     background-color: rgb(255,255,255,.5);
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(5px);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -16,8 +16,7 @@
 
     &-logo{
         display: flex;
-        border-radius: 10rem;
-        overflow: hidden;
+        border-radius: 5rem;
         box-shadow: 0 0 20px -2px rgb(0,0,0,.5);
 
         img{
@@ -45,7 +44,7 @@
                     transform: scale(1);
                 }
 
-                .material-symbols-rounded{
+                span svg{
                     color: black;
                     transform: rotate(-180deg);             
                 }
@@ -59,7 +58,7 @@
                     color: $orange;
                 }
 
-                .material-symbols-rounded{
+                svg{
                     transition: all .3s;
                 }
             }
@@ -122,7 +121,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 480px) {
     .navbar{
         padding: 1rem 3%;
 
@@ -186,7 +185,7 @@
     }
 }
 
-@media screen and (min-width: 601px) and (max-width: 1023px) {
+@media screen and (min-width: 481px) and (max-width: 1023px) {
     .navbar{
         padding: 1rem 3%;
 
@@ -205,7 +204,7 @@
                 align-items: center;
                 cursor: pointer;
 
-                .material-symbols-rounded{
+                svg{
                     font-size: 1.5rem;
                 }
 

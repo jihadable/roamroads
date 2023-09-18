@@ -1,4 +1,4 @@
-@import "./Variables.scss";
+@import "./index.scss";
 
 .saved-container{
     width: 80vw;
@@ -79,6 +79,7 @@
                     border-radius: .2rem;
                     border: 1px solid $green;
                     transition: all .1s;
+                    color: transparent;
                 }
 
                 .checked{
@@ -138,7 +139,7 @@
             .saved-item{
                 cursor: pointer;
                 background-color: white;
-                box-shadow: 0 0 10px -2px rgb(0,0,0,.3);
+                border: 2px solid rgba(0, 0, 0, .1);
                 padding: 1rem;
                 border-radius: 1rem;
                 display: flex;
@@ -146,7 +147,7 @@
                 transition: all .2s;
 
                 &:hover{
-                    box-shadow: 0 0 10px -2px rgb(0,0,0,.8);
+                    border: 2px solid $green;
                 }
 
                 &-left{
@@ -157,7 +158,6 @@
                         svg{
                             width: 5rem;
                             height: 5rem;
-                            color: #787878;
                         }
                     }
 
@@ -268,7 +268,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 480px) {
     .saved-container{
         width: 90vw;
         margin: 6rem 0;
@@ -327,7 +327,7 @@
     }
 }
 
-@media screen and (min-width: 601px) and (max-width: 1023px) {
+@media screen and (min-width: 481px) and (max-width: 1023px) {
     .saved-container{
         width: 90vw;
         flex-direction: column;

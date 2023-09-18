@@ -1,4 +1,4 @@
-@import "./Variables.scss";
+@import "./index.scss";
 
 .flight-search-container{
     display: flex;
@@ -115,7 +115,7 @@
                     display: flex;
                     align-items: center;
     
-                    .material-symbols-rounded{
+                    .chevron{
                         display: none;
                     }
                 }
@@ -140,7 +140,7 @@
                     padding: 0.5rem;
                     cursor: pointer;
     
-                    .material-symbols-rounded{
+                    svg{
                         transition: all .2s
                     }
     
@@ -172,7 +172,7 @@
     
                         .circle{
                             padding: 0.4rem;
-                            border-radius: 50px;
+                            border-radius: 5rem;
                             border: 1px solid black;
                             transition: all .1s;
                         }
@@ -587,7 +587,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 480px) {
     .flight-search-container{
         width: 90vw;
         flex-direction: column;
@@ -605,7 +605,7 @@
                     .header{
                         cursor: pointer;
     
-                        .material-symbols-rounded{
+                        .chevron{
                             display: inline;
                             transition: all .2s;
                         }
@@ -684,7 +684,7 @@
     }
 }
 
-@media screen and (min-width: 601px) and (max-width: 1023px) {
+@media screen and (min-width: 481px) and (max-width: 1023px) {
     .flight-search-container{
         width: 90vw;
         flex-direction: column;
@@ -702,7 +702,7 @@
                     .header{
                         cursor: pointer;
     
-                        .material-symbols-rounded{
+                        .chevron{
                             display: inline;
                             transition: all .2s;
                         }
