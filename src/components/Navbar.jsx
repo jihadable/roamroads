@@ -9,6 +9,8 @@ import { IconHome } from "@tabler/icons-react"
 import { IconBookmark } from "@tabler/icons-react"
 import { IconLogin } from "@tabler/icons-react"
 import { IconChevronDown } from "@tabler/icons-react"
+import { Link } from "react-router-dom"
+import goTop from "./goTop"
 
 function Navbar(){
 
@@ -49,11 +51,11 @@ function Navbar(){
 
     return (
         <nav className="navbar">
-            <a href="/" className="navbar-logo">
+            <Link to="/" onClick={goTop} className="navbar-logo">
                 <img src={roamRoadsLogo} alt="Logo" />
-            </a>
+            </Link>
             <div className="navbar-link">
-                <a href="/" className="link home-btn">Home</a>
+                <Link to="/" onClick={goTop} className="link home-btn">Home</Link>
                 <div className="link">
                     <span>
                         Book now <IconChevronDown stroke={1.5} />
@@ -62,20 +64,20 @@ function Navbar(){
                         {
                             trips.map((trip, index) => {
                                 return (
-                                    <a href={`/${trip.link}`} key={index} className="popup-link">
+                                    <Link to={`/${trip.link}`} onClick={goTop} key={index} className="popup-link">
                                         {trip.svg}
                                         <span>{trip.name}</span>
-                                    </a>
+                                    </Link>
                                 )
                             })
                         }
                     </div>
                 </div>
-                <a href="saved" className="link">Saved</a>
+                <Link to={"/saved"} onClick={goTop} className="link">Saved</Link>
             </div>
             <div className="navbar-extra">
-                <a href="/login" className="login-btn">Login</a>
-                <a href="/signup" className="signup-btn">Signup</a>
+                <Link to="/login" onClick={goTop} className="login-btn">Login</Link>
+                <Link to="/signup" onClick={goTop} className="signup-btn">Signup</Link>
             </div>
 
             {/* mobile */}
@@ -85,33 +87,33 @@ function Navbar(){
                 </div>
             </div>
             <div className={`mobile-link ${showMobileLink ? "active" : ""}`} ref={mobileLink}>
-                <a href="/">
+                <Link to="/" onClick={goTop}>
                     <IconHome stroke={1.5} />
                     <span>Home</span>
-                </a>
+                </Link>
                 <div className="line"></div>
                 {
                     
                     trips.map((trip, index) => {
                         return (
-                            <a href={`/${trip.link}`} key={index}>
+                            <Link to={`/${trip.link}`} onClick={goTop} key={index}>
                                 {trip.svg}
                                 <span>{trip.name}</span>
-                            </a>
+                            </Link>
                         )
                     })
                 
                 }
                 <div className="line"></div>
-                <a href="/saved">
+                <Link to={"/saved"} onClick={goTop}>
                     <IconBookmark stroke={1.5} />
                     <span>Saved</span>
-                </a>
+                </Link>
                 <div className="line"></div>
-                <a href="/login">
+                <Link to="/login" onClick={goTop}>
                     <IconLogin stroke={1.5} />
                     <span>Login</span>
-                </a>
+                </Link>
             </div>
         </nav>
     )

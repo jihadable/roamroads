@@ -20,6 +20,8 @@ import { IconPlaneDeparture } from "@tabler/icons-react"
 import { IconTrain } from "@tabler/icons-react"
 import { IconChevronLeft } from "@tabler/icons-react"
 import { IconChevronRight } from "@tabler/icons-react"
+import { Link } from "react-router-dom"
+import goTop from "../components/goTop"
 
 function Home(){
 
@@ -75,10 +77,10 @@ function HomeHeader(){
                     {
                         trips.map((trip, index) => {
                             return (
-                                <a href={trip.link} className="trip" key={index}>
+                                <Link to={trip.link} onClick={goTop} className="trip" key={index}>
                                     {trip.svg}
                                     <div className="trip-name">{trip.name}</div>
-                                </a>
+                                </Link>
                             )
                         })
                     }    
@@ -249,7 +251,7 @@ function BookHotels(){
                     {
                         arrayHotels.map((hotel, index) => {
                             return (
-                                <a href="/hotels" className="hotel" key={index} >
+                                <Link to="/hotels" onClick={goTop} className="hotel" key={index} >
                                     <img src={hotel.img} alt={hotel.name} />
                                     <div className="hotel-info">
                                         <h4 className="hotel-name">{hotel.name}</h4>
@@ -262,7 +264,7 @@ function BookHotels(){
                                         </div>
                                         <div className="hotel-price">{`$${hotel.price}`}</div>
                                     </div>
-                                </a>
+                                </Link>
                             )
                         })
                     }
@@ -338,7 +340,7 @@ function BookFlights(){
                     {
                         arrayFlight.map((flight, index) => {
                             return (
-                                <a href="/flights" className="flight" key={index} >
+                                <Link to="/flights" onClick={goTop} className="flight" key={index} >
                                     <img src={flight.img} alt={flight.route[1]} />
                                     <div className="flight-info">
                                         <h4 className="flight-routes">
@@ -350,7 +352,7 @@ function BookFlights(){
                                         <div className="flight-seat">{flight.seat}</div>
                                         <div className="flight-price">{`IDR ${flight.price}`}</div>
                                     </div>
-                                </a>
+                                </Link>
                             )
                         })
                     }

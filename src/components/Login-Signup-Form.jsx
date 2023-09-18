@@ -4,6 +4,8 @@ import "../style/Login-Signup-form.scss"
 import { IconMail } from "@tabler/icons-react"
 import { IconPhone } from "@tabler/icons-react"
 import { IconLock } from "@tabler/icons-react"
+import { Link } from "react-router-dom"
+import goTop from "./goTop"
 
 function LoginSignupForm(props){
 
@@ -55,7 +57,7 @@ function LoginSignupForm(props){
                     <button type="button">{page === "login" ? "Login" : "Sign up"}</button>
                     <div className="move">
                         {page === "login" ? "Don't have an acoount? " : "Already have an account? "} 
-                        <a href={page === "login" ? "/signup" : "/login"}>{page === "login" ? "Sign up" : "Login"}</a>
+                        <Link to={page === "login" ? "/signup" : "/login"} onClick={goTop}>{page === "login" ? "Sign up" : "Login"}</Link>
                     </div>
                 </form>
             </div>

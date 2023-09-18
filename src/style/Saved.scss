@@ -2,8 +2,7 @@
 
 .saved-container{
     width: 80vw;
-    margin: 8rem auto;
-    margin-bottom: 10rem;
+    margin: 10rem auto;
     display: flex;
     gap: 1.5rem;
 
@@ -271,7 +270,7 @@
 @media screen and (max-width: 480px) {
     .saved-container{
         width: 90vw;
-        margin: 6rem 0;
+        margin: 8rem auto;
         flex-direction: column;
 
         &.empty-saved{
