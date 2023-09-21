@@ -63,15 +63,11 @@ function HomeHeader(){
     return (
         <header className="home-header">
             <div className="tagline">
-                <h1>
-                    <p>Help people to find</p>
-                    <p>the best roads for amazing trip</p>
-                </h1>
                 <div className="header-input">
                     <label htmlFor="header-search">
                         <IconSearch stroke={1.5} />
                     </label>
-                    <input type="text" id="header-search" placeholder="Search roads..." />
+                    <input type="text" id="header-search" placeholder="Find your best roads" />
                 </div>
                 <div className="trips">
                     {

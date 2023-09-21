@@ -373,7 +373,8 @@
 
 @media screen and (max-width: 480px) {
     .train-search-container{
-        width: 90vw;
+        width: 100%;
+        padding: 0 1rem;
         flex-direction: column;
         font-size: 1rem;
 

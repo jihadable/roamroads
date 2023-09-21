@@ -279,7 +279,8 @@
 
 @media screen and (max-width: 480px) {
     .hotel-search-container{
-        width: 90vw;
+        width: 100%;
+        padding: 0 1rem;
         flex-direction: column;
 
         .hotel-search-filter{
@@ -322,7 +323,6 @@
             width: 100%;
 
             .hotel{
-                width: 90vw;
                 flex-direction: column;
                 height: fit-content;
                 justify-content: flex-start;
