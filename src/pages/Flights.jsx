@@ -90,7 +90,24 @@ function SearchFlights(){
         }
     ]
     const arrivalData = [...departureData]
-    const facilitiesData = ["Baggage", "In-flight meal", "Wifi", "Power/USB Port"]
+    const facilitiesData = [
+        {
+            title: "Baggage", 
+            svg: <IconLuggage stroke={1.5} />
+        },
+        {
+            title: "In-flight meal", 
+            svg: <IconSalad stroke={1.5} />
+        },
+        {
+            title: "Wifi", 
+            svg: <IconWifi stroke={1.5} />
+        },
+        {
+            title: "Power/USB Port", 
+            svg: <IconUsb stroke={1.5} />
+        }
+    ]
 
     const [
         [showFilter, setShowFilter],
@@ -113,13 +130,6 @@ function SearchFlights(){
         useState(false),
         useState(false),
         useState(false)
-    ]
-
-    const facilities = [
-        <IconLuggage stroke={1.5} />,
-        <IconSalad stroke={1.5} />,
-        <IconWifi stroke={1.5} />,
-        <IconUsb stroke={1.5} />
     ]
 
     const addRemoveFilter = (filter, arrayName, title = "", time = "", range = "") => {
@@ -351,6 +361,8 @@ function SearchFlights(){
                                 arrival: [],
                                 facilities: []
                             })
+
+                            setTransitDurationData([0, 12])
                         }}>Reset</div>
                     </div>
                     <div className={`filter-content ${showFilter ? "active" : ""}`}>
@@ -376,7 +388,7 @@ function SearchFlights(){
                                                 })
                                             }}>
                                                 <span className={`circle ${filters.sort === sort ? "selected" : ""}`}></span>
-                                                {sort}
+                                                <span>{sort}</span>
                                             </div>
                                         )
                                     })
@@ -405,7 +417,7 @@ function SearchFlights(){
                                                 })
                                             }}>
                                                 <span className={`circle ${filters.seat === seat ? "selected" : ""}`}></span>
-                                                {seat}
+                                                <span>{seat}</span>
                                             </div>
                                         )
                                     })
@@ -433,7 +445,7 @@ function SearchFlights(){
                                                 })
                                             }}>
                                                 <span className={`circle ${filters.transitNumber === transitNumber ? "selected" : ""}`}></span>
-                                                {transitNumber}
+                                                <span>{transitNumber}</span>
                                             </div>
                                         )
                                     })
@@ -475,7 +487,7 @@ function SearchFlights(){
                                                 <span className={`checkbox ${filters.airline.includes(airline) ? "checked" : ""}`}>
                                                     <IconCheck stroke={1.5} />
                                                 </span>
-                                                {airline}
+                                                <span>{airline}</span>
                                             </div>
                                         )
                                     })
@@ -569,13 +581,13 @@ function SearchFlights(){
                                     facilitiesData.map((facility, index) => {
                                         return (
                                             <div className="facility-option" key={index} onClick={() => {
-                                                addRemoveFilter(facility, "facilities")
+                                                addRemoveFilter(facility.title, "facilities")
                                             }}>
-                                                <span className={`checkbox ${filters.facilities.includes(facility) ? "checked" : ""}`}>
+                                                <span className={`checkbox ${filters.facilities.includes(facility.title) ? "checked" : ""}`}>
                                                     <IconCheck stroke={1.5} />
                                                 </span>
-                                                {facilities[index]}
-                                                {facility}
+                                                {facility.svg}
+                                                <span>{facility.title}</span>
                                             </div>
                                         )
                                     })
@@ -733,17 +745,17 @@ function FlightGrid(props){
     const flightDetailRef = useRef()
 
     const [flightDetail, setFlightDetail] = useState({
-        route: ["Jakarta", "Melbourne"],
-        airline: "Elysian Airways",
-        transitNumber: 1,
-        transitDuration: 4,
-        transitCity: ["Denpasar"],
-        transitTime: [20, 0],
-        departure: 19,
-        arrival: 3,
-        seat: "Business",
-        price: "5.876.000",
-        facilities: ["Baggage", "In-flight meal", "Wifi", "Power/USB Port"]
+        route: ["", ""],
+        airline: "",
+        transitNumber: 0,
+        transitDuration: 0,
+        transitCity: [],
+        transitTime: [0, 0],
+        departure: 0,
+        arrival: 0,
+        seat: "",
+        price: "",
+        facilities: []
     })
 
     return (

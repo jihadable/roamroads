@@ -18,6 +18,7 @@ import { IconStar } from "@tabler/icons-react";
 import { IconMapPinFilled } from "@tabler/icons-react";
 import { IconBookmark } from "@tabler/icons-react";
 import { IconChevronDown } from "@tabler/icons-react";
+import Rating from "@mui/material/Rating"
 
 function Hotels(){
     document.title = "RoamRoads | Hotels"
@@ -57,7 +58,40 @@ function SearchHotels(){
     const cityData = ["Kendari", "Yogyakarta", "Bandung", "Jakarta", "Bali", "Lombok", "Makassar"]
     const sortData = ["Highest price", "Lowest price", "Review score"]
     const starRatingData = [1,2,3,4,5]
-    const facilitiesData = ["Wifi", "Swimming Pool", "Parking", "Restaurant", "Elevator", "Wheelchair Access", "Fitness Center", "Meeting Facilities"]
+    const facilitiesData = [
+        {
+            title: "Wifi",
+            svg: <IconWifi stroke={1.5} />
+        },
+        {
+            title: "Swimming Pool",
+            svg: <IconPool stroke={1.5} />
+        },
+        {
+            title: "Parking",
+            svg: <IconParking stroke={1.5} />
+        },
+        {
+            title: "Restaurant",
+            svg: <IconToolsKitchen2 stroke={1.5} />
+        },
+        {
+            title: "Elevator",
+            svg: <IconElevator stroke={1.5} />
+        },
+        {
+            title: "Wheelchair Access",
+            svg: <IconDisabled stroke={1.5} />
+        },
+        {
+            title: "Fitness Center",
+            svg: <IconBarbell stroke={1.5} />
+        },
+        {
+            title: "Meeting Facilities",
+            svg: <IconCalendarStats stroke={1.5} />
+        }
+    ]
     
     const [
         [showFilter, setShowFilter],
@@ -71,17 +105,6 @@ function SearchHotels(){
         useState(false),
         useState(false),
         useState(false)
-    ]
-    
-    const facilities = [
-        <IconWifi stroke={1.5} />,
-        <IconPool stroke={1.5} />,
-        <IconParking stroke={1.5} />,
-        <IconToolsKitchen2 stroke={1.5} />,
-        <IconElevator stroke={1.5} />,
-        <IconDisabled stroke={1.5} />,
-        <IconBarbell stroke={1.5} />,
-        <IconCalendarStats stroke={1.5} />
     ]
 
     const addRemoveFilter = (filter, arrayName) => {
@@ -204,12 +227,7 @@ function SearchHotels(){
                                         <span className={`checkbox ${filters["star"].includes(star) ? "checked" : ""}`}>
                                             <IconCheck stroke={1.5} />
                                         </span>
-                                        <span className="star-sum">
-                                            <IconStar stroke={1.5} />
-                                            {
-                                                star
-                                            }
-                                        </span>
+                                        <Rating value={star} className="star-sum" readOnly />
                                     </div>
                                 )
                             })
@@ -243,13 +261,13 @@ function SearchHotels(){
                             facilitiesData.map((facility, index) => {
                                 return (
                                     <div className="facility-option" key={index} onClick={() => {
-                                        addRemoveFilter(facility, "facilities")
+                                        addRemoveFilter(facility.title, "facilities")
                                     }}>
-                                        <span className={`checkbox ${filters.facilities.includes(facility) ? "checked" : ""}`}>
+                                        <span className={`checkbox ${filters.facilities.includes(facility.title) ? "checked" : ""}`}>
                                             <IconCheck stroke={1.5} />
                                         </span>
-                                        {facilities[index]}
-                                        <span className="facility-item">{facility}</span>
+                                        {facility.svg}
+                                        <span className="facility-item">{facility.title}</span>
                                     </div>
                                 )
                             })
@@ -386,10 +404,7 @@ function HotelSearchGrid(props){
                                 <img className="hotel-img" src={hotel.img} alt={hotel.name} />
                                 <div className="hotel-info">
                                     <h4 className="hotel-name">{hotel.name}</h4>
-                                    <div className="hotel-rating">
-                                        <IconStar stroke={1.5} />
-                                        {hotel.stars}
-                                    </div>
+                                    <Rating value={hotel.stars} className="hotel-rating" readOnly />
                                     <div className="hotel-review">
                                         {hotel.rate}/5 - {hotel.review} reviews
                                     </div>
