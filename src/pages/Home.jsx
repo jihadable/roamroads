@@ -404,7 +404,7 @@ function Weather(){
 
     const handleSearch = async(event, click = false) => {
         if ((event.key === "Enter" && !click) || click){
-            let response = await fetch(`http://api.weatherapi.com/v1/current.json?key=b3422c7f93924014b6940130232209&q=${city}&aqi=no`)
+            let response = await fetch(`https://api.weatherapi.com/v1/current.json?key=b3422c7f93924014b6940130232209&q=${city}&aqi=no`)
             response = await response.json()
 
             if (response.error){
