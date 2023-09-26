@@ -253,7 +253,7 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
-        gap: 4rem;
+        gap: 2rem;
 
         .item{
             display: flex;
@@ -282,41 +282,92 @@
     }
 }
 
-.download-our-app{
-    width: 80vw;
+.weather{
+    width: 35vw;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 3rem;
+    gap: 1rem;
     margin: 5rem auto;
 
-    .left{
+    .content{
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 1rem;
+        width: 100%;
 
-        .header{
-            font-size: 2rem;
-        }
+        .input{
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .5rem ;
+            border: 2px solid rgb(0,0,0,.2);
+            border-radius: 5rem;
+            width: 100%;
 
-        .store{
-            .playstore{
+            &:focus-within{
+                border: 2px solid black;
+            }
+
+            input{
+                font-size: 1.2rem;
+                border: none;
+                outline: none;
+                background-color: transparent;
+                width: 100%;
+            }
+
+            label{
                 display: flex;
                 align-items: center;
-                gap: .7rem;
+                justify-content: center;
+            }
+        }
+
+        .api-result{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+
+            .img{
+                display: flex;
 
                 img{
-                    cursor: pointer;
-                    height: 3rem;
+                    width: 12rem;
                 }
             }
 
-        }
-    }
+            .info{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
 
-    .right{
-        img{
-            width: 250px;
+                .name{
+                    font-size: 1.3rem;
+                    font-weight: bold;
+                }
+
+                .temp{
+                    display: flex;
+                    align-items: center;
+                    gap: .5rem;
+
+                    div{
+                        padding: 0.5rem;
+                        border: 1px solid $green;
+                        border-radius: .2rem;
+                    }
+                }
+
+                .local-time{
+                    font-size: 1rem;
+                    color: rgb(0,0,0,.7);
+                }
+            }
         }
     }
 }
@@ -398,28 +449,8 @@
         }
     }
 
-    .download-our-app{
-        width: 100%;
-        padding: 0 1rem;
-        flex-direction: column;
-        height: fit-content;
-        align-items: center;
-
-        .left{
-            align-items: center;
-            text-align: center;
-            .store{
-                .playstore{
-                    img{
-                        height: 40px;
-                    }
-                }
-            }
-        }
-
-        .right{
-            display: none;
-        }
+    .weather{
+        width: calc(100% - 2rem);
     }
 }
 
@@ -473,12 +504,11 @@
         width: 90vw;
         
         .content{
-            align-items: flex-start;
             gap: 1rem;
         }
     }
 
-    .download-our-app{
-        width: 90vw;
+    .weather{
+        width: 50vw;
     }
 }

@@ -9,9 +9,6 @@ import travel from "../assets/travel.png"
 import service from "../assets/service.png"
 import payment from "../assets/payment.png"
 import secure from "../assets/secure.png"
-import playStore from "../assets/play-store.png"
-import appStore from "../assets/app-store.png"
-import mobile from "../assets/home-mobile.png"
 import { IconSearch } from "@tabler/icons-react"
 import { IconStar } from "@tabler/icons-react"
 import { IconArrowNarrowRight } from "@tabler/icons-react"
@@ -34,7 +31,7 @@ function Home(){
             <BookFlights />
             <BookHotels />
             <WhyBookHere />
-            <DownloadOurApp />
+            <Weather />
             <Footer />
         </>
     )
@@ -398,20 +395,60 @@ function WhyBookHere(){
     )
 }
 
-function DownloadOurApp(){
+function Weather(){
+
+    const [city, setCity] = useState("")
+    const [apiResult, setApiResult] = useState(null)
+
+    const handleSearch = async(event) => {
+        if (event.key === "Enter"){
+            let response = await fetch(`http://api.weatherapi.com/v1/current.json?key=b3422c7f93924014b6940130232209&q=${city}&aqi=no`)
+            response = await response.json()
+    
+            console.log(response)
+
+            setApiResult({
+                name: `${response.location.name}, ${response.location.country}`,
+                condition: response.current.condition.text,
+                img: `https:${changeImgSize(response.current.condition.icon)}`,
+                celcius: response.current.temp_c,
+                fahrenheit: response.current.temp_f,
+                local_time: response.location.localtime
+            })
+        }
+    }
+
+    function changeImgSize(str){
+        return str.replace("64x64", "128x128")
+    }
+
     return (
-        <section className="download-our-app">
-            <div className="left">
-                <div className="header">Download our app to get most out of it</div>
-                <div className="store">
-                    <div className="playstore">
-                        <img src={playStore} alt="Play Store" />
-                        <img src={appStore} alt="App Store" />
-                    </div>
+        <section className="weather">
+            <h2 className="header">Lets check the weather</h2>
+            <div className="content">
+                <div className="input">
+                    <label htmlFor="search_city">
+                        <IconSearch stroke={1.5} />
+                    </label>
+                    <input type="text" placeholder="Search city" id="search_city" spellCheck={false} value={city} onChange={(e) => setCity(e.target.value)} onKeyUp={handleSearch} />
                 </div>
-            </div>
-            <div className="right">
-                <img src={mobile} alt="Mobile" />
+                {
+                    apiResult &&
+                    <div className="api-result">
+                        <div className="img">
+                            <img src={apiResult.img} alt="Condition" />
+                        </div>
+                        <div className="info">
+                            <div className="name">{apiResult.name}</div>
+                            <div className="condition">{apiResult.condition}</div>
+                            <div className="temp">
+                                <div>{apiResult.celcius} °C</div>
+                                <div>{apiResult.fahrenheit} °F</div>
+                            </div>
+                            <div className="local-time">{apiResult.local_time}</div>
+                        </div>
+                    </div>
+                }
             </div>
         </section>
     )

@@ -3,6 +3,8 @@ import "../style/Footer.scss"
 import { IconBrandInstagram } from "@tabler/icons-react"
 import { IconBrandTiktok } from "@tabler/icons-react"
 import logo from "../assets/roam-roads-logo.jpg"
+import playStore from "../assets/play-store.png"
+import appStore from "../assets/app-store.png"
 
 function Footer(){
 
@@ -34,6 +36,10 @@ function Footer(){
                             )
                         })
                     }
+                    </div>
+                    <div className="apps">
+                        <img src={playStore} alt="Play Store" />
+                        <img src={appStore} alt="App Store" />
                     </div>
                 </div>
             </div>
