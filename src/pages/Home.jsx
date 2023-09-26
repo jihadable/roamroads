@@ -19,6 +19,7 @@ import { IconChevronLeft } from "@tabler/icons-react"
 import { IconChevronRight } from "@tabler/icons-react"
 import { Link } from "react-router-dom"
 import goTop from "../components/goTop"
+import { IconCloudOff } from "@tabler/icons-react"
 
 function Home(){
 
@@ -399,13 +400,20 @@ function Weather(){
 
     const [city, setCity] = useState("")
     const [apiResult, setApiResult] = useState(null)
+    const [inValidCity, setInvalidCity] = useState(false)
 
-    const handleSearch = async(event) => {
-        if (event.key === "Enter"){
+    const handleSearch = async(event, click = false) => {
+        if ((event.key === "Enter" && !click) || click){
             let response = await fetch(`http://api.weatherapi.com/v1/current.json?key=b3422c7f93924014b6940130232209&q=${city}&aqi=no`)
             response = await response.json()
-    
-            console.log(response)
+
+            if (response.error){
+                setInvalidCity(true)
+
+                return
+            }
+
+            setInvalidCity(false)
 
             setApiResult({
                 name: `${response.location.name}, ${response.location.country}`,
@@ -427,28 +435,37 @@ function Weather(){
             <h2 className="header">Lets check the weather</h2>
             <div className="content">
                 <div className="input">
-                    <label htmlFor="search_city">
+                    <input type="text" placeholder="Search city" id="search_city" spellCheck={false} value={city} onChange={(e) => setCity(e.target.value)} onKeyUp={handleSearch} />
+                    <label htmlFor="search_city" onClick={(e) => handleSearch(e, true)}>
                         <IconSearch stroke={1.5} />
                     </label>
-                    <input type="text" placeholder="Search city" id="search_city" spellCheck={false} value={city} onChange={(e) => setCity(e.target.value)} onKeyUp={handleSearch} />
                 </div>
+                <div className="api-result">
                 {
-                    apiResult &&
-                    <div className="api-result">
-                        <div className="img">
-                            <img src={apiResult.img} alt="Condition" />
-                        </div>
-                        <div className="info">
-                            <div className="name">{apiResult.name}</div>
-                            <div className="condition">{apiResult.condition}</div>
-                            <div className="temp">
-                                <div>{apiResult.celcius} °C</div>
-                                <div>{apiResult.fahrenheit} °F</div>
-                            </div>
-                            <div className="local-time">{apiResult.local_time}</div>
-                        </div>
+                    (apiResult && !inValidCity) &&
+                    <>
+                    <div className="img">
+                        <img src={apiResult.img} alt="Condition" />
                     </div>
+                    <div className="info">
+                        <div className="name">{apiResult.name}</div>
+                        <div className="condition">{apiResult.condition}</div>
+                        <div className="temp">
+                            <div>{apiResult.celcius} °C</div>
+                            <div>{apiResult.fahrenheit} °F</div>
+                        </div>
+                        <div className="local-time">{apiResult.local_time}</div>
+                    </div>
+                    </>
                 }
+                {
+                    inValidCity &&
+                    <>
+                    <IconCloudOff stroke={1} width={96} height={96} />
+                    <div className="error">Invalid city name</div>
+                    </>
+                }
+                </div>
             </div>
         </section>
     )

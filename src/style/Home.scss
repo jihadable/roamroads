@@ -300,28 +300,34 @@
         .input{
             display: flex;
             align-items: center;
-            gap: .5rem;
-            padding: .5rem ;
-            border: 2px solid rgb(0,0,0,.2);
-            border-radius: 5rem;
+            gap: 0.5rem;
+            border-radius: 10rem;
+            border: 2px solid rgb(0,0,0,.3);
+            padding-left: 1rem;
             width: 100%;
 
             &:focus-within{
-                border: 2px solid black;
+                border-color: black;
             }
 
             input{
                 font-size: 1.2rem;
+                width: 100%;
+                height: 100%;
                 border: none;
                 outline: none;
                 background-color: transparent;
-                width: 100%;
             }
 
             label{
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                padding: 0.5rem;
+                background-color: $orange;
+                border-radius: 5rem;
+                color: white;
+                cursor: pointer;
             }
         }
 
