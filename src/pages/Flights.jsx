@@ -43,12 +43,12 @@ function FlightSearchContainer(){
 
 function SearchFlights(){
 
-    const routeData = ["Kendari", "Yogyakarta", "Bandung", "Jakarta", "Surabaya", "Malang", "Bali", "Palembang", "Lombok", "Makassar", "Singapore", "Kuala Lumpur", "Seoul", "Tokyo", "Osaka", "Shanghai", "Sydney", "Melbourne", "Amsterdam"]
+    const routeData = ["All city", "Kendari", "Yogyakarta", "Bandung", "Jakarta", "Surabaya", "Malang", "Bali", "Palembang", "Lombok", "Makassar", "Singapore", "Kuala Lumpur", "Seoul", "Tokyo", "Osaka", "Shanghai", "Sydney", "Melbourne", "Amsterdam"]
     const [showRoutes1, setShowRoutes1] = useState(false)
     const [showRoutes2, setShowRoutes2] = useState(false)
 
-    const [route1, setRoute1] = useState("City")
-    const [route2, setRoute2] = useState("City")
+    const [route1, setRoute1] = useState("All city")
+    const [route2, setRoute2] = useState("All city")
 
     const [filters, setFilters] = useState({
         route: [route1, route2],
@@ -302,7 +302,7 @@ function SearchFlights(){
                     <div className="routes">
                         <div className="route">
                             <div className="route-result" onClick={() => {setShowRoutes1(!showRoutes1)}} ref={showRoute1Btn}>
-                                {route1}
+                                <span>{route1}</span>
                                 <IconCaretDown stroke={1.5} width={16} height={16} />
                             </div>
                             <div className={`route-menu ${showRoutes1 ? "active" : ""}`}>
@@ -321,7 +321,7 @@ function SearchFlights(){
                         <IconArrowNarrowRight stroke={1.5} />
                         <div className="route">
                             <div className="route-result" onClick={() => {setShowRoutes2(!showRoutes2)}} ref={showRoute2Btn}>
-                                {route2}
+                                <span>{route2}</span>
                                 <IconCaretDown stroke={1.5} width={16} height={16} />
                             </div>
                             <div className={`route-menu route-menu-2 ${showRoutes2 ? "active" : ""}`}>
@@ -619,7 +619,7 @@ function FlightGrid(props){
     flightsArray.forEach((flight) => {
         if (
             // route
-            ((filters.route[0] === flight.route[0] || filters.route[0] === "City") && (filters.route[1] === flight.route[1] || filters.route[1] === "City")) &&
+            ((filters.route[0] === flight.route[0] || filters.route[0] === "All city") && (filters.route[1] === flight.route[1] || filters.route[1] === "All city")) &&
             // seat
             (filters.seat === "All" || flight.seat === filters.seat) &&
             // transitNumber

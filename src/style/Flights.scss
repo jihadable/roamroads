@@ -334,11 +334,11 @@
                 }
     
                 .content{
-                    padding: 2rem;
+                    padding: 1rem;
                     width: 100%;
                     display: flex;
-                    justify-content: space-between;
-                    align-items: flex-end;
+                    flex-direction: column;
+                    position: relative;
     
                     .routes{
                         display: flex;
@@ -381,6 +381,7 @@
                         display: flex;
                         align-items: center;
                         gap: 0.5rem;
+                        align-self: self-end;
     
                         .save{
                             cursor: pointer;

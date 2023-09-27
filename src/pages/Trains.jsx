@@ -52,9 +52,9 @@ function TrainSearchFilter(){
         useState(false)
     ]
 
-    const stationData = ["Yogyakarta", "Bandung", "Jakarta", "Surabaya", "Malang", "Solo", "Semarang"]
-    const [station1, setStation1] = useState("Station")
-    const [station2, setStation2] = useState("Station")
+    const stationData = ["All station", "Yogyakarta", "Bandung", "Jakarta", "Surabaya", "Malang", "Solo", "Semarang"]
+    const [station1, setStation1] = useState("All station")
+    const [station2, setStation2] = useState("All station")
 
     const station1Btn = useRef()
     const station2Btn = useRef()
@@ -434,7 +434,7 @@ function TrainSearchGrid(props){
     trainsArray.forEach(train => {
         if (
             // routes
-            ((filters.routes[0] === "Station" || filters.routes[0] === train.route[0]) && (filters.routes[1] === "Station" || filters.routes[1] === train.route[1])) &&
+            ((filters.routes[0] === "All station" || filters.routes[0] === train.route[0]) && (filters.routes[1] === "All station" || filters.routes[1] === train.route[1])) &&
             // train
             (filters.train.length === 0 || filters.train.includes(train.trainName)) &&
             // seat
