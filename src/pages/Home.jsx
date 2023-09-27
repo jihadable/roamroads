@@ -164,6 +164,93 @@ function Travel(){
     )
 }
 
+function BookFlights(){
+    const [toRight, setToRight] = useState(false)
+    const [toRight2, setToRight2] = useState(false)
+    const tablet = window.matchMedia("screen and (max-width: 1023px)").matches
+
+    const [showAreaFlights, setShowAreaFlights] = useState("ind")
+    const [arrayFlight, setArrayFlight] = useState([...indonesiaFlightList])
+
+    useEffect(() => {
+        if (showAreaFlights === "ind"){
+            setArrayFlight(indonesiaFlightList)
+        }
+        else if (showAreaFlights === "inter"){
+            setArrayFlight(internationalFlightList)
+        }
+    }, [showAreaFlights])
+
+    return (
+        <section className="book-flights">
+            <h2 className="header">Check the best price for your flights</h2>
+            <div className="areas">
+                <div 
+                className={`area ${showAreaFlights === "ind" ? "selected" : ""}`} 
+                onClick={() => setShowAreaFlights("ind")}
+                >Domestic</div>
+                <div 
+                className={`area ${showAreaFlights === "inter" ? "selected" : ""}`}
+                onClick={() => setShowAreaFlights("inter")}
+                >International</div>
+            </div>
+            {
+                (((toRight || toRight2) && tablet) || (!tablet && (toRight && !toRight2))) && 
+                <button type="button" className={`left-btn`} onClick={() => {
+                    if (toRight && !toRight2){
+                        setToRight(false)
+                        setToRight2(false)
+                    }
+                    else if (toRight2 && !toRight){
+                        setToRight(true)
+                        setToRight2(false)
+                    }
+                }}>
+                    <IconChevronLeft stroke={1.5} />
+                </button>
+            }
+            {
+                ((!toRight2 && tablet) || (!tablet && (!toRight && !toRight2))) &&
+                <button type="button" className={`right-btn`} onClick={() => {
+                    if (!toRight && !toRight2){
+                        setToRight(true)
+                        setToRight2(false)
+                    }
+                    else if (toRight && !toRight2){
+                        setToRight2(true)
+                        setToRight(false)
+                    }
+                }}>
+                    <IconChevronRight stroke={1.5} />
+                </button>
+            }
+            <div className="flight-container">
+                <div className={`flight-list ${toRight ? "to-right" : ""} ${toRight2 ? "to-right-2" : ""}`}>
+                    {
+                        arrayFlight.map((flight, index) => {
+                            return (
+                                <Link to="/flights" onClick={goTop} className="flight" key={index} >
+                                    <img src={flight.img} alt={flight.route[1]} />
+                                    <div className="flight-info">
+                                        <h4 className="flight-routes">
+                                            <span className="route-1">{flight.route[0]}</span>
+                                            <IconArrowNarrowRight stroke={1.5} />
+                                            <span className="route-2">{flight.route[1]}</span>
+                                        </h4>
+                                        <div className="flight-date">{`${flight.date} 2023`}</div>
+                                        <div className="flight-seat">{flight.seat}</div>
+                                        <div className="flight-price">{`IDR ${flight.price}`}</div>
+                                    </div>
+                                </Link>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+        </section>
+    )
+}
+
 function BookHotels(){
 
     const [toRight, setToRight] = useState(false)
@@ -195,19 +282,19 @@ function BookHotels(){
             <div className="countries">
                 <div 
                 className={`country ${showCountryHotels === "knd" ? "selected" : ""}`} 
-                onClick={() => {setShowCountryHotels("knd"); setToRight(false)}}
+                onClick={() => setShowCountryHotels("knd")}
                 >Kendari</div>
                 <div 
                 className={`country ${showCountryHotels === "jgj" ? "selected" : ""}`}
-                onClick={() => {setShowCountryHotels("jgj"); setToRight(false)}}
+                onClick={() => setShowCountryHotels("jgj")}
                 >Yogyakarta</div>
                 <div 
                 className={`country ${showCountryHotels === "bnd" ? "selected" : ""}`}
-                onClick={() => {setShowCountryHotels("bnd"); setToRight(false)}}
+                onClick={() => setShowCountryHotels("bnd")}
                 >Bandung</div>
                 <div 
                 className={`country ${showCountryHotels === "jkt" ? "selected" : ""}`}
-                onClick={() => {setShowCountryHotels("jkt"); setToRight(false)}}
+                onClick={() => setShowCountryHotels("jkt")}
                 >Jakarta</div>
             </div>
             {
@@ -257,94 +344,6 @@ function BookHotels(){
                                             {hotel.rate}/5 - {hotel.review} reviews
                                         </div>
                                         <div className="hotel-price">{`$${hotel.price}`}</div>
-                                    </div>
-                                </Link>
-                            )
-                        })
-                    }
-                </div>
-            </div>
-        </section>
-    )
-}
-
-function BookFlights(){
-    const [toRight, setToRight] = useState(false)
-    const [toRight2, setToRight2] = useState(false)
-    const tablet = window.matchMedia("screen and (max-width: 1023px)").matches
-
-    const [showAreaFlights, setShowAreaFlights] = useState("ind")
-    const [arrayFlight, setArrayFlight] = useState([...indonesiaFlightList])
-    // ind, inter
-
-    useEffect(() => {
-        if (showAreaFlights === "ind"){
-            setArrayFlight(indonesiaFlightList)
-        }
-        else if (showAreaFlights === "inter"){
-            setArrayFlight(internationalFlightList)
-        }
-    }, [showAreaFlights])
-
-    return (
-        <section className="book-flights">
-            <h2 className="header">Check the best price for your flights</h2>
-            <div className="areas">
-                <div 
-                className={`area ${showAreaFlights === "ind" ? "selected" : ""}`} 
-                onClick={() => {setShowAreaFlights("ind"); setToRight(false)}}
-                >Domestic</div>
-                <div 
-                className={`area ${showAreaFlights === "inter" ? "selected" : ""}`}
-                onClick={() => {setShowAreaFlights("inter"); setToRight(false)}}
-                >International</div>
-            </div>
-            {
-                (((toRight || toRight2) && tablet) || (!tablet && (toRight && !toRight2))) && 
-                <button type="button" className={`left-btn`} onClick={() => {
-                    if (toRight && !toRight2){
-                        setToRight(false)
-                        setToRight2(false)
-                    }
-                    else if (toRight2 && !toRight){
-                        setToRight(true)
-                        setToRight2(false)
-                    }
-                }}>
-                    <IconChevronLeft stroke={1.5} />
-                </button>
-            }
-            {
-                ((!toRight2 && tablet) || (!tablet && (!toRight && !toRight2))) &&
-                <button type="button" className={`right-btn`} onClick={() => {
-                    if (!toRight && !toRight2){
-                        setToRight(true)
-                        setToRight2(false)
-                    }
-                    else if (toRight && !toRight2){
-                        setToRight2(true)
-                        setToRight(false)
-                    }
-                }}>
-                    <IconChevronRight stroke={1.5} />
-                </button>
-            }
-            <div className="flight-container">
-                <div className={`flight-list ${toRight ? "to-right" : ""} ${toRight2 ? "to-right-2" : ""}`}>
-                    {
-                        arrayFlight.map((flight, index) => {
-                            return (
-                                <Link to="/flights" onClick={goTop} className="flight" key={index} >
-                                    <img src={flight.img} alt={flight.route[1]} />
-                                    <div className="flight-info">
-                                        <h4 className="flight-routes">
-                                            <span className="route-1">{flight.route[0]}</span>
-                                            <IconArrowNarrowRight stroke={1.5} />
-                                            <span className="route-2">{flight.route[1]}</span>
-                                        </h4>
-                                        <div className="flight-date">{`${flight.date} 2023`}</div>
-                                        <div className="flight-seat">{flight.seat}</div>
-                                        <div className="flight-price">{`IDR ${flight.price}`}</div>
                                     </div>
                                 </Link>
                             )
