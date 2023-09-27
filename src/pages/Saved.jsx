@@ -5,12 +5,12 @@ import { useEffect, useState } from "react"
 import { IconCheck } from "@tabler/icons-react"
 import { IconTrain } from "@tabler/icons-react"
 import { IconArrowNarrowRight } from "@tabler/icons-react"
-import { IconStar } from "@tabler/icons-react"
 import { IconMapPinFilled } from "@tabler/icons-react"
 import { IconBookmark } from "@tabler/icons-react"
 import { IconBookOff } from "@tabler/icons-react"
 import { IconPlaneDeparture } from "@tabler/icons-react"
 import { IconPlaneInflight } from "@tabler/icons-react"
+import Rating from "@mui/material/Rating"
 
 function Saved(){
     document.title = "RoamRoads | Saved"
@@ -231,10 +231,7 @@ function SavedContainer(){
                                                     {item.name}
                                                 </h4>
                                                 <div className="item-rating">
-                                                    <div className="item-star">
-                                                        <IconStar stroke={1.5} />
-                                                        {item.stars}
-                                                    </div>
+                                                    <Rating value={item.stars} className="item-star" readOnly />
                                                     <div className="line"></div>
                                                     <div className="item-rate">
                                                         {item.rate}/5 ({item.review})

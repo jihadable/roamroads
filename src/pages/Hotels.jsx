@@ -14,7 +14,6 @@ import { IconCalendarStats } from "@tabler/icons-react";
 import { IconFilter } from "@tabler/icons-react";
 import { IconCheck } from "@tabler/icons-react";
 import { IconHomeOff } from "@tabler/icons-react";
-import { IconStar } from "@tabler/icons-react";
 import { IconMapPinFilled } from "@tabler/icons-react";
 import { IconBookmark } from "@tabler/icons-react";
 import { IconChevronDown } from "@tabler/icons-react";
