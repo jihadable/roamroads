@@ -401,9 +401,11 @@ function Weather(){
     const [apiResult, setApiResult] = useState(null)
     const [inValidCity, setInvalidCity] = useState(false)
 
+    const api_key = import.meta.env.VITE_API_KEY
+
     const handleSearch = async(event, click = false) => {
         if ((event.key === "Enter" && !click) || click){
-            let response = await fetch(`https://api.weatherapi.com/v1/current.json?key=b3422c7f93924014b6940130232209&q=${city}&aqi=no`)
+            let response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${api_key}=${city}&aqi=no`)
             response = await response.json()
 
             if (response.error){
