@@ -177,14 +177,10 @@
                     gap: .5rem;
                     padding: 0.8rem;
 
-                    .trending-rating,.hotel-rating{
+                    .hotel-rating{
                         display: flex;
                         align-items: center;
-                        
-                        svg{
-                            color: gold;
-                            fill: gold;
-                        }
+                        color: gold;
                     }
 
                     .trending-price,.hotel-price,.flight-price{

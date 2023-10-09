@@ -20,6 +20,7 @@ import { IconChevronRight } from "@tabler/icons-react"
 import { Link } from "react-router-dom"
 import goTop from "../components/goTop"
 import { IconCloudOff } from "@tabler/icons-react"
+import Rating from "@mui/material/Rating"
 
 function Home(){
 
@@ -257,45 +258,36 @@ function BookHotels(){
     const [toRight2, setToRight2] = useState(false)
     const tablet = window.matchMedia("screen and (max-width: 1023px)").matches
 
-    const [showCountryHotels, setShowCountryHotels] = useState("knd")
+    const countriesData = [
+        {
+            country: "Kendari",
+            array: [...kendariHotelList]
+        },
+        {
+            country: "Yogyakarta",
+            array: [...jogjaHotelList]
+        },
+        {
+            country: "Bandung",
+            array: [...bandungHotelList]
+        }
+    ]
+    const [selectedCountry, setSelectedCountry] = useState("Kendari")
     const [arrayHotels, setArrayHotels] = useState([...kendariHotelList])
-    // knd, jgj, bnd, jkt
-
-    useEffect(() => {
-        if (showCountryHotels === "knd"){
-            setArrayHotels(kendariHotelList)
-        }
-        else if (showCountryHotels === "jgj"){
-            setArrayHotels(jogjaHotelList)
-        }
-        else if (showCountryHotels === "bnd"){
-            setArrayHotels(bandungHotelList)
-        }
-        else if (showCountryHotels === "jkt"){
-            setArrayHotels(jakartaHotelList)
-        }
-    }, [showCountryHotels])
 
     return (
         <section className="book-hotels">
             <h2 className="header">Book a stay at hotels abroad</h2>
             <div className="countries">
+            {countriesData.map((item, index) => (
                 <div 
-                className={`country ${showCountryHotels === "knd" ? "selected" : ""}`} 
-                onClick={() => setShowCountryHotels("knd")}
-                >Kendari</div>
-                <div 
-                className={`country ${showCountryHotels === "jgj" ? "selected" : ""}`}
-                onClick={() => setShowCountryHotels("jgj")}
-                >Yogyakarta</div>
-                <div 
-                className={`country ${showCountryHotels === "bnd" ? "selected" : ""}`}
-                onClick={() => setShowCountryHotels("bnd")}
-                >Bandung</div>
-                <div 
-                className={`country ${showCountryHotels === "jkt" ? "selected" : ""}`}
-                onClick={() => setShowCountryHotels("jkt")}
-                >Jakarta</div>
+                className={`country ${selectedCountry === item.country ? "selected" : ""}`} 
+                onClick={() => {
+                    setSelectedCountry(item.country)
+                    setArrayHotels(item.array)
+                }} key={index}
+                >{item.country}</div>
+            ))}
             </div>
             {
                 (((toRight || toRight2) && tablet) || (!tablet && (toRight && !toRight2))) && 
@@ -336,10 +328,11 @@ function BookHotels(){
                                     <img src={hotel.img} alt={hotel.name} />
                                     <div className="hotel-info">
                                         <h4 className="hotel-name">{hotel.name}</h4>
-                                        <div className="hotel-rating">
+                                        {/* <div className="hotel-rating">
                                             <IconStar stroke={1.5} />
                                             {hotel.stars}
-                                        </div>
+                                        </div> */}
+                                        <Rating value={hotel.stars} className="hotel-rating" readOnly />
                                         <div className="hotel-review">
                                             {hotel.rate}/5 - {hotel.review} reviews
                                         </div>

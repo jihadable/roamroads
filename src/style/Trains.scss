@@ -295,54 +295,38 @@
                     font-weight: 600;
                 }
 
-                .save-select{
+                .save{
+                    border-radius: 5rem;
                     display: flex;
+                    justify-content: center;
                     align-items: center;
-                    font-size: 1rem;
-                    gap: 0.5rem;
+                    padding: 0.2rem;
 
-                    .save{
-                        border-radius: 5rem;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        padding: 0.2rem;
+                    &:hover{
+                        background-color: $hov;
+                    }
+
+                    svg{
+                        width: 2rem;
+                        height: 2rem;
+                        color: rgb(0,0,0,.3);
+                        transition: all .3s;
 
                         &:hover{
-                            background-color: $hov;
-                        }
-
-                        svg{
-                            width: 2rem;
-                            height: 2rem;
-                            color: rgb(0,0,0,.3);
-                            transition: all .3s;
-    
-                            &:hover{
-                                fill: $hov;
-                            }
+                            fill: $hov;
                         }
                     }
+                }
+                
+                .saved{
                     
-                    .saved{
-                        
-                        svg{
-                            color: $green;
+                    svg{
+                        color: $green;
+                        fill: $green;
+
+                        &:hover{
                             fill: $green;
-
-                            &:hover{
-                                fill: $green;
-                            }
                         }
-                    }
-                    
-
-                    .select{
-                        padding: .3rem 0.5rem;
-                        cursor: pointer;
-                        background-color: $green;
-                        border-radius: .5rem;
-                        color: white;
                     }
                 }
 

@@ -574,7 +574,7 @@ function TrainSearchGrid(props){
                                 <div className="train-name-seat">
                                     <h4 className="train-name">
                                         <IconTrain stroke={1.5} />
-                                        {train.trainName}
+                                        <span>{train.trainName}</span>
                                     </h4>
                                     <div className="train-seat">{train.seat}</div>
                                 </div>
@@ -592,11 +592,8 @@ function TrainSearchGrid(props){
                             </div>
                             <div className="train-right">
                                 <div className="train-price">IDR {train.price}</div>
-                                <div className="save-select">
-                                    <div className={`save ${checkSavedItem(train) ? "saved" : ""}`} onClick={() => {addRemoveSaved(train)}}>
-                                        <IconBookmark stroke={1.5} />
-                                    </div>
-                                    <div className="select">Select</div>
+                                <div className={`save ${checkSavedItem(train) ? "saved" : ""}`} onClick={() => {addRemoveSaved(train)}}>
+                                    <IconBookmark stroke={1.5} />
                                 </div>
                             </div>
                         </div>
