@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react"
 import "../style/Home.scss"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
-import { kendariHotelList, jogjaHotelList, bandungHotelList, jakartaHotelList } from "../components/HotelsData"
 import { indonesiaTrendingList} from "../components/TrendingNow"
-import { indonesiaFlightList, internationalFlightList} from "../components/FlightsData"
 import travel from "../assets/travel.png"
 import service from "../assets/service.png"
 import payment from "../assets/payment.png"
 import secure from "../assets/secure.png"
 import { IconSearch } from "@tabler/icons-react"
-import { IconStar } from "@tabler/icons-react"
 import { IconArrowNarrowRight } from "@tabler/icons-react"
 import { IconHome2 } from "@tabler/icons-react"
 import { IconPlaneDeparture } from "@tabler/icons-react"
@@ -170,29 +167,46 @@ function BookFlights(){
     const [toRight2, setToRight2] = useState(false)
     const tablet = window.matchMedia("screen and (max-width: 1023px)").matches
 
-    const [showAreaFlights, setShowAreaFlights] = useState("ind")
-    const [arrayFlight, setArrayFlight] = useState([...indonesiaFlightList])
+    const [selectedFlight, setSelectedFlight] = useState("ind")
+
+    const [flightsArray, setFlightsArray] = useState(null)
+    const [showFlightsArray, setShowFlightsArray] = useState(null)
 
     useEffect(() => {
-        if (showAreaFlights === "ind"){
-            setArrayFlight(indonesiaFlightList)
+        const apiEndpoint = import.meta.env.VITE_API_ENDPOINT
+        setTimeout(async() => {
+            let data = await fetch(`${apiEndpoint}flights/`)
+            data = await data.json()
+            data = data.map(item => ({...item, id: parseInt(item.id), route: JSON.parse(item.route)}))
+
+            setFlightsArray(data)
+        }, 3000);
+    }, [])
+
+    useEffect(() => {
+        setShowFlightsArray(flightsArray)
+
+        if (flightsArray){
+            if (selectedFlight === "ind"){
+                setShowFlightsArray([...flightsArray].filter(item => item.id <= 10))
+            }   
+            else if (selectedFlight === "inter"){
+                setShowFlightsArray([...flightsArray].filter(item => item.id > 10))
+            }
         }
-        else if (showAreaFlights === "inter"){
-            setArrayFlight(internationalFlightList)
-        }
-    }, [showAreaFlights])
+    }, [flightsArray, selectedFlight])
 
     return (
         <section className="book-flights">
             <h2 className="header">Check the best price for your flights</h2>
             <div className="areas">
                 <div 
-                className={`area ${showAreaFlights === "ind" ? "selected" : ""}`} 
-                onClick={() => setShowAreaFlights("ind")}
+                className={`area ${selectedFlight === "ind" ? "selected" : ""}`} 
+                onClick={() => setSelectedFlight("ind")}
                 >Domestic</div>
                 <div 
-                className={`area ${showAreaFlights === "inter" ? "selected" : ""}`}
-                onClick={() => setShowAreaFlights("inter")}
+                className={`area ${selectedFlight === "inter" ? "selected" : ""}`}
+                onClick={() => setSelectedFlight("inter")}
                 >International</div>
             </div>
             {
@@ -228,7 +242,14 @@ function BookFlights(){
             <div className="flight-container">
                 <div className={`flight-list ${toRight ? "to-right" : ""} ${toRight2 ? "to-right-2" : ""}`}>
                     {
-                        arrayFlight.map((flight, index) => {
+                        !showFlightsArray &&
+                        [1,2,3,4,5,6,7,8,9,10].map(item => (
+                            <BookFlightsSkeleton key={item} />
+                        ))
+                    }
+                    {
+                        showFlightsArray &&
+                        showFlightsArray.map((flight, index) => {
                             return (
                                 <Link to="/flights" onClick={goTop} className="flight" key={index} >
                                     <img src={flight.img} alt={flight.route[1]} />
@@ -238,7 +259,7 @@ function BookFlights(){
                                             <IconArrowNarrowRight stroke={1.5} />
                                             <span className="route-2">{flight.route[1]}</span>
                                         </h4>
-                                        <div className="flight-date">{`${flight.date} 2023`}</div>
+                                        <div className="flight-date">{`${flight.month} 2023`}</div>
                                         <div className="flight-seat">{flight.seat}</div>
                                         <div className="flight-price">{`IDR ${flight.price}`}</div>
                                     </div>
@@ -252,28 +273,61 @@ function BookFlights(){
     )
 }
 
+function BookFlightsSkeleton(){
+    return (
+        <div className="flight-skeleton">
+            <div className="img"></div>
+            <div className="info">
+                <div className="route"></div>
+                <div className="date"></div>
+                <div className="seat"></div>
+                <div className="price"></div>
+            </div>
+        </div>
+    )
+}
+
 function BookHotels(){
 
     const [toRight, setToRight] = useState(false)
     const [toRight2, setToRight2] = useState(false)
     const tablet = window.matchMedia("screen and (max-width: 1023px)").matches
 
-    const countriesData = [
-        {
-            country: "Kendari",
-            array: [...kendariHotelList]
-        },
-        {
-            country: "Yogyakarta",
-            array: [...jogjaHotelList]
-        },
-        {
-            country: "Bandung",
-            array: [...bandungHotelList]
-        }
-    ]
+    const [hotelsArray, setHotelsArray] = useState(null)
+    const [showHotelsArray, setShowHotelsArray] = useState(null)
+
+    useEffect(() => {
+        const apiEndpoint = import.meta.env.VITE_API_ENDPOINT
+        setTimeout(async() => {
+            let data = await fetch(`${apiEndpoint}hotels/`)
+            data = await data.json()
+            data = data.map(item => ({...item, id: parseInt(item.id), stars: parseInt(item.stars)}))
+
+            setHotelsArray(data)
+        }, 3000);
+    }, [])
+    
+    const countriesData = ["Kendari", "Yogyakarta", "Bandung", "Jakarta"]
     const [selectedCountry, setSelectedCountry] = useState("Kendari")
-    const [arrayHotels, setArrayHotels] = useState([...kendariHotelList])
+    
+    useEffect(() => {
+        setShowHotelsArray(hotelsArray)
+        
+        if (hotelsArray){
+            if (selectedCountry === "Kendari"){
+                setShowHotelsArray([...hotelsArray].filter(item => item.id <= 10))
+            }
+            else if (selectedCountry === "Yogyakarta"){
+                setShowHotelsArray([...hotelsArray].filter(item => item.id > 10 && item.id <= 20))
+            }
+            else if (selectedCountry === "Bandung"){
+                setShowHotelsArray([...hotelsArray].filter(item => item.id > 20 && item.id <= 30))
+            }
+            else if (selectedCountry === "Jakarta"){
+                setShowHotelsArray([...hotelsArray].filter(item => item.id > 30))
+            }
+        }
+    }, [hotelsArray, selectedCountry])
 
     return (
         <section className="book-hotels">
@@ -281,12 +335,8 @@ function BookHotels(){
             <div className="countries">
             {countriesData.map((item, index) => (
                 <div 
-                className={`country ${selectedCountry === item.country ? "selected" : ""}`} 
-                onClick={() => {
-                    setSelectedCountry(item.country)
-                    setArrayHotels(item.array)
-                }} key={index}
-                >{item.country}</div>
+                className={`country ${selectedCountry === item ? "selected" : ""}`} onClick={() => setSelectedCountry(item)} key={index}
+                >{item}</div>
             ))}
             </div>
             {
@@ -322,16 +372,19 @@ function BookHotels(){
             <div className="hotel-container">
                 <div className={`hotel-list ${toRight ? "to-right" : ""} ${toRight2 ? "to-right-2" : ""}`}>
                     {
-                        arrayHotels.map((hotel, index) => {
+                        !showHotelsArray &&
+                        [1,2,3,4,5,6,7,8,9,10].map(item => (
+                            <BookHotelsSkeleton key={item} />
+                        ))
+                    }
+                    {
+                        showHotelsArray &&
+                        showHotelsArray.map((hotel, index) => {
                             return (
                                 <Link to="/hotels" onClick={goTop} className="hotel" key={index} >
                                     <img src={hotel.img} alt={hotel.name} />
                                     <div className="hotel-info">
                                         <h4 className="hotel-name">{hotel.name}</h4>
-                                        {/* <div className="hotel-rating">
-                                            <IconStar stroke={1.5} />
-                                            {hotel.stars}
-                                        </div> */}
                                         <Rating value={hotel.stars} className="hotel-rating" readOnly />
                                         <div className="hotel-review">
                                             {hotel.rate}/5 - {hotel.review} reviews
@@ -345,6 +398,20 @@ function BookHotels(){
                 </div>
             </div>
         </section>
+    )
+}
+
+function BookHotelsSkeleton(){
+    return (
+        <div className="hotel-skeleton">
+            <div className="img"></div>
+            <div className="info">
+                <div className="name"></div>
+                <div className="stars"></div>
+                <div className="review"></div>
+                <div className="price"></div>
+            </div>
+        </div>
     )
 }
 

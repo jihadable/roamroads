@@ -438,6 +438,115 @@
         .active{
             transform: scale(1);
         }
+
+        .flight-skeleton{
+            width: 100%;
+            display: flex;
+            background-color: white;
+            border: 2px solid $hov;
+            border-radius: .5rem;
+            padding: 1rem;
+
+            .thick{
+                height: 1.4rem;
+                background-color: #ddd;
+            }
+
+            .thin{
+                height: .8rem;
+                background-color: #ddd;
+            }
+
+            .square{
+                width: 2rem;
+                height: 2rem;
+                border-radius: .5rem;
+                background-color: #ddd;
+            }
+
+            .thick, .thin, .square{
+                position: relative;
+                overflow: hidden;
+                border-radius: .2rem;
+
+                &::after{
+                    position: absolute;
+                    content: "";
+                    top: 0;
+                    left: 0;
+                    width: 80%;
+                    height: 100%;
+                    transform: skewX(-20deg);
+                    background-color: rgb(255,255,255,.15);
+                    animation: skeleton_animation 1s linear infinite;
+                }
+            }
+
+            .left{
+                width: 55%;  
+                display: flex;
+                justify-content: space-between;
+
+                .left{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: start;
+                    gap: 0.2rem;
+
+                    .thick{
+                        width: 140px;
+                    }
+                    .thin{
+                        width: 80px;
+                    }
+                }
+
+                .right{
+                    align-self: center;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 2.5rem;
+
+                    .route1, .route2{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 0.2rem;
+
+                        .thick{
+                            width: 100px;
+                        }
+                        .thin{
+                            width: 120px;
+                        }
+                    }
+
+                }
+            }
+
+            .right{
+                width: 45%;
+                display: flex;
+                align-items: end;
+                flex-direction: column;
+                gap: 3.4rem;
+
+                .thick{
+                    width: 100px;
+                }
+
+                .bottom{
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+
+                    .thick{
+                        height: 1.8rem;
+                    }
+                }
+            }
+        }
         
         .flight{
             background-color: white;
@@ -643,6 +752,41 @@
             .flight-detail-container{
                 .flight-details{
                     width: calc(100% - 2rem);
+                }
+            }
+
+            .flight-skeleton{
+                .left{
+                    flex-direction: column;
+
+                    .left{
+                        .thick{
+                            width: 100px;
+                        }
+                        .thin{
+                            width: 70px;
+                        }
+                    }
+
+                    .right{
+                        gap: 1rem;
+                        align-self: self-start;
+
+                        .route1, .route2{
+                            .thick{
+                                width: 50px;
+                            }
+                            .thin{
+                                width: 50px;
+                            }
+                        }
+                    }
+                }
+
+                .right{
+                    .thick{
+                        width: 80px;
+                    }
                 }
             }
 

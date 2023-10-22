@@ -10,7 +10,6 @@ import { IconBookmark } from "@tabler/icons-react"
 import { IconBookOff } from "@tabler/icons-react"
 import { IconPlaneDeparture } from "@tabler/icons-react"
 import { IconPlaneInflight } from "@tabler/icons-react"
-import Rating from "@mui/material/Rating"
 
 function Saved(){
     document.title = "RoamRoads | Saved"
@@ -63,13 +62,13 @@ function SavedContainer(){
 
         newSaved.splice(index, 1)
 
-        if (item.list === "hotels"){
+        if (item.category === "hotels"){
             setSavedHotels([...newSaved])
         }
-        else if (item.list === "flights"){
+        else if (item.category === "flights"){
             setSavedFlights([...newSaved])
         }
-        else if (item.list === "trains"){
+        else if (item.category === "trains"){
             setSavedTrains([...newSaved])
         }
     }
@@ -118,7 +117,7 @@ function SavedContainer(){
         let array = []
 
         savedItems.forEach(item => {
-            if (filters.length === 0 || filters.includes(item.list)){
+            if (filters.length === 0 || filters.includes(item.category)){
                 array.push(item)
             }
         })
@@ -168,21 +167,21 @@ function SavedContainer(){
                                 <div className="saved-item" key={index}>
                                     <div className="saved-item-left">
                                         {
-                                            (item.list === "flights" || item.list === "trains") &&
+                                            (item.category === "flights" || item.category === "trains") &&
                                             <>
                                             <div className="item-svg">
                                             {
-                                                item.list === "flights" &&
+                                                item.category === "flights" &&
                                                 <IconPlaneDeparture stroke={1.5} />
                                             }
                                             {
-                                                item.list === "trains" &&
+                                                item.category === "trains" &&
                                                 <IconTrain stroke={1.5} />
                                             }
                                             </div>
                                             <div className="item-info">
                                                 <div className="item-list-name">
-                                                    {item.list}
+                                                    {item.category}
                                                 </div>
                                                 <h4 className="item-airline-train-name">
                                                     {
@@ -193,7 +192,7 @@ function SavedContainer(){
                                                     item.list === "trains" &&
                                                     <IconTrain stroke={1.5} />
                                                     }
-                                                    {item.list === "flights" ? item.airline : item.trainName}
+                                                    {item.list === "flights" ? item.airline : item.train_name}
                                                 </h4>
                                                 <div className="item-routes">
                                                     <div className="route">
@@ -218,25 +217,18 @@ function SavedContainer(){
                                             </>
                                         }
                                         {
-                                            item.list === "hotels" &&
+                                            item.category === "hotels" &&
                                             <>
                                             <div className="item-img">
                                                 <img src={item.img} alt="" />
                                             </div>
                                             <div className="item-info">
                                                 <div className="item-list-name">
-                                                    {item.list}
+                                                    {item.category}
                                                 </div>
                                                 <h4 className="item-hotel-name">
                                                     {item.name}
                                                 </h4>
-                                                <div className="item-rating">
-                                                    <Rating value={item.stars} className="item-star" readOnly />
-                                                    <div className="line"></div>
-                                                    <div className="item-rate">
-                                                        {item.rate}/5 ({item.review})
-                                                    </div>
-                                                </div>
                                                 <div className="item-location">
                                                     <IconMapPinFilled stroke={1.5} />
                                                     {item.city}
@@ -246,7 +238,7 @@ function SavedContainer(){
                                         }
                                     </div>
                                     <div className="saved-item-right">
-                                        <div className="item-price">{item.list === "hotels" ? "$" : "IDR "}{item.price}</div>
+                                        <div className="item-price">{item.category === "hotels" ? "$" : "IDR "}{item.price}</div>
                                         <div className="save-btn" onClick={() => {removeSaved(item)}} title="Remove">
                                             <IconBookmark stroke={1.5} />
                                         </div>

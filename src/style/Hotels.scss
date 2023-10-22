@@ -155,6 +155,92 @@
         grid-template-columns: repeat(1, 1fr);
         height: fit-content;
 
+        .hotel-skeleton{
+            background-color: white;
+            border-radius: .5rem;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            border: 2px solid $hov;
+            height: 180px;
+
+            .thick, .square{
+                height: 1.2rem;
+                background-color: $hov;
+                border-radius: .2rem;
+                overflow: hidden;
+                position: relative;
+
+                &::after{
+                    position: absolute;
+                    content: "";
+                    top: 0;
+                    left: 0;
+                    width: 80%;
+                    height: 100%;
+                    transform: skewX(-20deg);
+                    background-color: rgb(255,255,255,.1);
+                    animation: skeleton_animation 1s linear infinite;
+                }
+            }
+
+            .square{
+                height: 2rem;
+                width: 2rem;
+            }
+
+            .left{
+                display: flex;
+                gap: 0.5rem;
+
+                .img{
+                    width: 180px;
+                    background-color: $hov;
+                    overflow: hidden;
+                    position: relative;
+    
+                    &::after{
+                        position: absolute;
+                        content: "";
+                        top: 0;
+                        left: 0;
+                        width: 80%;
+                        height: 100%;
+                        transform: skewX(-20deg);
+                        background-color: rgb(255,255,255,.1);
+                        animation: skeleton_animation 1s linear infinite;
+                    }
+                }
+
+                .info{
+                    padding: 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .thick{
+                        width: 200px;
+
+                        &.city{
+                            width: 160px;
+                        }
+                    }
+                }
+            }
+
+            .right{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: end;
+                padding: 1rem;
+
+                .thick{
+                    width: 50px;
+                }
+            }
+        }
+
         .hotel{
             background-color: white;
             border-radius: .5rem;
@@ -207,8 +293,6 @@
                 flex-direction: column;
                 align-items: flex-end;
                 justify-content: space-between;
-                align-content: flex-end;
-                padding: .5rem;
                 padding: 1rem;
 
                 .hotel-price{
@@ -266,6 +350,12 @@
     }
 }
 
+@keyframes skeleton_animation {
+    0% {transform: translateX(-150%) skewX(-20deg);}
+    50% {transform: translateX(-60%) skewX(-20deg);}
+    100% {transform: translateX(150%) skewX(-20deg);}
+}
+
 @media screen and (max-width: 480px) {
     .hotel-search-container{
         width: 100%;
@@ -311,6 +401,32 @@
         .hotel-search-grid{
             width: 100%;
 
+            .hotel-skeleton{
+                flex-direction: column;
+                height: fit-content;
+
+                .left{
+                    flex-direction: column;
+
+                    .img{
+                        width: 100%;
+                        height: 0;
+                        padding-top: 100%;
+                    }
+
+                    .info{
+                        padding: 0.5rem;
+                        gap: 0.5rem;
+                        justify-content: flex-start;
+                    }
+                }
+
+                .right{
+                    flex-direction: row;
+                    align-items: center;
+                }
+            }
+
             .hotel{
                 flex-direction: column;
                 height: fit-content;
@@ -349,7 +465,7 @@
                 .header{
                     cursor: pointer;
 
-                    svg{
+                    .chevron{
                         display: inline;
                         transition: all .2s;
                     }

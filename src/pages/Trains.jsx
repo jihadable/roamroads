@@ -2,7 +2,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer"
 import "../style/Trains.scss"
 import { useState, useEffect, useRef } from "react";
-import trainsArray from "../components/TrainsData";
 import { IconCaretDown } from "@tabler/icons-react";
 import { IconArrowNarrowRight } from "@tabler/icons-react";
 import { IconFilter } from "@tabler/icons-react";
@@ -41,7 +40,7 @@ function TrainSearchFilter(){
         [showSort, setShowSort],
         [showDeparture, setShowDeparture],
         [showClass, setShowClass],
-        [showTrain, setShowTrain]
+        [showTrainName, setShowTrainName]
     ] = [
         useState(false),
         useState(false),
@@ -70,7 +69,7 @@ function TrainSearchFilter(){
         })
     }, [])
 
-    const sortData = ["Departue time", "Arrival time", "Lowest price", "Highest price"]
+    const sortData = ["Departure time", "Arrival time", "Lowest price", "Highest price"]
     const departureData = [
         {
             title: "Night to morning",
@@ -94,14 +93,14 @@ function TrainSearchFilter(){
         }
     ]
     const classData = ["Economy", "Executive"]
-    const trainData = ["Crimson Arrow", "Stellar Streak", "Phoenix Fury", "Ironclad Crusader", "Silver Nova"]
+    const trainNameData = ["Crimson Arrow", "Stellar Streak", "Phoenix Fury", "Ironclad Crusader", "Silver Nova"]
 
     const [filters, setFilters] = useState({
         routes: [station1, station2],
         sort: "All",
         departure: [],
         class: [],
-        train: []  
+        trainName: []  
     })
 
     const addRemoveFilter = (filter, arrayName, title = "", time = "", range = "") => {
@@ -188,8 +187,8 @@ function TrainSearchFilter(){
         else if (arrayName === "class"){
             array = [...classData]
         }
-        else if (arrayName === "train"){
-            array = [...trainData]
+        else if (arrayName === "trainName"){
+            array = [...trainNameData]
         }
 
         setFilters(filters => {
@@ -307,7 +306,7 @@ function TrainSearchFilter(){
                             sort: "All",
                             departure: [],
                             class: [],
-                            train: []
+                            trainName: []
                         })
                     }}>Reset</div>
                 </div>
@@ -341,26 +340,26 @@ function TrainSearchFilter(){
                     </div>
                     <div className="line"></div>
                     <div className="train-name">
-                        <h4 className="head" onClick={() => {setShowTrain(!showTrain)}}>
+                        <h4 className="head" onClick={() => {setShowTrainName(!showTrainName)}}>
                             <span>Train</span> 
-                            <IconChevronDown stroke={1.5} className={`${showTrain ? "rotate" : ""}`} />
+                            <IconChevronDown stroke={1.5} className={`${showTrainName ? "rotate" : ""}`} />
                         </h4>
-                        <div className={`menu ${showTrain ? "active" : ""}`}>
+                        <div className={`menu ${showTrainName ? "active" : ""}`}>
                             {
-                                trainData.map((train, index) => {
+                                trainNameData.map((trainName, index) => {
                                     return (
-                                        <div className="train-name-option" key={index} onClick={() => {addRemoveFilter(train, "train")}}>
-                                            <span className={`checkbox ${filters.train.includes(train) ? "checked" : ""}`}>
+                                        <div className="train-name-option" key={index} onClick={() => {addRemoveFilter(trainName, "trainName")}}>
+                                            <span className={`checkbox ${filters.trainName.includes(trainName) ? "checked" : ""}`}>
                                                 <IconCheck stroke={1.5} />
                                             </span>
-                                            {train}
+                                            {trainName}
                                         </div>
                                     )
                                 })
                             }
                             <div className="menu-footer">
-                                <div className="select-all" onClick={() => {selectAllBtn("train")}}>Select all</div>
-                                <div className="reset" onClick={() => {resetBtn("train")}}>Reset</div>
+                                <div className="select-all" onClick={() => {selectAllBtn("trainName")}}>Select all</div>
+                                <div className="reset" onClick={() => {resetBtn("trainName")}}>Reset</div>
                             </div>
                         </div>
                     </div>
@@ -425,26 +424,46 @@ function TrainSearchFilter(){
     )
 }
 
-function TrainSearchGrid(props){
+function TrainSearchGrid({ filters }){
 
-    const filters = props.filters
+    const [trainsArray, setTrainsArray] = useState(null)
+    const [showTrainsArray, setShowTrainsArray] = useState(null)
 
-    let arrayTrains = []
+    useEffect(() => {
+        const apiEndpint = import.meta.env.VITE_API_ENDPOINT
+        setTimeout(async() => {
 
-    trainsArray.forEach(train => {
-        if (
-            // routes
-            ((filters.routes[0] === "All station" || filters.routes[0] === train.route[0]) && (filters.routes[1] === "All station" || filters.routes[1] === train.route[1])) &&
-            // train
-            (filters.train.length === 0 || filters.train.includes(train.trainName)) &&
-            // seat
-            (filters.class.length === 0 || filters.class.includes(train.seat)) &&
-            // departure
-            (filters.departure.length === 0 || checkDeparture(train.departure))
-        ){
-            arrayTrains.push(train)
+            let data = await fetch(`${apiEndpint}trains/`)
+            data = await data.json()
+            data = data.map(item => ({...item, id: parseInt(item.id), route: JSON.parse(item.route), departure: parseInt(item.departure), arrival: parseInt(item.arrival), category: "trains"}))
+
+            setTrainsArray(data)
+        }, 3000)
+    }, [])
+    
+    useEffect(() => {
+        setShowTrainsArray(trainsArray)
+
+        if (showTrainsArray){
+            setShowTrainsArray(filteringTrains([...trainsArray]))
+
+            if (filters.sort == "All"){
+                setShowTrainsArray(showTrainsArray => sortArrayOfObjects([...showTrainsArray], "id"))
+            }
+            else if (filters.sort == "Departure time"){
+                setShowTrainsArray(showTrainsArray => sortArrayOfObjects([...showTrainsArray], "departure"))
+            }
+            else if (filters.sort == "Arrival time"){
+                setShowTrainsArray(showTrainsArray => sortArrayOfObjects([...showTrainsArray], "arrival"))
+            }
+            else if (filters.sort === "Lowest price"){
+                setShowTrainsArray(showTrainsArray => sortArrayOfObjects([...showTrainsArray], "price"))
+            }
+            else if (filters.sort === "Highest price"){
+                setShowTrainsArray(showTrainsArray => sortArrayOfObjects([...showTrainsArray], "price", false))
+            }
         }
-    })
+    }, [trainsArray, filters])
 
     function checkDeparture(train){
         for (let i = 0 ; i < filters["departure"].length ; i++){
@@ -459,13 +478,32 @@ function TrainSearchGrid(props){
         }
     }
 
+    // filtering trains
+    function filteringTrains(array){
+        return array.filter(train => {
+            if (// routes
+                ((filters.routes[0] === "All station" || filters.routes[0] === train.route[0]) && (filters.routes[1] === "All station" || filters.routes[1] === train.route[1])) &&
+                // train
+                (filters.trainName.length === 0 || filters.trainName.includes(train["train_name"])) &&
+                // seat
+                (filters.class.length === 0 || filters.class.includes(train.seat)) &&
+                // departure
+                (filters.departure.length === 0 || checkDeparture(train.departure))
+            ){
+                return train
+            }
+        })
+    }
+
     // sorting trains
-    function sortArrayOfObjects(array, key, ascending = true) {
+    function sortArrayOfObjects(array, key, ascending = true){
+
+        // let 
         return array.sort((a, b) => {
 
             let valueA
             let valueB
-            if (key === "departure" || key === "arrival"){
+            if (key === "departure" || key === "arrival" || key == "id"){
                 valueA = a[key];
                 valueB = b[key];
             }
@@ -486,32 +524,11 @@ function TrainSearchGrid(props){
             return 0;
         });
     }
-    if (filters.sort === "Departue time"){
-        arrayTrains = sortArrayOfObjects(arrayTrains, "departure")
-    }
-    else if (filters.sort === "Arrival time"){
-        arrayTrains = sortArrayOfObjects(arrayTrains, "arrival")
-    }
-    else if (filters.sort === "Lowest price"){
-        arrayTrains = sortArrayOfObjects(arrayTrains, "price")
-    }
-    else if (filters.sort === "Highest price"){
-        arrayTrains = sortArrayOfObjects(arrayTrains, "price", false)
-    }
 
     function changeStrToNum(str){
-        let array = str.split("")
-        let index 
-        for (let i = 0 ; i < str.length ; i++){
-            if (array[i] === "."){
-                index = i
-                array.splice(index, 1)
-            }
-        }
+        str = str.replace(".", "")
 
-        array = array.join("")
-
-        return parseInt(array)
+        return parseInt(str)
     }
 
     // add to storage
@@ -557,9 +574,9 @@ function TrainSearchGrid(props){
     }, [savedTrains])
 
     return (
-        <div className={`train-grid ${arrayTrains.length === 0 ? "empty-trains" : ""}`}>
+        <div className={`train-grid ${showTrainsArray && showTrainsArray.length === 0 ? "empty-trains" : ""}`}>
             {
-                arrayTrains.length === 0 &&
+                (showTrainsArray && showTrainsArray.length === 0) &&
                 <div className="no-trains">
                     <IconOctagonOff stroke={1.5} />
                     <div className="text-head">No trains available</div>
@@ -567,14 +584,19 @@ function TrainSearchGrid(props){
                 </div>
             }
             {
-                arrayTrains.map((train, index) => {
+                !showTrainsArray && 
+                [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42].map(item => (<TrainSkeleton key={item} />))
+            }
+            {
+                (showTrainsArray && showTrainsArray.length > 0) &&
+                showTrainsArray.map((train, index) => {
                     return (
                         <div className="train" key={index}>
                             <div className="train-left">
                                 <div className="train-name-seat">
                                     <h4 className="train-name">
                                         <IconTrain stroke={1.5} />
-                                        <span>{train.trainName}</span>
+                                        <span>{train.train_name}</span>
                                     </h4>
                                     <div className="train-seat">{train.seat}</div>
                                 </div>
@@ -600,6 +622,33 @@ function TrainSearchGrid(props){
                     )
                 })
             }
+        </div>
+    )
+}
+
+function TrainSkeleton(){
+    return (
+        <div className="train-skeleton">
+            <div className="left">
+                <div className="left">
+                    <div className="thick"></div>
+                    <div className="thin"></div>
+                </div>
+                <div className="right">
+                    <div className="route1">
+                        <div className="thick"></div>
+                        <div className="thin"></div>
+                    </div>
+                    <div className="route2">
+                    <div className="thick"></div>
+                        <div className="thin"></div>
+                    </div>
+                </div>
+            </div>
+            <div className="right">
+                <div className="thick"></div>
+                <div className="square"></div>
+            </div>
         </div>
     )
 }

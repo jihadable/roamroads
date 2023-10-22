@@ -3,7 +3,6 @@ import Slider from "react-slider"
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer"
 import "../style/Flights.scss"
-import { flightsArray } from "../components/FlightsData";
 import { IconCheck } from "@tabler/icons-react";
 import { IconLuggage } from "@tabler/icons-react";
 import { IconSalad } from "@tabler/icons-react";
@@ -54,8 +53,8 @@ function SearchFlights(){
         route: [route1, route2],
         sort: "All",
         seat: "All",
-        transitNumber: "All",
-        transitDuration: [0, 12],
+        transit_number: "All",
+        transit_duration: [0, 12],
         airline: [],
         departure: [],
         arrival: [],
@@ -64,7 +63,7 @@ function SearchFlights(){
 
     const sortData = ["Highest price", "Lowest price"]
     const seatData = ["Economy", "Business"]
-    const transitNumberData = ["Direct", 1, 2]
+    const transitNumberData = ["Direct", "1", "2"]
     const [transitDurationData, setTransitDurationData] = useState([0, 12])
     const airlineData = ["Quantum Air", "Nebula Airways","Stellar Airlines", "SkyWing", "Thunderbird", "Elysian Airways"]
     const departureData = [
@@ -199,18 +198,14 @@ function SearchFlights(){
             if (filters[arrayName][i].title === title){
                 return true
             }
-            else {
-                if (i === filters[arrayName].length - 1){
-                    return false
-                }
-            }
         }
+        return false
     }
 
     useEffect(() => {
         setFilters(filters => {
             return (
-                {...filters, ["transitDuration"]: [...transitDurationData]}
+                {...filters, ["transit_duration"]: [...transitDurationData]}
             )
         })
     }, [transitDurationData])
@@ -227,22 +222,14 @@ function SearchFlights(){
             array = [...arrivalData]
         }
         else if (arrayName === "facilities"){
-            array = [...facilitiesData]
+            array = [...facilitiesData].map(item => item.title)
         }
 
-        setFilters(filters => {
-            return (
-                {...filters, [arrayName]: array}
-            )
-        })
+        setFilters(filters => ({...filters, [arrayName]: array}))
     }
 
     function resetBtn(arrayName){
-        setFilters(filters => {
-            return (
-                {...filters, [arrayName]: []}
-            )
-        })
+        setFilters(filters => ({...filters, [arrayName]: []}))
     }
 
     const showRoute1Btn = useRef()
@@ -354,8 +341,8 @@ function SearchFlights(){
                                 route: [route1, route2],
                                 sort: "All",
                                 seat: "All",
-                                transitNumber: "All",
-                                transitDuration: [0, 12],
+                                transit_number: "All",
+                                transit_duration: [0, 12],
                                 airline: [],
                                 departure: [],
                                 arrival: [],
@@ -432,20 +419,20 @@ function SearchFlights(){
                             </h4>
                             <div className={`content ${showTransitNumber ? "active" : ""}`}>
                                 {
-                                    transitNumberData.map((transitNumber, index) => {
+                                    transitNumberData.map((transit_number, index) => {
                                         return (
                                             <div className="transit-number-option" key={index} onClick={() => {
-                                                if (filters.transitNumber === transitNumber){
-                                                    transitNumber = "All"
+                                                if (filters.transit_number === transit_number){
+                                                    transit_number = "All"
                                                 }
                                                 setFilters(filters => {
                                                     return (
-                                                        {...filters, ["transitNumber"]: transitNumber}
+                                                        {...filters, ["transit_number"]: transit_number}
                                                     )
                                                 })
                                             }}>
-                                                <span className={`circle ${filters.transitNumber === transitNumber ? "selected" : ""}`}></span>
-                                                <span>{transitNumber}</span>
+                                                <span className={`circle ${filters.transit_number === transit_number ? "selected" : ""}`}></span>
+                                                <span>{transit_number}</span>
                                             </div>
                                         )
                                     })
@@ -610,46 +597,81 @@ function SearchFlights(){
     )
 }
 
-function FlightGrid(props){
+function FlightGrid({ filters }){
 
-    const filters = props.filters
+    const [flightsArray, setFlightsArray] = useState(null)
+    const [showFlightsArray, setShowFlightsArray] = useState(null)
+    
+    useEffect(() => {
+        const apiEndpint = import.meta.env.VITE_API_ENDPOINT
+        setTimeout(async() => {
 
-    let arrayFlights = []
+            let data = await fetch(`${apiEndpint}flights/`)
+            data = await data.json()
 
-    flightsArray.forEach((flight) => {
-        if (
-            // route
-            ((filters.route[0] === flight.route[0] || filters.route[0] === "All city") && (filters.route[1] === flight.route[1] || filters.route[1] === "All city")) &&
-            // seat
-            (filters.seat === "All" || flight.seat === filters.seat) &&
-            // transitNumber
-            (filters.transitNumber === "All" || flight.transitNumber === filters.transitNumber) &&
-            // transitDuration
-            (filters.transitDuration[0] <= flight.transitDuration && filters.transitDuration[1] >= flight.transitDuration) &&
-            // airline
-            (filters.airline.length === 0 || filters.airline.includes(flight.airline)) &&
-            // departure
-            (checkDepartureArrival("departure", flight.departure) || filters.departure.length === 0) &&
-            // arrival
-            (checkDepartureArrival("arrival", flight.arrival) || filters.arrival.length === 0) &&
-            // facilities
-            (filters.facilities.every(filter => flight.facilities.includes(filter)) || filters.facilities.length === 0)
-        ){
-            arrayFlights.push(flight)
+            data = data.map(item => ({...item, 
+                id: parseInt(item.id), 
+                route: JSON.parse(item.route), 
+                transit_duration: parseInt(item.transit_duration),
+                transit_city: item.transit_city.length > 0 ? JSON.parse(item.transit_city) : null,
+                transit_time: item.transit_time.length > 0 ? JSON.parse(item.transit_time) : null,
+                departure: parseInt(item.departure), 
+                arrival: parseInt(item.arrival), 
+                facilities: JSON.parse(item.facilities),
+                category: "flights"
+            }))
+
+            setFlightsArray(data)
+        }, 3000);
+    }, [])
+    
+    useEffect(() => {
+        setShowFlightsArray(flightsArray)
+
+        if (showFlightsArray){
+            setShowFlightsArray(filteringFlights([...flightsArray]))
+
+            if (filters.sort === "Lowest price"){
+                setShowFlightsArray(showFlightsArray => sortArrayOfObjects([...showFlightsArray], "price"))
+            }
+            else if (filters.sort === "Highest price"){
+                setShowFlightsArray(showFlightsArray => sortArrayOfObjects([...showFlightsArray], "price", false))
+            }
         }
-    })
+    }, [flightsArray, filters])
 
     function checkDepartureArrival(arrayName, flight){
         for (let i = 0 ; i < filters[arrayName].length ; i++){
             if (filters[arrayName][i].range[0] <= flight && filters[arrayName][i].range[1] >= flight){
                 return true
             }
-            else {
-                if (i === filters[arrayName].length - 1){
-                    return false
-                }
-            }
         }
+        return false
+    }
+
+    // filtering flights
+    function filteringFlights(array){
+        return array.filter(flight => {
+            if (// route
+                ((filters.route[0] === flight.route[0] || filters.route[0] === "All city") && (filters.route[1] === flight.route[1] || filters.route[1] === "All city")) && 
+                // seat
+                (filters.seat === "All" || filters.seat === flight.seat) &&
+                // transit_number
+                (filters.transit_number === "All" || flight.transit_number === filters.transit_number) &&
+                // transit_duration
+                (filters.transit_duration[0] <= flight.transit_duration && filters.transit_duration[1] >= flight.transit_duration) &&
+                // airline
+                (filters.airline.length === 0 || filters.airline.includes(flight.airline)) &&
+                // departure
+                (checkDepartureArrival("departure", flight.departure) || filters.departure.length === 0) &&
+                // arrival
+                (checkDepartureArrival("arrival", flight.arrival) || filters.arrival.length === 0) &&
+                // facilities
+                (filters.facilities.every(filter => flight.facilities.includes(filter)) || filters.facilities.length === 0)
+            ){
+                return flight
+            }
+        })
     }
 
     // sorting flights
@@ -670,26 +692,13 @@ function FlightGrid(props){
             return 0;
         });
     }
-    if (filters.sort === "Lowest price"){
-        arrayFlights = sortArrayOfObjects(arrayFlights, "price")
-    }
-    else if (filters.sort === "Highest price"){
-        arrayFlights = sortArrayOfObjects(arrayFlights, "price", false)
-    }
 
     function changeStrToNum(str){
-        let array = str.split("")
-        let index 
-        for (let i = 0 ; i < str.length ; i++){
-            if (array[i] === "."){
-                index = i
-                array.splice(index, 1)
-            }
+        while(str.includes(".")){
+            str = str.replace(".", "")
         }
 
-        array = array.join("")
-
-        return parseInt(array)
+        return parseInt(str)
     }
 
     const facilities = {
@@ -747,10 +756,10 @@ function FlightGrid(props){
     const [flightDetail, setFlightDetail] = useState({
         route: ["", ""],
         airline: "",
-        transitNumber: 0,
-        transitDuration: 0,
-        transitCity: [],
-        transitTime: [0, 0],
+        transit_number: 0,
+        transit_duration: 0,
+        transit_city: [],
+        transit_time: [0, 0],
         departure: 0,
         arrival: 0,
         seat: "",
@@ -759,9 +768,9 @@ function FlightGrid(props){
     })
 
     return (
-        <div className={`flight-search-grid ${arrayFlights.length === 0 ? "empty-flight" : ""}`}>
+        <div className={`flight-search-grid ${showFlightsArray && showFlightsArray.length === 0 ? "empty-flight" : ""}`}>
             {
-                arrayFlights.length === 0 &&
+                (showFlightsArray && showFlightsArray.length === 0) &&
                 <div className="no-flights">
                     <IconPlaneOff stroke={1.5} />
                     <div className="text-head">No flights available</div>
@@ -769,7 +778,14 @@ function FlightGrid(props){
                 </div>
             }
             {
-                arrayFlights.map((flight, index) => {
+                !showFlightsArray &&
+                [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(item => (
+                    <FlightSkeleton key={item} />
+                ))
+            }
+            {
+                (showFlightsArray && showFlightsArray.length > 0) &&
+                showFlightsArray.map((flight, index) => {
                     return (
                         <div className="flight" key={index} onClick={() => {}}>
                             <div className="flight-left">
@@ -870,7 +886,7 @@ function FlightGrid(props){
                                 <IconArrowNarrowDown stroke={1.5} />
                                 <div className="route-time-city">
                                     {
-                                        flightDetail.transitNumber === "Direct" &&
+                                        flightDetail.transit_number === "Direct" &&
                                         <>
                                         <div className="route-time">
                                             {flightDetail.arrival > 9 ? `${flightDetail.arrival}:00` : `0${flightDetail.arrival}:00`}
@@ -881,34 +897,34 @@ function FlightGrid(props){
                                         </>
                                     }
                                     {
-                                        flightDetail.transitNumber !== "Direct" &&
+                                        flightDetail.transit_number !== "Direct" &&
                                         <>
                                         <div className="route-time">
-                                            {flightDetail.transitTime[0] > 9 ? `${flightDetail.transitTime[0]}:00` : `0${flightDetail.transitTime[0]}:00`}
+                                            {flightDetail.transit_time[0] > 9 ? `${flightDetail.transit_time[0]}:00` : `0${flightDetail.transit_time[0]}:00`}
                                         </div>
                                         <div className="route-city">
-                                            {flightDetail.transitCity}
+                                            {flightDetail.transit_city}
                                         </div>
                                         </>
                                     }
                                 </div>
                             </div>
                             {
-                                flightDetail.transitNumber !== "Direct" &&
+                                flightDetail.transit_number !== "Direct" &&
                                 <div className="transit-info">
                                     <IconAlertCircleFilled stroke={1.5} />
-                                    Stop to change planes in {flightDetail.transitCity} ({flightDetail.transitDuration}h 0m)
+                                    Stop to change planes in {flightDetail.transit_city} ({flightDetail.transit_duration}h 0m)
                                 </div>
                             }
                             {
-                                flightDetail.transitNumber !== "Direct" &&
+                                flightDetail.transit_number !== "Direct" &&
                                 <div className="route">
                                     <div className="route-time-city">
                                         <div className="route-time">
-                                            {flightDetail.transitTime[1] > 9 ? `${flightDetail.transitTime[1]}:00` : `0${flightDetail.transitTime[1]}:00`}
+                                            {flightDetail.transit_time[1] > 9 ? `${flightDetail.transit_time[1]}:00` : `0${flightDetail.transit_time[1]}:00`}
                                         </div>
                                         <div className="route-city">
-                                            {flightDetail.transitCity}
+                                            {flightDetail.transit_city}
                                         </div>
                                     </div>
                                     <IconArrowNarrowDown stroke={1.5} />
@@ -930,6 +946,36 @@ function FlightGrid(props){
                             <div className="select">Select</div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function FlightSkeleton(){
+    return (
+        <div className="flight-skeleton">
+            <div className="left">
+                <div className="left">
+                    <div className="thick"></div>
+                    <div className="thin"></div>
+                </div>
+                <div className="right">
+                    <div className="route1">
+                        <div className="thick"></div>
+                        <div className="thin"></div>
+                    </div>
+                    <div className="route2">
+                        <div className="thick"></div>
+                        <div className="thin"></div>
+                    </div>
+                </div>
+            </div>
+            <div className="right">
+                <div className="thick"></div>
+                <div className="bottom">
+                    <div className="square"></div>
+                    <div className="thick"></div>
                 </div>
             </div>
         </div>

@@ -226,6 +226,105 @@
         gap: .5rem;
         height: fit-content;
 
+        .train-skeleton{
+            width: 100%;
+            display: flex;
+            background-color: white;
+            border: 2px solid $hov;
+            border-radius: .5rem;
+            padding: 1rem;
+
+            .thick{
+                height: 1.4rem;
+                background-color: #ddd;
+            }
+
+            .thin{
+                height: .8rem;
+                background-color: #ddd;
+            }
+
+            .square{
+                width: 2rem;
+                height: 2rem;
+                border-radius: .5rem;
+                background-color: #ddd;
+            }
+
+            .thick, .thin, .square{
+                position: relative;
+                overflow: hidden;
+                border-radius: .2rem;
+
+                &::after{
+                    position: absolute;
+                    content: "";
+                    top: 0;
+                    left: 0;
+                    width: 80%;
+                    height: 100%;
+                    transform: skewX(-20deg);
+                    background-color: rgb(255,255,255,.15);
+                    animation: skeleton_animation 1s linear infinite;
+                }
+            }
+
+            .left{
+                width: 55%;  
+                display: flex;
+                justify-content: space-between;
+
+                .left{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: start;
+                    gap: 0.2rem;
+
+                    .thick{
+                        width: 140px;
+                    }
+                    .thin{
+                        width: 80px;
+                    }
+                }
+
+                .right{
+                    align-self: center;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 2.5rem;
+
+                    .route1, .route2{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 0.2rem;
+
+                        .thick{
+                            width: 100px;
+                        }
+                        .thin{
+                            width: 120px;
+                        }
+                    }
+
+                }
+            }
+
+            .right{
+                width: 45%;
+                display: flex;
+                align-items: end;
+                flex-direction: column;
+                gap: 3.4rem;
+
+                .thick{
+                    width: 100px;
+                }
+            }
+        }
+
         .train{
             background-color: white;
             border-radius: .5rem;
@@ -336,7 +435,6 @@
     
     .empty-trains{
         display: flex;
-        justify-content: center;
 
         .no-trains{
             display: flex;
@@ -353,6 +451,12 @@
             }
         }
     }
+}
+
+@keyframes skeleton_animation {
+    0% {transform: translateX(-150%) skewX(-20deg);}
+    50% {transform: translateX(-60%) skewX(-20deg);}
+    100% {transform: translateX(150%) skewX(-20deg);}
 }
 
 @media screen and (max-width: 480px) {
@@ -411,6 +515,41 @@
         .train-grid{
             width: 100%;
 
+            .train-skeleton{
+                .left{
+                    flex-direction: column;
+
+                    .left{
+                        .thick{
+                            width: 100px;
+                        }
+                        .thin{
+                            width: 70px;
+                        }
+                    }
+
+                    .right{
+                        gap: 1rem;
+                        align-self: self-start;
+
+                        .route1, .route2{
+                            .thick{
+                                width: 60px;
+                            }
+                            .thin{
+                                width: 80px;
+                            }
+                        }
+                    }
+                }
+
+                .right{
+                    .thick{
+                        width: 80px;
+                    }
+                }
+            }
+
             .train{
                 width: 100%;
 
@@ -461,6 +600,8 @@
 
                 .head{
                     .filter-header{
+                        cursor: pointer;
+                        
                         .chevron{
                             display: inline;
                         }

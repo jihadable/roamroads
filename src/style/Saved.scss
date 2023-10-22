@@ -195,22 +195,6 @@
                             }
                         }
 
-                        .item-rating{
-                            display: flex;
-                            align-items: center;
-                            gap: 0.5rem;
-
-                            .item-star{
-                                color: gold;
-                            }
-
-                            .line{
-                                width: 1px;
-                                height: 100%;
-                                background-color: rgb(0,0,0,.7);
-                            }
-                        }
-
                         .item-location{
                             display: flex;
                             align-items: center;

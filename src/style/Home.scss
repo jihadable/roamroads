@@ -154,6 +154,83 @@
             grid-template-columns: repeat(10, 1fr);
             gap: 1rem;
 
+            .flight-skeleton, .hotel-skeleton{
+                background-color: white;
+                border-radius: 1rem;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                border: 2px solid $hov;
+
+                .img{
+                    width: 100%;
+                    padding-top: 100%;
+                    background-color: $hov;
+                    overflow: hidden;
+                    position: relative;
+
+                    &::after{
+                        position: absolute;
+                        content: "";
+                        top: 0;
+                        left: 0;
+                        width: 80%;
+                        height: 100%;
+                        transform: skewX(-20deg);
+                        background-color: rgb(255,255,255,.08);
+                        animation: skeleton_animation 1s linear infinite;
+                    }
+                }
+
+                .info{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    padding: 0.8rem;
+
+                    .stars, .review{
+                        width: 75%;
+                    }
+
+                    .stars{
+                        height: 1.2rem;
+                    }
+
+                    .route, .name{
+                        width: 75%;
+                        margin-bottom: .5rem;
+                    }
+
+                    .date, .seat{
+                        width: 40%;
+                    }
+
+                    .price{
+                        width: 55%;
+                    }
+
+                    div{
+                        height: 1rem;
+                        background-color: $hov;
+                        border-radius: .2rem;
+                        overflow: hidden;
+                        position: relative;
+
+                        &::after{
+                            position: absolute;
+                            content: "";
+                            top: 0;
+                            left: 0;
+                            width: 80%;
+                            height: 100%;
+                            transform: skewX(-20deg);
+                            background-color: rgb(255,255,255,.08);
+                            animation: skeleton_animation 1s linear infinite;
+                        }
+                    }
+                }
+            }
+
             .trending,.hotel,.flight{
                 background-color: white;
                 border-radius: 1rem;
@@ -200,6 +277,12 @@
             transform: translateX(calc(-80vw - 1rem));
         }
     }
+}
+
+@keyframes skeleton_animation {
+    0% {transform: translateX(-150%) skewX(-20deg);}
+    50% {transform: translateX(-60%) skewX(-20deg);}
+    100% {transform: translateX(150%) skewX(-20deg);}
 }
 
 .travel-now{

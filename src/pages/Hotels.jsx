@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer"
 import "../style/Hotels.scss"
-import { hotelsArray } from "../components/HotelsData";
 import { IconWifi } from "@tabler/icons-react";
 import { IconPool } from "@tabler/icons-react";
 import { IconParking } from "@tabler/icons-react";
@@ -296,27 +295,58 @@ function SearchHotels(){
     )
 }
 
-function HotelSearchGrid(props){
-    
-    const filters = props.filters
+function HotelSearchGrid({ filters }){
 
-    let arrayHotels = []
+    const [hotelsArray, setHotelsArray] = useState(null)
+    const [showHotelsArray, setShowHotelsArray] = useState(null)
 
-    hotelsArray.forEach((hotel) => {
-        if (
-            // city
-            (hotel.city === filters.city || filters.city === "All") &&
-            // star
-            (filters.star.includes(hotel.stars) || filters.star.length === 0) &&
-            // // facilities
-            (filters.facilities.every(filter => hotel.facilities.includes(filter)) || filters.facilities.length === 0)
-        ){
-            arrayHotels.push(hotel)
+    useEffect(() => {
+        const apiEndpoint = import.meta.env.VITE_API_ENDPOINT
+        setTimeout(async() => {
+            let data = await fetch(`${apiEndpoint}hotels/`)
+            data = await data.json()
+            // console.log(data)
+            data = data.map(item => ({...item, id: parseInt(item.id), stars: parseInt(item.stars), rate: parseInt(item.rate), price: parseInt(item.price), facilities: JSON.parse(item.facilities), category: "hotels"}))
+
+            setHotelsArray(data)
+        }, 3000);
+    }, [])
+
+    useEffect(() => {
+        setShowHotelsArray(hotelsArray)
+
+        if (hotelsArray){
+            setShowHotelsArray(filteringHotels([...hotelsArray]))
+            
+            if (filters.sort === "Lowest price"){
+                setShowHotelsArray(showHotelsArray => (sortArrayOfObjects([...showHotelsArray], "price", true)))
+            }
+            else if (filters.sort === "Highest price"){
+                setShowHotelsArray(showHotelsArray => (sortArrayOfObjects([...showHotelsArray], "price")))
+            }
+            else if (filters.sort === "Review score"){
+                setShowHotelsArray(showHotelsArray => (sortArrayOfObjects([...showHotelsArray], "rate")))
+            }
         }
-    })
+    }, [hotelsArray, filters])
+
+    // filtering hotels
+    function filteringHotels(array){
+        return array.filter(hotel => {
+            if (// city
+                (hotel.city === filters.city || filters.city === "All") &&
+                // star
+                (filters.star.includes(hotel.stars) || filters.star.length === 0) &&
+                // // facilities
+                (filters.facilities.every(filter => hotel.facilities.includes(filter)) || filters.facilities.length === 0)
+            ){
+                return hotel
+            }   
+        })
+    }
 
     // sorting hotels
-    function sortArrayOfObjects(array, key, ascending = true) {
+    function sortArrayOfObjects(array, key, ascending = false) {
         return array.sort((a, b) => {
             const valueA = a[key];
             const valueB = b[key];
@@ -332,15 +362,6 @@ function HotelSearchGrid(props){
         
             return 0;
         });
-    }
-    if (filters.sort === "Lowest price"){
-        arrayHotels = sortArrayOfObjects(arrayHotels, "price")
-    }
-    else if (filters.sort === "Highest price"){
-        arrayHotels = sortArrayOfObjects(arrayHotels, "price", false)
-    }
-    else if (filters.sort === "Review score"){
-        arrayHotels = sortArrayOfObjects(arrayHotels, "rate", false)
     }
 
     // add to storage
@@ -375,10 +396,8 @@ function HotelSearchGrid(props){
             if (savedHotels[i].name === item.name){
                 return true
             }
-            else if (i === savedHotels.length - 1){
-                return false
-            }
         }
+        return false
     }
 
     useEffect(() => {
@@ -386,9 +405,9 @@ function HotelSearchGrid(props){
     }, [savedHotels])
 
     return (
-        <div className={`hotel-search-grid ${arrayHotels.length === 0 ? "empty-hotel" : ""}`}>
+        <div className={`hotel-search-grid ${showHotelsArray && showHotelsArray.length === 0 ? "empty-hotel" : ""}`}>
             {
-                arrayHotels.length === 0 &&
+                (showHotelsArray && showHotelsArray.length === 0) &&
                 <div className="no-hotels">
                     <IconHomeOff stroke={1.5} />
                     <div className="text-head">No hotels available</div>
@@ -396,7 +415,14 @@ function HotelSearchGrid(props){
                 </div>
             }
             {
-                arrayHotels.map((hotel, index) => {
+                !showHotelsArray &&
+                [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40].map(item => (
+                    <HotelSkeleton key={item} />
+                ))
+            }
+            {
+                (showHotelsArray && showHotelsArray.length > 0) &&
+                showHotelsArray.map((hotel, index) => {
                     return (
                         <div className="hotel" key={index}>
                             <div className="hotel-left">
@@ -423,6 +449,26 @@ function HotelSearchGrid(props){
                     )
                 })
             }
+        </div>
+    )
+}
+
+function HotelSkeleton(){
+    return (
+        <div className="hotel-skeleton">
+            <div className="left">
+                <div className="img"></div>
+                <div className="info">
+                    <div className="thick"></div>
+                    <div className="thick"></div>
+                    <div className="thick"></div>
+                    <div className="thick city"></div>
+                </div>
+            </div>
+            <div className="right">
+                <div className="thick"></div>
+                <div className="square"></div>
+            </div>
         </div>
     )
 }
