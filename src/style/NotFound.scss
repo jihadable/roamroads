@@ -1,0 +1,18 @@
+.not-found{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img{
+        width: 15rem;
+    }
+
+    a{
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+    }
+}

@@ -1,17 +1,15 @@
-import { IconBrandTwitter } from "@tabler/icons-react"
-import "../style/Footer.scss"
-import { IconBrandInstagram } from "@tabler/icons-react"
-import { IconBrandTiktok } from "@tabler/icons-react"
-import logo from "../assets/roam-roads-logo.jpg"
-import playStore from "../assets/play-store.png"
+import { IconBrandInstagram, IconBrandTiktok, IconBrandTwitter } from "@tabler/icons-react"
 import appStore from "../assets/app-store.png"
+import playStore from "../assets/play-store.png"
+import logo from "../assets/roam-roads-logo.jpg"
+import "../style/Footer.scss"
 
 function Footer(){
 
     const dataSosmed = [
-        <IconBrandTwitter />,
-        <IconBrandInstagram />,
-        <IconBrandTiktok />
+        <IconBrandTwitter key={0} />,
+        <IconBrandInstagram key={1} />,
+        <IconBrandTiktok key={2} />
     ]
 
     return (
@@ -22,19 +20,15 @@ function Footer(){
                 </div>
                 <div className="links">
                     <div className="link">
-                        <div className="item">About</div>
-                        <div className="item">FAQs</div>
-                        <div className="item">Help Center</div>
+                        <div className="item">Tentang</div>
+                        <div className="item">Karir</div>
+                        <div className="item">Pusat Bantuan</div>
                     </div>
                     <div className="sosmed">
                     {
-                        dataSosmed.map((data, index) => {
-                            return (
-                                <div className="item" key={index}>
-                                    {data}
-                                </div>
-                            )
-                        })
+                        dataSosmed.map((data, index) => (
+                            <div className="item" key={index}>{data}</div>
+                        ))
                     }
                     </div>
                     <div className="apps">
@@ -44,7 +38,7 @@ function Footer(){
                 </div>
             </div>
             <div className="footer-bottom">
-                <div className="copyright">©2023 RoamRoads</div>
+                <div className="copyright">©2024 RoamRoads</div>
                 <div className="privacy-policy">Privacy Policy</div>
             </div>
         </footer>

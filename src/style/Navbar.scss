@@ -3,8 +3,6 @@
 .navbar{
     position: fixed;
     padding: .5rem 10vw;
-    background-color: rgb(255,255,255,.5);
-    backdrop-filter: blur(5px);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -13,6 +11,12 @@
     left: 0;
     font-size: 1.2rem;
     z-index: 20;
+    transition: background-color .2s;
+
+    &.white{
+        background-color: white;
+        box-shadow: 0 0 10px -2px rgb(0,0,0,.3);
+    }
 
     &-logo{
         display: flex;
@@ -29,68 +33,11 @@
         align-items: center;
         gap: 2rem;
 
-        a:hover{
-            color: $orange;
-        }
-
         .link{
             transition: all .2s;
-            position: relative;
-            cursor: pointer;
 
             &:hover{
-
-                .booknow-popup{
-                    transform: scale(1);
-                }
-
-                span svg{
-                    color: black;
-                    transform: rotate(-180deg);             
-                }
-            }
-            
-            span{
-                display: flex;
-                align-items: center;
-
-                &:hover{
-                    color: $orange;
-                }
-
-                svg{
-                    transition: all .3s;
-                }
-            }
-
-            .booknow-popup{
-                position: absolute;
-                background-color: white;
-                box-shadow: 0 0 10px -2px rgb(0,0,0,.3);
-                padding: 1.2rem .7rem;
-                padding-right: 3rem;
-                border-radius: .5rem;
-                top: 100%;
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                transform: scale(0);
-                transition: all .1s;
-                transform-origin: top left;
-
-                .popup-link{
-                    display: flex;
-                    align-items: center;
-                    gap: .5rem;
-
-                    &:hover{
-                        color: $orange;
-
-                        svg{
-                            color: black;
-                        }
-                    }
-                }
+                color: $orange;
             }
         }
     }
@@ -99,6 +46,63 @@
         display: flex;
         align-items: center;
         gap: 1rem;
+
+        .account{
+            display: flex;
+            position: relative;
+
+            &-btn{
+                display: flex;
+                cursor: pointer;
+
+                img{
+                    width: 2.5rem;
+                    border-radius: 100rem;
+                }
+            }
+
+            &-menu{
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                background-color: white;
+                box-shadow: 0 0 10px -2px rgb(0,0,0,.3);
+                top: calc(100% + 5px);
+                border-radius: .5rem;
+                right: 5px;
+                gap: 1rem;
+                padding: 1rem;
+                transition: all .1s;
+                transform-origin: top right;
+                transform: scale(0);
+
+                &.active{
+                    transform: scale(1);
+                }
+
+                a, button{
+                    font-size: 1.2rem;
+                    border: none;
+                    outline: none;
+                    background-color: transparent;
+                    text-align: left;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+
+                    span{
+                        transition: all .2s;
+                    }
+
+                    &:hover{
+                        span{
+                            color: $orange;
+                        }
+                    }
+                }
+            }
+        }
 
         .login-btn{
             transition: all .2s;
@@ -160,11 +164,15 @@
             transform-origin: top right;
             transform: scale(0);
 
-            a{
+            a, button{
                 display: flex;
                 align-items: center;
                 gap: .5rem;
                 padding-right: 2rem;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                font-size: 1.2rem;
 
                 &:hover{
                     span{
@@ -229,12 +237,15 @@
             transform-origin: top right;
             transform: scale(0);
 
-            a{
+            a, button{
                 display: flex;
                 align-items: center;
                 gap: .5rem;
                 font-size: 1.2rem;
                 padding-right: 3rem;
+                background-color: transparent;
+                border: none;
+                outline: none;
 
                 svg{
                     width: 1.5rem;

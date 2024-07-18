@@ -1,22 +1,13 @@
-import { useEffect, useState } from "react";
+import Rating from "@mui/material/Rating";
+import { IconArrowLeft, IconBarbell, IconBookmark, IconCalendarStats, IconCheck, IconChevronDown, IconDisabled, IconElevator, IconFilter, IconHomeOff, IconMapPinFilled, IconParking, IconPool, IconToolsKitchen2, IconWifi } from "@tabler/icons-react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer"
-import "../style/Hotels.scss"
-import { IconWifi } from "@tabler/icons-react";
-import { IconPool } from "@tabler/icons-react";
-import { IconParking } from "@tabler/icons-react";
-import { IconToolsKitchen2 } from "@tabler/icons-react";
-import { IconElevator } from "@tabler/icons-react";
-import { IconDisabled } from "@tabler/icons-react";
-import { IconBarbell } from "@tabler/icons-react";
-import { IconCalendarStats } from "@tabler/icons-react";
-import { IconFilter } from "@tabler/icons-react";
-import { IconCheck } from "@tabler/icons-react";
-import { IconHomeOff } from "@tabler/icons-react";
-import { IconMapPinFilled } from "@tabler/icons-react";
-import { IconBookmark } from "@tabler/icons-react";
-import { IconChevronDown } from "@tabler/icons-react";
-import Rating from "@mui/material/Rating"
+import { AuthContext } from "../contexts/AuthContext";
+import { HotelsContext } from "../contexts/HotelsContext";
+import "../style/Hotels.scss";
+import getIdCurrency from "../utils/getIdCurrency";
 
 function Hotels(){
     document.title = "RoamRoads | Hotels"
@@ -31,20 +22,51 @@ function Hotels(){
 }
 
 function HotelSearchContainer(){
+
+    const [searchParams, setSearchParams] = useSearchParams()
+    const city = searchParams.get("search")
+
+    const searchCityElement = useRef(null)
+    
+    const handleSearch = () => {
+        const inputCity = searchCityElement.current.value.toLowerCase()
+
+        if (inputCity.length > 0){
+            setSearchParams({ search: inputCity })
+        }
+    }
+
     return (
         <section className="hotel-search-container">
-            <SearchHotels />
+        {
+            city === null || city === "" ?
+            <div className="search">
+                <div className="title">Dapatkan hotel sesuai dengan keinginan Anda</div>
+                <div className="search-input">
+                    <input type="text" placeholder="Masukkan nama kota" ref={searchCityElement} />
+                    <button type="button" onClick={handleSearch}>Cari</button>
+                </div>
+            </div> :
+            <div className="result">
+                <Link to={"/hotels"} className="back">
+                    <IconArrowLeft stroke={1.5} />
+                    <span>Kembali</span>
+                </Link>
+                <div className="result-container">
+                    <SearchHotels city={city} />
+                </div>
+            </div>
+        }
         </section>
     )
 }
 
-function SearchHotels(){
+function SearchHotels({ city }){
 
     // filter: city, price, star, facilities
-
     const [filters, setFilters] = useState({
         // city
-        city: "All",
+        city,
         // price
         sort: "All",
         // star
@@ -53,8 +75,7 @@ function SearchHotels(){
         facilities: []
     })
 
-    const cityData = ["Kendari", "Yogyakarta", "Bandung", "Jakarta", "Bali", "Lombok", "Makassar"]
-    const sortData = ["Highest price", "Lowest price", "Review score"]
+    const sortData = ["Harga termahal", "Harga termurah"]
     const starRatingData = [1,2,3,4,5]
     const facilitiesData = [
         {
@@ -62,43 +83,41 @@ function SearchHotels(){
             svg: <IconWifi stroke={1.5} />
         },
         {
-            title: "Swimming Pool",
+            title: "Kolam Renang",
             svg: <IconPool stroke={1.5} />
         },
         {
-            title: "Parking",
+            title: "Parkir",
             svg: <IconParking stroke={1.5} />
         },
         {
-            title: "Restaurant",
+            title: "Restoran",
             svg: <IconToolsKitchen2 stroke={1.5} />
         },
         {
-            title: "Elevator",
+            title: "Lift",
             svg: <IconElevator stroke={1.5} />
         },
         {
-            title: "Wheelchair Access",
+            title: "Akses Kursi Roda",
             svg: <IconDisabled stroke={1.5} />
         },
         {
-            title: "Fitness Center",
+            title: "Ruang Fitness",
             svg: <IconBarbell stroke={1.5} />
         },
         {
-            title: "Meeting Facilities",
+            title: "Ruang Meeting",
             svg: <IconCalendarStats stroke={1.5} />
         }
     ]
     
     const [
-        [showFilter, setShowFilter],
-        [showCities, setShowCities],   
+        [showFilter, setShowFilter],   
         [showSort, setShowSort],
         [showStarRating, setShowStarRating],
         [showFacilities, setShowFacilities]
     ] = [
-        useState(false),
         useState(false),
         useState(false),
         useState(false),
@@ -146,7 +165,7 @@ function SearchHotels(){
                 </div>
                 <div className="reset-filter" onClick={() => {
                     setFilters({
-                        city: "All",
+                        city,
                         price: "All",
                         star: [],
                         facilities: []
@@ -155,80 +174,48 @@ function SearchHotels(){
             </div>
             <div className={`filter-content ${showFilter ? "active" : ""}`}>
                 <div className="line"></div>
-                <div className="city">
-                    <h4 className="head" onClick={() => {setShowCities(!showCities)}}>
-                        <span>City</span>
-                        <IconChevronDown stroke={1.5} className={`${showCities ? "rotate" : ""}`} />
-                    </h4>
-                    <div className={`content ${showCities ? "active" : ""}`}>
-                        {
-                            cityData.map((city, index) => {
-                                return (
-                                    <div className="city-option" key={index} onClick={() => {
-                                        if (filters.city === city){
-                                            city = "All"
-                                        }
-                                        setFilters(filters => {
-                                            return (
-                                                {...filters, ["city"]: city}
-                                            )
-                                        })
-                                    }}>
-                                        <span className={`circle ${filters.city === city ? "selected" : ""}`}></span>
-                                        {city} {city === "All" ? "cities" : ""}
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-                <div className="line"></div>
                 <div className="price">
                     <h4 className="head" onClick={() => {setShowSort(!showSort)}}>
-                        <span>Sort by</span>
+                        <span>Urutkan</span>
                         <IconChevronDown stroke={1.5} className={`${showSort ? "rotate" : ""}`} />
                     </h4>
                     <div className={`content ${showSort ? "active" : ""}`}>
-                        {
-                            sortData.map((sort, index) => {
-                                return ( 
-                                    <div className="sort-option" key={index} onClick={() => {
-                                        if (filters.sort === sort){
-                                            sort = "All"
-                                        }
-                                        setFilters(filters => {
-                                            return (
-                                                {...filters, ["sort"]: sort}
-                                            )
-                                        })
-                                    }}>
-                                        <span className={`circle ${filters.sort === sort ? "selected" : ""}`}>
-                                        </span>
-                                        {sort}
-                                    </div>          
-                                )
-                            })
-                        }
+                    {
+                        sortData.map((sort, index) => (
+                            <div className="sort-option" key={index} onClick={() => {
+                                if (filters.sort === sort){
+                                    sort = "All"
+                                }
+                                setFilters(filters => {
+                                    return (
+                                        {...filters, ["sort"]: sort}
+                                    )
+                                })
+                            }}>
+                                <span className={`circle ${filters.sort === sort ? "selected" : ""}`}>
+                                </span>
+                                {sort}
+                            </div>
+                        ))
+                    }
                     </div>
                 </div>
                 <div className="line"></div>
                 <div className="star-rating">
                     <h4 className="head" onClick={() => {setShowStarRating(!showStarRating)}}>
-                        <span>Stars rating</span>
+                        <span>Bintang</span>
                         <IconChevronDown stroke={1.5} className={`${showStarRating ? "rotate" : ""}`} />
                     </h4>
                     <div className={`content ${showStarRating ? "active" : ""}`}>
                         {
-                            starRatingData.map((star, index) => {
-                                return (
-                                    <div className="star-item" key={index} onClick={() => {addRemoveFilter(star, "star")}}>
-                                        <span className={`checkbox ${filters["star"].includes(star) ? "checked" : ""}`}>
-                                            <IconCheck stroke={1.5} />
-                                        </span>
-                                        <Rating value={star} className="star-sum" readOnly />
-                                    </div>
-                                )
-                            })
+                            starRatingData.map((star, index) => (
+                                <div className="star-item" key={index} onClick={() => {addRemoveFilter(star, "star")}}>
+                                    <span className={`checkbox ${filters["star"].includes(star) ? "checked" : ""}`}>
+                                        <IconCheck stroke={1.5} />
+                                    </span>
+                                    <Rating value={star} className="star-sum" readOnly />
+                                </div>
+                            ))
                         }
                         <div className="stars-footer">
                             <div className="select-all-stars" onClick={() => {
@@ -237,7 +224,7 @@ function SearchHotels(){
                                         {...filters, ["star"]: [1,2,3,4,5]}
                                     )
                                 })
-                            }}>Select all</div>
+                            }}>Pilih semua</div>
                             <div className="reset-stars" onClick={() => {
                                 setFilters(filters => {
                                     return (
@@ -251,24 +238,22 @@ function SearchHotels(){
                 <div className="line"></div>
                 <div className="facilities">
                     <h4 className="head" onClick={() => {setShowFacilities(!showFacilities)}}>
-                        <span>Facilities</span>
+                        <span>Fasilitas</span>
                         <IconChevronDown stroke={1.5} className={`${showFacilities ? "rotate" : ""}`} />
                     </h4>
                     <div className={`content ${showFacilities ? "active" : ""}`}>
                         {
-                            facilitiesData.map((facility, index) => {
-                                return (
-                                    <div className="facility-option" key={index} onClick={() => {
-                                        addRemoveFilter(facility.title, "facilities")
-                                    }}>
-                                        <span className={`checkbox ${filters.facilities.includes(facility.title) ? "checked" : ""}`}>
-                                            <IconCheck stroke={1.5} />
-                                        </span>
-                                        {facility.svg}
-                                        <span className="facility-item">{facility.title}</span>
-                                    </div>
-                                )
-                            })
+                            facilitiesData.map((facility, index) => (
+                                <div className="facility-option" key={index} onClick={() => {
+                                    addRemoveFilter(facility.title, "facilities")
+                                }}>
+                                    <span className={`checkbox ${filters.facilities.includes(facility.title) ? "checked" : ""}`}>
+                                        <IconCheck stroke={1.5} />
+                                    </span>
+                                    {facility.svg}
+                                    <span className="facility-item">{facility.title}</span>
+                                </div>
+                            ))
                         }
                         <div className="facilities-footer">
                             <div className="select-all-facilities" onClick={() => {
@@ -277,7 +262,7 @@ function SearchHotels(){
                                         {...filters, ["facilities"]: ["Wifi", "Swimming Pool", "Parking", "Restaurant", "Elevator", "Wheelchair Access", "Fitness Center", "Meeting Facilities"]}
                                     )
                                 })
-                            }}>Select all</div>
+                            }}>Pilih semua</div>
                             <div className="reset-facilities" onClick={() => {
                                 setFilters(filters => {
                                     return (
@@ -297,53 +282,37 @@ function SearchHotels(){
 
 function HotelSearchGrid({ filters }){
 
-    const [hotelsArray, setHotelsArray] = useState(null)
-    const [showHotelsArray, setShowHotelsArray] = useState(null)
+    const { isLogin } = useContext(AuthContext)
+
+    const { hotels } = useContext(HotelsContext)
+    const [filteredHotels, setFilteredHotels] = useState(null)
 
     useEffect(() => {
-        const apiEndpoint = import.meta.env.VITE_API_ENDPOINT
-        setTimeout(async() => {
-            let data = await fetch(`${apiEndpoint}hotels/`)
-            data = await data.json()
-            // console.log(data)
-            data = data.map(item => ({...item, id: parseInt(item.id), stars: parseInt(item.stars), rate: parseInt(item.rate), price: parseInt(item.price), facilities: JSON.parse(item.facilities), category: "hotels"}))
+        setFilteredHotels(hotels)
 
-            setHotelsArray(data)
-        }, 3000);
-    }, [])
-
-    useEffect(() => {
-        setShowHotelsArray(hotelsArray)
-
-        if (hotelsArray){
-            setShowHotelsArray(filteringHotels([...hotelsArray]))
+        if (hotels){
+            setFilteredHotels(() => {
+                return [...hotels].filter(hotel => {
+                    if (// city
+                        (hotel.city.toLowerCase() === filters.city) &&
+                        // star
+                        (filters.star.includes(hotel.stars) || filters.star.length === 0) &&
+                        // // facilities
+                        (filters.facilities.every(filter => hotel.facilities.includes(filter)) || filters.facilities.length === 0)
+                    ){
+                        return hotel
+                    }   
+                })
+            })
             
-            if (filters.sort === "Lowest price"){
-                setShowHotelsArray(showHotelsArray => (sortArrayOfObjects([...showHotelsArray], "price", true)))
+            if (filters.sort === "Harga termurah"){
+                setFilteredHotels(filteredHotels => (sortArrayOfObjects([...filteredHotels], "price", true)))
             }
-            else if (filters.sort === "Highest price"){
-                setShowHotelsArray(showHotelsArray => (sortArrayOfObjects([...showHotelsArray], "price")))
-            }
-            else if (filters.sort === "Review score"){
-                setShowHotelsArray(showHotelsArray => (sortArrayOfObjects([...showHotelsArray], "rate")))
+            else if (filters.sort === "Harga termahal"){
+                setFilteredHotels(filteredHotels => (sortArrayOfObjects([...filteredHotels], "price")))
             }
         }
-    }, [hotelsArray, filters])
-
-    // filtering hotels
-    function filteringHotels(array){
-        return array.filter(hotel => {
-            if (// city
-                (hotel.city === filters.city || filters.city === "All") &&
-                // star
-                (filters.star.includes(hotel.stars) || filters.star.length === 0) &&
-                // // facilities
-                (filters.facilities.every(filter => hotel.facilities.includes(filter)) || filters.facilities.length === 0)
-            ){
-                return hotel
-            }   
-        })
-    }
+    }, [hotels, filters])
 
     // sorting hotels
     function sortArrayOfObjects(array, key, ascending = false) {
@@ -364,90 +333,72 @@ function HotelSearchGrid({ filters }){
         });
     }
 
-    // add to storage
-    const [savedHotels, setsavedHotels] = useState(JSON.parse(localStorage.getItem("savedHotels")))
+    const { savedHotels, setSavedHotels } = useContext(HotelsContext)
 
-    function addRemoveSaved(item){
-        let newSaved = [...savedHotels]
+    const handleClickSaveBtn = (hotel) => {
+        const id = hotel.id
 
-        let index = -1
-        newSaved.forEach((saved, i) => {
-            if (saved.name === item.name){
-                index = i
-
-                return
-            }
-        })
-
-        if (index > -1){
-            newSaved.splice(index, 1)
-
-            setsavedHotels(newSaved)
+        if (checkSaved(id)){
+            setSavedHotels(savedHotels => (savedHotels.filter(hotel => hotel.id !== id)))
         }
         else {
-            setsavedHotels(saved => {
-                return [...saved, item]
-            })
+            setSavedHotels(savedHotels => [...savedHotels, hotel])
         }
     }
 
-    function checkSavedItem(item){
-        for (let i = 0 ; i < savedHotels.length ; i++){
-            if (savedHotels[i].name === item.name){
+    const checkSaved = id => {
+        for (let hotel of savedHotels){
+            if (hotel.id === id){
                 return true
             }
         }
+
         return false
     }
 
-    useEffect(() => {
-        localStorage.setItem("savedHotels", JSON.stringify(savedHotels))
-    }, [savedHotels])
+    const imageAPIEndpoint = import.meta.env.VITE_IMAGES_API_ENDPOINT
 
     return (
-        <div className={`hotel-search-grid ${showHotelsArray && showHotelsArray.length === 0 ? "empty-hotel" : ""}`}>
+        <div className={`hotel-search-grid ${filteredHotels && filteredHotels.length === 0 ? "empty-hotel" : ""}`}>
             {
-                (showHotelsArray && showHotelsArray.length === 0) &&
+                (filteredHotels && filteredHotels.length === 0) &&
                 <div className="no-hotels">
                     <IconHomeOff stroke={1.5} />
-                    <div className="text-head">No hotels available</div>
-                    <div className="text">Lorem ipsum dolor sit amet.</div>
+                    <div className="text-head">Tidak ada hotel yang sesuai</div>
                 </div>
             }
             {
-                !showHotelsArray &&
+                !filteredHotels &&
                 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40].map(item => (
                     <HotelSkeleton key={item} />
                 ))
             }
             {
-                (showHotelsArray && showHotelsArray.length > 0) &&
-                showHotelsArray.map((hotel, index) => {
-                    return (
-                        <div className="hotel" key={index}>
-                            <div className="hotel-left">
-                                <img className="hotel-img" src={hotel.img} alt={hotel.name} />
-                                <div className="hotel-info">
-                                    <h4 className="hotel-name">{hotel.name}</h4>
-                                    <Rating value={hotel.stars} className="hotel-rating" readOnly />
-                                    <div className="hotel-review">
-                                        {hotel.rate}/5 - {hotel.review} reviews
-                                    </div>
-                                    <div className="hotel-city">
-                                        <IconMapPinFilled stroke={1.5} />
-                                        {hotel.city}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="hotel-right">
-                                <div className="hotel-price">{`$${hotel.price}`}</div>
-                                <div className={`save-btn ${checkSavedItem(hotel) ? "saved" : ""}`} onClick={() => {addRemoveSaved(hotel)}}>
-                                    <IconBookmark stroke={1.5} />
+                (filteredHotels && filteredHotels.length > 0) &&
+                filteredHotels.map((hotel, index) => (
+                    <div className="hotel" key={index}>
+                        <div className="hotel-left">
+                            <img className="hotel-img" src={`${imageAPIEndpoint}/hotels/${hotel.image}`} alt={hotel.name} />
+                            <div className="hotel-info">
+                                <h4 className="hotel-name">{hotel.name}</h4>
+                                <Rating value={hotel.stars} className="hotel-rating" readOnly />
+                                <div className="hotel-city">
+                                    <IconMapPinFilled stroke={1.5} />
+                                    {hotel.city}
                                 </div>
                             </div>
                         </div>
-                    )
-                })
+                        <div className="hotel-right">
+                            <div className="hotel-price">{getIdCurrency(hotel.price)}</div>
+                        {
+                            isLogin &&
+                            <div className={`save-btn ${checkSaved(hotel.id) ? "saved" : ""}`} onClick={() => handleClickSaveBtn(hotel)}>
+                                <IconBookmark stroke={1.5} />
+                            </div>
+                        }
+                        </div>
+                    </div>
+                ))
             }
         </div>
     )

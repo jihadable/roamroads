@@ -1,83 +1,120 @@
-import { useEffect, useState, useRef } from "react"
+import { IconBookmark, IconBuildingSkyscraper, IconHome, IconLogin, IconLogout, IconMenu2, IconPlaneDeparture, IconUserCircle } from "@tabler/icons-react"
+import { useContext, useEffect, useRef, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import roamRoadsLogo from "../assets/roam-roads-logo.jpg"
+import { AuthContext } from "../contexts/AuthContext"
 import "../style/Navbar.scss"
-import { IconHome2 } from "@tabler/icons-react"
-import { IconPlaneDeparture } from "@tabler/icons-react"
-import { IconTrain } from "@tabler/icons-react"
-import { IconMenu2 } from "@tabler/icons-react"
-import { IconHome } from "@tabler/icons-react"
-import { IconBookmark } from "@tabler/icons-react"
-import { IconLogin } from "@tabler/icons-react"
-import { IconChevronDown } from "@tabler/icons-react"
-import { Link } from "react-router-dom"
-import goTop from "./goTop"
+import goTop from "../utils/goTop"
 
 function Navbar(){
 
-    const trips = [
+    const { isLogin, setIsLogin, user, setUser } = useContext(AuthContext)
+
+    const links = [
         {
-            name: "Hotels",
-            svg: <IconHome2 stroke={1.5} />,
+            name: "Hotel",
+            svg: <IconBuildingSkyscraper stroke={1.5} />,
             link: "hotels"
         },
         {
-            name: "Flights",
+            name: "Tiket pesawat",
             svg: <IconPlaneDeparture stroke={1.5} />,
             link: "flights"
-        },
-        {
-            name: "Trains",
-            svg: <IconTrain stroke={1.5} />,
-            link: "trains"
         }
     ]
 
-    const [showMobileLink, setShowMobileLink] = useState(false)
+    const [showAccountMenu, setShowAccountMenu] = useState(false)
+    const accountBtn = useRef(null)
+    const accountMenu = useRef(null)
 
-    const mobileLink = useRef()
-    const mobileMenuBtn = useRef()
+    const [showMobileLink, setShowMobileLink] = useState(false)
+    const [isScrolled, setIsScrolled] = useState(false)
+
+    const mobileLink = useRef(null)
+    const mobileMenuBtn = useRef(null)
 
     useEffect(() => {
-        document.addEventListener("click", function(e){
-            if (!mobileLink.current.contains(e.target) && !mobileMenuBtn.current.contains(e.target)){
+        const handleClickOutside = (e) => {
+            if (!mobileLink.current?.contains(e.target) && !mobileMenuBtn.current?.contains(e.target)){
                 setShowMobileLink(false)
             }
-        })
-        
-        document.addEventListener("scroll", function(){
+            if (!accountMenu.current?.contains(e.target) && !accountBtn.current?.contains(e.target)){
+                setShowAccountMenu(false)
+            }
+        }
+
+        const handleScroll = () => {
+            if (window.scrollY >= 100) {
+                setIsScrolled(true)
+            } else {
+                setIsScrolled(false)
+            }
             setShowMobileLink(false)
-        })
-    })
+            setShowAccountMenu(false)
+        }
+
+        document.addEventListener("click", handleClickOutside)
+        document.addEventListener("scroll", handleScroll)
+
+        return () => {
+            document.removeEventListener("click", handleClickOutside)
+            document.removeEventListener("scroll", handleScroll)
+        }
+    }, [])
+
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        setIsLogin(false)
+        setUser(null)
+
+        localStorage.removeItem("token")
+        localStorage.removeItem("savedHotels")
+        localStorage.removeItem("savedFlights")
+
+        navigate("/")
+    }
 
     return (
-        <nav className="navbar">
+        <nav className={`navbar ${isScrolled ? "white" : ""}`}>
             <Link to="/" onClick={goTop} className="navbar-logo">
                 <img src={roamRoadsLogo} alt="Logo" />
             </Link>
             <div className="navbar-link">
-                <Link to="/" onClick={goTop} className="link home-btn">Home</Link>
-                <div className="link">
-                    <span>
-                        Book now <IconChevronDown stroke={1.5} />
-                    </span>
-                    <div className="booknow-popup">
-                        {
-                            trips.map((trip, index) => {
-                                return (
-                                    <Link to={`/${trip.link}`} onClick={goTop} key={index} className="popup-link">
-                                        {trip.svg}
-                                        <span>{trip.name}</span>
-                                    </Link>
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-                <Link to={"/saved"} onClick={goTop} className="link">Saved</Link>
+                <Link to="/" onClick={goTop} className="link">Beranda</Link>
+                <Link to={"/hotels"} className="link">Hotel</Link>
+                <Link to={"/flights"} className="link">Tiket pesawat</Link>
             </div>
             <div className="navbar-extra">
+            {
+                isLogin === true &&
+                <div className="account">
+                    <div className="account-btn" onClick={() => setShowAccountMenu(!showAccountMenu)} ref={accountBtn}>
+                        <img src={`${import.meta.env.VITE_AVATAR_GENERATOR}name=${user.name}`} alt="User" />
+                    </div>
+                    <div className={`account-menu ${showAccountMenu ? "active" : ""}`} ref={accountMenu}>
+                        <Link to={"/account"}>
+                            <IconUserCircle stroke={1.5} />
+                            <span>Akun</span>
+                        </Link>
+                        <Link to={"/saved"}>
+                            <IconBookmark stroke={1.5} />
+                            <span>Simpanan</span>
+                        </Link>
+                        <button type="button" onClick={handleLogout}>
+                            <IconLogout stroke={1.5} />
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+            }
+            {
+                isLogin === false &&
+                <>
                 <Link to="/login" onClick={goTop} className="login-btn">Login</Link>
-                <Link to="/signup" onClick={goTop} className="signup-btn">Signup</Link>
+                <Link to="/signup" onClick={goTop} className="signup-btn">Daftar</Link>
+                </>
+            }
             </div>
 
             {/* mobile */}
@@ -89,31 +126,45 @@ function Navbar(){
             <div className={`mobile-link ${showMobileLink ? "active" : ""}`} ref={mobileLink}>
                 <Link to="/" onClick={goTop}>
                     <IconHome stroke={1.5} />
-                    <span>Home</span>
+                    <span>Beranda</span>
                 </Link>
                 <div className="line"></div>
                 {
                     
-                    trips.map((trip, index) => {
-                        return (
-                            <Link to={`/${trip.link}`} onClick={goTop} key={index}>
-                                {trip.svg}
-                                <span>{trip.name}</span>
-                            </Link>
-                        )
-                    })
+                    links.map((trip, index) => (
+                        <Link to={`/${trip.link}`} onClick={goTop} key={index}>
+                            {trip.svg}
+                            <span>{trip.name}</span>
+                        </Link>
+                    ))
                 
                 }
-                <div className="line"></div>
-                <Link to={"/saved"} onClick={goTop}>
-                    <IconBookmark stroke={1.5} />
-                    <span>Saved</span>
-                </Link>
-                <div className="line"></div>
-                <Link to="/login" onClick={goTop}>
-                    <IconLogin stroke={1.5} />
-                    <span>Login</span>
-                </Link>
+                {
+                    isLogin ?
+                    <>
+                    <div className="line"></div>
+                    <Link to={"/account"} onClick={goTop}>
+                        <IconUserCircle stroke={1.5} />
+                        <span>Akun</span>
+                    </Link>
+                    <Link to={"/saved"} onClick={goTop}>
+                        <IconBookmark stroke={1.5} />
+                        <span>Simpanan</span>
+                    </Link>
+                    <div className="line"></div>
+                    <button type="button" onClick={handleLogout}>
+                        <IconLogout stroke={1.5} />
+                        <span>Logout</span>
+                    </button>
+                    </> :
+                    <>
+                    <div className="line"></div>
+                    <Link to="/login" onClick={goTop}>
+                        <IconLogin stroke={1.5} />
+                        <span>Login</span>
+                    </Link>
+                    </>
+                }
             </div>
         </nav>
     )
