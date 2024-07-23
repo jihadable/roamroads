@@ -9,4 +9,4 @@ RoamRoads is a booking app. The website presents a list of train departures, fli
 <br/>
 » ReactJS 
 
-<img src="https://umarjihad.netlify.app/pic/roam-roads.png" />
+<img src="https://umarjihad.netlify.app/pic/roamroads.png" />
