@@ -1,0 +1,49 @@
+@import "./index.scss";
+
+.autocomplete{
+    width: 100%;
+    display: flex;
+    position: relative;
+
+    .input{
+        width: 100%;
+
+        & input{
+            width: 100%;
+            font-size: 1rem;
+            padding: 1rem;
+            border: none;
+            // border: 1px solid $green;
+            outline: none;
+            border-radius: .5rem;
+            box-shadow: 0 0 20px -2px rgb(0,0,0,.05);
+        }
+    }
+
+    .menu{
+        position: absolute;
+        top: 105%;
+        background-color: white;
+        box-shadow: 0 0 20px -2px rgb(0,0,0,.05);
+        border-radius: .5rem;
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        overflow: hidden;
+        max-height: 200px;
+        overflow-y: auto;
+
+        &.active{
+            display: flex;
+        }
+
+        .item{
+            padding: 0.5rem;
+            cursor: pointer;
+
+            &:hover{
+                background-color: rgb(0,0,0,.05);
+            }
+        }
+    }
+}

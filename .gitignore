@@ -25,3 +25,6 @@ dist-ssr
 
 # env
 .env
+
+src/components/FlightsData.jsx
+src/components/HotelsData.jsx

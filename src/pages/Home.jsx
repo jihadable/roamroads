@@ -1,5 +1,4 @@
-import Rating from "@mui/material/Rating"
-import { IconArrowNarrowRight, IconBuildingSkyscraper, IconChevronLeft, IconChevronRight, IconPlaneDeparture, IconSearch } from "@tabler/icons-react"
+import { IconArrowNarrowRight, IconBuildingSkyscraper, IconChevronLeft, IconChevronRight, IconPlaneDeparture, IconSearch, IconStar, IconStarFilled } from "@tabler/icons-react"
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import payment from "../assets/payment.png"
@@ -294,6 +293,21 @@ function BookHotels(){
         }
     }, [hotels, selectedCountry])
 
+    const getStars = stars => {
+        const arr = []
+
+        for (let i = 1; i <= 5; i++){
+            if (stars >= i){
+                arr.push(<IconStarFilled key={i} stroke={1.5} width={20} height={20} className="filled" />)
+            }
+            else {
+                arr.push(<IconStar key={i} stroke={1.5} width={20} height={20} />)
+            }
+        }
+
+        return arr
+    }
+
     const imagesAPIEndpoint = import.meta.env.VITE_IMAGES_API_ENDPOINT
 
     return (
@@ -352,7 +366,11 @@ function BookHotels(){
                                     <img src={`${imagesAPIEndpoint}/hotels/${hotel.image}`} alt={hotel.name} />
                                     <div className="hotel-info">
                                         <h4 className="hotel-name">{hotel.name}</h4>
-                                        <Rating value={hotel.stars} className="hotel-rating" readOnly />
+                                        <div className="hotel-stars">
+                                    {
+                                        getStars(hotel.stars).map((star, index) => (<span key={index}>{star}</span>))
+                                    }
+                                        </div>
                                         <div className="hotel-price">{getIdCurrency(hotel.price)}</div>
                                     </div>
                                 </Link>

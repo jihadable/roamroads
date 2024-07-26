@@ -11,6 +11,7 @@
     .search{
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 1rem;
 
         .title{
@@ -18,37 +19,44 @@
             font-size: 1.5rem;
             font-weight: bold;
         }
-
-        .search-input{
-            margin: auto;
-            width: 80%;
-            background-color: red;
+        
+        .dates{
+            margin-top: 2rem;
             display: flex;
-            background-color: white;
-            overflow: hidden;
-            border-radius: 100rem;
-    
-            input{
-                font-size: 1rem;
-                padding: 1rem;
-                border: none;
-                outline: none;
-                width: 100%;
-            }
-    
-            button{
-                font-size: 1rem;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+
+            .checkin, .checkout{
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 1rem 2rem;
-                border-radius: 100rem;
-                border: none;
-                outline: none;
-                cursor: pointer;
-                background-color: $green;
-                color: white;
+                flex-direction: column;
+
+                input{
+                    font-size: 1rem;
+                    padding: 0.5rem;
+                    outline: none;
+                    border-radius: .5rem;
+                    border: 1px solid $green;
+                    cursor: pointer;
+                }
             }
+        }
+
+        .autocomplete{
+            width: 80%;
+        }
+
+        .search-btn{
+            font-size: 1rem;
+            border: none;
+            outline: none;
+            background-color: $green;
+            border-radius: 100rem;
+            padding: 0.5rem 1.5rem;
+            width: fit-content;
+            color: white;
+            align-self: center;
+            cursor: pointer;
         }
     }
 
@@ -162,7 +170,11 @@
                         }
     
                         .star-sum{
-                            color: gold;
+                            color: #ccc;
+
+                            .filled{
+                                color: gold;
+                            }
                         }
     
                         .circle{
@@ -333,8 +345,15 @@
                     padding: .5rem;
                     justify-content: space-between;
     
-                    .hotel-rating{
-                        color: gold;
+                    .hotel-stars{
+                        display: flex;
+                        align-items: center;
+                        gap: 0.25rem;
+                        color: #ccc;
+
+                        .filled{
+                            color: gold;
+                        }
                     }
     
                     .hotel-city{

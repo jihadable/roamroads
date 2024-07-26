@@ -1,7 +1,8 @@
-import Rating from "@mui/material/Rating";
-import { IconArrowLeft, IconBarbell, IconBookmark, IconCalendarStats, IconCheck, IconChevronDown, IconDisabled, IconElevator, IconFilter, IconHomeOff, IconMapPinFilled, IconParking, IconPool, IconToolsKitchen2, IconWifi } from "@tabler/icons-react";
-import { useContext, useEffect, useRef, useState } from "react";
+import { IconArrowLeft, IconBarbell, IconBookmark, IconCalendarStats, IconCheck, IconChevronDown, IconDisabled, IconElevator, IconFilter, IconHomeOff, IconMapPinFilled, IconParking, IconPool, IconStar, IconStarFilled, IconToolsKitchen2, IconWifi } from "@tabler/icons-react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import AutoCompletInput from "../components/AutoCompleteInput";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../contexts/AuthContext";
@@ -10,7 +11,7 @@ import "../style/Hotels.scss";
 import getIdCurrency from "../utils/getIdCurrency";
 
 function Hotels(){
-    document.title = "RoamRoads | Hotels"
+    document.title = "RoamRoads | Hotel"
 
     return (
         <>
@@ -23,29 +24,57 @@ function Hotels(){
 
 function HotelSearchContainer(){
 
+    const cities = ["Kendari", "Jakarta", "Yogyakarta", "Bandung"]
+
+    const [city, setCity] = useState("")
+    const [checkinDate, setCheckinDate] = useState("")
+    const [checkoutDate, setCheckoutDate] = useState("")
+
     const [searchParams, setSearchParams] = useSearchParams()
-    const city = searchParams.get("search")
+    const getCity = searchParams.get("search")
 
-    const searchCityElement = useRef(null)
-    
     const handleSearch = () => {
-        const inputCity = searchCityElement.current.value.toLowerCase()
+        const cityValue = city.toLowerCase()
 
-        if (inputCity.length > 0){
-            setSearchParams({ search: inputCity })
+        if (checkinDate === ""){
+            toast.warn("Tanggal check in belum diisi")
+
+            return
         }
+
+        if (checkoutDate === ""){
+            toast.warn("Tanggal check out belum diisi")
+
+            return
+        }
+
+        if (cityValue === ""){
+            toast.warn("Silahkan masukkan nama kota")
+
+            return
+        }
+
+        setSearchParams({ search: cityValue })
     }
 
     return (
         <section className="hotel-search-container">
         {
-            city === null || city === "" ?
+            getCity === null || getCity === "" ?
             <div className="search">
                 <div className="title">Dapatkan hotel sesuai dengan keinginan Anda</div>
-                <div className="search-input">
-                    <input type="text" placeholder="Masukkan nama kota" ref={searchCityElement} />
-                    <button type="button" onClick={handleSearch}>Cari</button>
+                <div className="dates">
+                    <div className="checkin">
+                        <label>Check In</label>
+                        <input type="date" value={checkinDate} onChange={(e) => setCheckinDate(e.target.value)} />
+                    </div>
+                    <div className="checkout">
+                        <label>Check Out</label>
+                        <input type="date" value={checkoutDate} onChange={(e) => setCheckoutDate(e.target.value)} />
+                    </div>
                 </div>
+                <AutoCompletInput data={cities} label={"Masukkan nama kota"} value={city} setValue={setCity} />
+                <button type="button" className="search-btn" onClick={handleSearch}>Cari</button>
             </div> :
             <div className="result">
                 <Link to={"/hotels"} className="back">
@@ -53,7 +82,7 @@ function HotelSearchContainer(){
                     <span>Kembali</span>
                 </Link>
                 <div className="result-container">
-                    <SearchHotels city={city} />
+                    <SearchHotels />
                 </div>
             </div>
         }
@@ -61,12 +90,10 @@ function HotelSearchContainer(){
     )
 }
 
-function SearchHotels({ city }){
+function SearchHotels(){
 
     // filter: city, price, star, facilities
     const [filters, setFilters] = useState({
-        // city
-        city,
         // price
         sort: "All",
         // star
@@ -154,6 +181,21 @@ function SearchHotels({ city }){
         }
     }
 
+    const getStars = stars => {
+        const arr = []
+
+        for (let i = 1; i <= 5; i++){
+            if (stars >= i){
+                arr.push(<IconStarFilled key={i} stroke={1.5} width={20} height={20} className="filled" />)
+            }
+            else {
+                arr.push(<IconStar key={i} stroke={1.5} width={20} height={20} />)
+            }
+        }
+
+        return arr
+    }
+
     return (
         <>
         <div className="hotel-search-filter">
@@ -165,7 +207,6 @@ function SearchHotels({ city }){
                 </div>
                 <div className="reset-filter" onClick={() => {
                     setFilters({
-                        city,
                         price: "All",
                         star: [],
                         facilities: []
@@ -213,7 +254,11 @@ function SearchHotels({ city }){
                                     <span className={`checkbox ${filters["star"].includes(star) ? "checked" : ""}`}>
                                         <IconCheck stroke={1.5} />
                                     </span>
-                                    <Rating value={star} className="star-sum" readOnly />
+                                    <div className="star-sum">
+                                    {
+                                        getStars(star).map((star, index) => (<span key={index}>{star}</span>))
+                                    }
+                                    </div>
                                 </div>
                             ))
                         }
@@ -282,6 +327,8 @@ function SearchHotels({ city }){
 
 function HotelSearchGrid({ filters }){
 
+    const [searchParams] = useSearchParams()
+
     const { isLogin } = useContext(AuthContext)
 
     const { hotels } = useContext(HotelsContext)
@@ -293,8 +340,10 @@ function HotelSearchGrid({ filters }){
         if (hotels){
             setFilteredHotels(() => {
                 return [...hotels].filter(hotel => {
+                    const city = searchParams.get("search")
+
                     if (// city
-                        (hotel.city.toLowerCase() === filters.city) &&
+                        (hotel.city.toLowerCase() === city.toLowerCase()) &&
                         // star
                         (filters.star.includes(hotel.stars) || filters.star.length === 0) &&
                         // // facilities
@@ -356,6 +405,21 @@ function HotelSearchGrid({ filters }){
         return false
     }
 
+    const getStars = stars => {
+        const arr = []
+
+        for (let i = 1; i <= 5; i++){
+            if (stars >= i){
+                arr.push(<IconStarFilled stroke={1.5} width={20} height={20} className="filled" />)
+            }
+            else {
+                arr.push(<IconStar stroke={1.5} width={20} height={20} />)
+            }
+        }
+
+        return arr
+    }
+
     const imageAPIEndpoint = import.meta.env.VITE_IMAGES_API_ENDPOINT
 
     return (
@@ -381,7 +445,11 @@ function HotelSearchGrid({ filters }){
                             <img className="hotel-img" src={`${imageAPIEndpoint}/hotels/${hotel.image}`} alt={hotel.name} />
                             <div className="hotel-info">
                                 <h4 className="hotel-name">{hotel.name}</h4>
-                                <Rating value={hotel.stars} className="hotel-rating" readOnly />
+                                <div className="hotel-stars">
+                                {
+                                    getStars(hotel.stars).map((star, index) => (<span key={index}>{star}</span>))
+                                }
+                                </div>
                                 <div className="hotel-city">
                                     <IconMapPinFilled stroke={1.5} />
                                     {hotel.city}

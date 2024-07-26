@@ -1,8 +1,9 @@
-import { Autocomplete, TextField } from "@mui/material";
 import { IconAlertCircleFilled, IconArrowLeft, IconArrowNarrowDown, IconArrowNarrowRight, IconBookmark, IconCheck, IconChevronDown, IconFilter, IconLuggage, IconPlaneInflight, IconPlaneOff, IconSalad, IconUsb, IconWifi } from "@tabler/icons-react";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Slider from "react-slider";
+import { toast } from "react-toastify";
+import AutoCompletInput from "../components/AutoCompleteInput";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../contexts/AuthContext";
@@ -26,24 +27,53 @@ function FlightSearchContainer(){
     const cities = ["Kendari", "Yogyakarta", "Bandung", "Jakarta", "Surabaya", "Malang", "Bali", "Palembang", "Lombok", "Makassar", "Singapore", "Kuala Lumpur", "Seoul", "Tokyo", "Osaka", "Shanghai", "Sydney", "Melbourne", "Amsterdam"]
 
     const [searchParams, setSearchParams] = useSearchParams()
-    const [departureCity, setDepartureCity] = useState(null)
-    const [arrivalCity, setArrivalCity] = useState(null)
+    const [departureCity, setDepartureCity] = useState("")
+    const [arrivalCity, setArrivalCity] = useState("")
+
+    const [date, setDate] = useState("")
+
+    const [getDepartureCity, getArrivalCity] = [searchParams.get("from"), searchParams.get("to")]
 
     const handleSearch = () => {
-        setSearchParams({ asal: departureCity, tujuan: arrivalCity })
+        const departureCityInput = departureCity.toLowerCase()
+        const arrivalCityInput = arrivalCity.toLowerCase()
+
+        if (date === ""){
+            toast.warn("Tanggal belum diisi")
+
+            return
+        }
+
+        if (departureCityInput === ""){
+            toast.warn("Silahkan masukkan kota asal")
+
+            return
+        }
+
+        if (arrivalCityInput === ""){
+            toast.warn("Silahkan masukkan kota tujuan")
+
+            return
+        }
+
+        setSearchParams({ from: departureCityInput, to: arrivalCityInput })
     }
 
     return (
         <>
             <section className="flight-search-container">
             {
-                (searchParams.get("asal") === null || searchParams.get("asal") === "") && (searchParams.get("tujuan") === null || searchParams.get("tujuan") === "") ?
+                getDepartureCity === null || getDepartureCity === "" || getArrivalCity === null || getArrivalCity === "" ?
                 <div className="search">
                     <div className="title">Dapatkan penerbangan sesuai dengan keinginan Anda</div>
+                    <div className="date">
+                        <label>Tanggal</label>
+                        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                    </div>
                     <div className="search-input">
-                        <Autocomplete className="departure-city-input" disablePortal options={cities} renderInput={(params) => <TextField {...params} label="Kota asal" />} value={departureCity} onChange={(e, value) => setDepartureCity(value)} />
+                        <AutoCompletInput data={cities} label={"Kota Asal"} value={departureCity} setValue={setDepartureCity} />
                         <IconArrowNarrowRight stroke={1.5} width={60} height={60} />
-                        <Autocomplete className="arrival-city-input" disablePortal options={cities} renderInput={(params) => <TextField {...params} label="Kota tujuan" />} value={arrivalCity} onChange={(e, value) => setArrivalCity(value)} />
+                        <AutoCompletInput data={cities} label={"Kota Tujuan"} value={arrivalCity} setValue={setArrivalCity} />
                     </div>
                     <button type="button" className="search-btn" onClick={handleSearch}>Cari</button>
                 </div> :
@@ -53,7 +83,7 @@ function FlightSearchContainer(){
                         <span>Kembali</span>
                     </Link>
                     <div className="result-container">
-                        <SearchFlights departureCity={searchParams.get("asal")} arrivalCity={searchParams.get("tujuan")} />
+                        <SearchFlights />
                     </div>
                 </div>
             }
@@ -62,11 +92,9 @@ function FlightSearchContainer(){
     )
 }
 
-function SearchFlights({ departureCity, arrivalCity }){
+function SearchFlights(){
 
     const [filters, setFilters] = useState({
-        departure_city: departureCity, 
-        arrival_city: arrivalCity,
         sort: "All",
         seat: "All",
         transit_number: "All",
@@ -256,8 +284,6 @@ function SearchFlights({ departureCity, arrivalCity }){
                         </div>
                         <div className="reset-filter" onClick={() => {
                             setFilters({
-                                departure_city: departureCity,
-                                arrival_city: arrivalCity,
                                 sort: "All",
                                 seat: "All",
                                 transit_number: "All",
@@ -504,6 +530,8 @@ function SearchFlights({ departureCity, arrivalCity }){
 
 function FlightGrid({ filters }){
 
+    const [searchParams] = useSearchParams()
+
     const { isLogin } = useContext(AuthContext)
     
     const { flights } = useContext(FlightsContext)
@@ -547,8 +575,11 @@ function FlightGrid({ filters }){
                 return [...flights].filter(flight => {
                     const transitDuration = flight.transit_departure_time ? parseInt(flight.transit_departure_time) - parseInt(flight.transit_arrival_time) : 0
 
+                    const departureCity = searchParams.get("from")
+                    const arrivalCity = searchParams.get("to")
+
                     if (// route
-                        (filters.departure_city === flight.departure_city && filters.arrival_city === flight.arrival_city) && 
+                        (departureCity.toLowerCase() === flight.departure_city.toLowerCase() && arrivalCity.toLowerCase() === flight.arrival_city.toLowerCase()) && 
                         // seat
                         (filters.seat === "All" || filters.seat === flight.seat) &&
                         // transit_number

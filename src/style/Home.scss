@@ -255,10 +255,14 @@
                     gap: .5rem;
                     padding: 0.8rem;
 
-                    .hotel-rating{
+                    .hotel-stars{
                         display: flex;
                         align-items: center;
-                        color: gold;
+                        color: #ccc;
+
+                        .filled{
+                            color: gold;
+                        }
                     }
 
                     .trending-price,.hotel-price,.flight-price{

@@ -10,9 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.10",
     "@tabler/icons-react": "^2.34.0",
     "axios": "^1.7.2",
     "localforage": "^1.10.0",
