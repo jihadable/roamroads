@@ -782,6 +782,12 @@
         flex-direction: column;
         font-size: 1rem;
 
+        .search{
+            .search-input{
+                width: 100%;
+            }
+        }
+
         .flight-search-filter{
             width: 100%;
             user-select: none;
