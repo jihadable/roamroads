@@ -1,8 +1,9 @@
-# RoamRoads 🏖️ 
+# RoamRoads - Frontend
 
-RoamRoads is a booking app. The website presents a list of train departures, flight options, and hotels in Indonesia, alongside filtering features. Detailed information is provided for each item, including prices, facilities, and much more.
+RoamRoads adalah aplikasi pemesanan perjalanan yang menawarkan berbagai pilihan penerbangan dan akomodasi hotel.
 
 👉 [Live Demo](https://roamroads.netlify.app/)
+👉 [Backend Github](https://github.com/jihadable/roamroads-be/)
 
 ## Tech Stack
 » SASS
