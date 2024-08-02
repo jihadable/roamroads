@@ -1,4 +1,6 @@
-import { useContext } from "react";
+import axios from "axios";
+import { useContext, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../contexts/AuthContext";
@@ -27,7 +29,54 @@ export default function Account(){
 
 function AccountSection(){
 
-    const { user } = useContext(AuthContext)
+    const { user, setUser } = useContext(AuthContext)
+
+    const [nameElement, phoneElement] = [useRef(null), useRef(null)]
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleUpdateUserProfile = async() => {
+        const phonePattern = /^08\d{8,13}$/
+        const [name, phone] = [nameElement.current.value, phoneElement.current.value]
+
+        if (!phonePattern.test(phone)){
+            toast.error("No HP yang Anda masukkan tidak valid")
+
+            return
+        }
+
+        if (name === "" || phone === ""){
+            toast.error("Masih ada kolom yang belum diisi!")
+
+            return
+        }
+
+        try {
+            setIsLoading(true)
+
+            const usersAPIEndpoint = import.meta.env.VITE_USERS_API_ENDPOINT
+            const token = localStorage.getItem("token")
+
+            await axios.post(usersAPIEndpoint, 
+                { name, phone },
+                {
+                    params: {
+                        "_method": "patch"
+                    },
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                }
+            )
+
+            toast.success("Berhasil memperbarui data pengguna")
+            setUser({...user, name, phone})
+            setIsLoading(false)
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+            toast.error("Gagal memperbarui data pengguna")
+        }
+    }
 
     return (
         <section className="account-section">
@@ -39,7 +88,7 @@ function AccountSection(){
                 <div className="info">
                     <div className="name">
                         <div className="label">Nama</div>
-                        <div className="value">{user?.name}</div>
+                        <input type="text" className="value" defaultValue={user.name} ref={nameElement} />
                     </div>
                     <div className="email">
                         <div className="label">Email</div>
@@ -47,8 +96,15 @@ function AccountSection(){
                     </div>
                     <div className="phone">
                         <div className="label">No HP</div>
-                        <div className="value">{user?.phone}</div>
+                        <input type="text" className="value" defaultValue={user.phone} ref={phoneElement} />
                     </div>
+                {
+                    isLoading ?
+                    <div className="loader">
+                        <div className="spinner"></div>
+                    </div> :
+                    <button type="button" onClick={handleUpdateUserProfile}>Simpan</button>
+                }
                 </div>
             </div>
         </section>

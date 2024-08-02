@@ -31,6 +31,8 @@ export default function AuthProvider({ children }){
                 setUser(data.user)
             } catch(error){
                 localStorage.removeItem("token")
+                localStorage.removeItem("savedHotels")
+                localStorage.removeItem("savedFlights")
                 setIsLogin(false)
                 setUser(null)
             }
