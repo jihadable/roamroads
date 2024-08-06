@@ -1,4 +1,5 @@
 import { IconAlertCircleFilled, IconArrowLeft, IconArrowNarrowDown, IconArrowNarrowRight, IconBookmark, IconCheck, IconChevronDown, IconFilter, IconLuggage, IconPlaneInflight, IconPlaneOff, IconSalad, IconUsb, IconWifi } from "@tabler/icons-react";
+import axios from "axios";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Slider from "react-slider";
@@ -7,6 +8,7 @@ import AutoCompletInput from "../components/AutoCompleteInput";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../contexts/AuthContext";
+import { FavoritesContext } from "../contexts/FavoritesContext";
 import { FlightsContext } from "../contexts/FlightsContext";
 import "../style/Flights.scss";
 import getIdCurrency from "../utils/getIdCurrency";
@@ -624,27 +626,77 @@ function FlightGrid({ filters }){
         powerusbport: <IconUsb stroke={1.5} />
     }
 
-    const { savedFlights, setSavedFlights } = useContext(FlightsContext)
+    const { favorites, setFavorites } = useContext(FavoritesContext)
 
-    const handleClickSaveBtn = (flight) => {
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleSaveFavorite = async(flight) => {
+        try {
+            setIsLoading(true)
+            const favoritesAPIEndpoint = import.meta.env.VITE_FAVORITES_API_ENDPOINT
+            const token = localStorage.getItem("token")
+
+            const { data } = await axios.post(favoritesAPIEndpoint, 
+                {
+                    flight_hotel_id: flight.id,
+                    type: "flight"
+                },
+                {
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                }
+            )
+
+            setIsLoading(false)
+            setFavorites([data.favorite, ...favorites])
+        } catch (error) {
+            setIsLoading(false)
+            toast.error("Gagal menambah simpanan")
+        }
+    }
+
+    const handleDeleteFavorite = async(flight) => {
+        try {
+            setIsLoading(true)
+            const favoritesAPIEndpoint = import.meta.env.VITE_FAVORITES_API_ENDPOINT
+            const token = localStorage.getItem("token")
+
+            await axios.delete(`${favoritesAPIEndpoint}/${flight.id}`, {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+
+            setIsLoading(false)
+            setFavorites(favorites.filter(favorite => favorite.favorite.id !== flight.id))
+        } catch (error) {
+            setIsLoading(false)
+            toast.error("Gagal menghapus simpanan")
+        }
+    }
+
+    const handleClickSaveBtn = flight => {
         const id = flight.id
 
         if (checkSaved(id)){
-            setSavedFlights(savedFlights => (savedFlights.filter(flight => flight.id !== id)))
+            handleDeleteFavorite(flight)
         }
         else {
-            setSavedFlights(savedFlights => [...savedFlights, flight])
+            handleSaveFavorite(flight)
         }
     }
 
     const checkSaved = id => {
-        for (let flight of savedFlights){
-            if (flight.id === id){
-                return true
+        if (favorites !== null){
+            for (let { favorite } of favorites){
+                if (favorite.id === id){
+                    return true
+                }
             }
+    
+            return false
         }
-
-        return false
     }
 
     const [showFlightDetail, setShowFlightDetail] = useState(false)
@@ -725,7 +777,13 @@ function FlightGrid({ filters }){
                             <div className="flight-price">{getIdCurrency(flight.price)}</div>
                             <div className="save-select">
                             {
-                                isLogin &&
+                                isLogin && isLoading &&
+                                <div className="loader">
+                                    <div className="spinner"></div>
+                                </div>
+                            }
+                            {
+                                isLogin && !isLoading &&
                                 <div className={`save ${checkSaved(flight.id) ? "saved" : ""}`} onClick={() => {handleClickSaveBtn(flight)}}>
                                     <IconBookmark stroke={1.5} />
                                 </div>
@@ -813,12 +871,20 @@ function FlightGrid({ filters }){
                                 </>
                             }
                         </div>
+                    {
+                        isLogin &&
                         <div className="save-select-detail">
+                        {
+                            isLoading ?
+                            <div className="loader">
+                                <div className="spinner"></div>
+                            </div> :
                             <div className={`save ${checkSaved(flightDetail.id) ? "saved" : ""}`} onClick={() => {handleClickSaveBtn(flightDetail)}}>
                                 <IconBookmark stroke={1.5} />
                             </div>
-                            <div className="select">Select</div>
+                        }
                         </div>
+                    }
                     </div>
                 </div>
             </div>

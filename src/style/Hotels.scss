@@ -381,6 +381,13 @@
                     font-weight: 700;
                     color: $orange;
                 }
+                
+                .loader{
+                    padding: .45rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
 
                 .save-btn{
                     border-radius: 5rem;
@@ -486,6 +493,10 @@
             }
         }
 
+        .result-container{
+            flex-direction: column;
+        }
+
         .hotel-search-grid{
             width: 100%;
 
@@ -575,6 +586,10 @@
                 max-height: 9999px;
                 transition: all .2s cubic-bezier(1,0,1,0);
             }
+        }
+
+        .result-container{
+            flex-direction: column;
         }
 
         .hotel-search-grid{

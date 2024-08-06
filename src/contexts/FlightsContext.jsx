@@ -5,11 +5,6 @@ export const FlightsContext = createContext()
 
 export default function FlightProvider({ children }){
     const [flights, setFlights] = useState(null)
-    const [savedFlights, setSavedFlights] = useState(localStorage.getItem("savedFlights") ? JSON.parse(localStorage.getItem("savedFlights")) : [])
-
-    useEffect(() => {
-        localStorage.setItem("savedFlights", JSON.stringify(savedFlights))
-    }, [savedFlights])
 
     useEffect(() => {
         const getAllFlights = async() => {
@@ -27,7 +22,7 @@ export default function FlightProvider({ children }){
         getAllFlights()
     }, [])
     
-    return <FlightsContext.Provider value={{ flights, setFlights, savedFlights, setSavedFlights }}>
+    return <FlightsContext.Provider value={{ flights, setFlights }}>
         {children}
     </FlightsContext.Provider>
 }

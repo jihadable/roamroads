@@ -1,4 +1,5 @@
 import { IconArrowLeft, IconBarbell, IconBookmark, IconCalendarStats, IconCheck, IconChevronDown, IconDisabled, IconElevator, IconFilter, IconHomeOff, IconMapPinFilled, IconParking, IconPool, IconStar, IconStarFilled, IconToolsKitchen2, IconWifi } from "@tabler/icons-react";
+import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -6,6 +7,7 @@ import AutoCompletInput from "../components/AutoCompleteInput";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../contexts/AuthContext";
+import { FavoritesContext } from "../contexts/FavoritesContext";
 import { HotelsContext } from "../contexts/HotelsContext";
 import "../style/Hotels.scss";
 import getIdCurrency from "../utils/getIdCurrency";
@@ -382,27 +384,76 @@ function HotelSearchGrid({ filters }){
         });
     }
 
-    const { savedHotels, setSavedHotels } = useContext(HotelsContext)
+    const { favorites, setFavorites } = useContext(FavoritesContext)
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleSaveFavorite = async(hotel) => {
+        try {
+            setIsLoading(true)
+            const favoritesAPIEndpoint = import.meta.env.VITE_FAVORITES_API_ENDPOINT
+            const token = localStorage.getItem("token")
+
+            const { data } = await axios.post(favoritesAPIEndpoint, 
+                {
+                    flight_hotel_id: hotel.id,
+                    type: "hotel"
+                },
+                {
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                }
+            )
+
+            setIsLoading(false)
+            setFavorites([data.favorite, ...favorites])
+        } catch (error) {
+            setIsLoading(false)
+            toast.error("Gagal menambah simpanan")
+        }
+    }
+
+    const handleDeleteFavorite = async(hotel) => {
+        try {
+            setIsLoading(true)
+            const favoritesAPIEndpoint = import.meta.env.VITE_FAVORITES_API_ENDPOINT
+            const token = localStorage.getItem("token")
+
+            await axios.delete(`${favoritesAPIEndpoint}/${hotel.id}`, {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+            
+            setIsLoading(false)
+            setFavorites(favorites.filter(favorite => favorite.favorite.id !== hotel.id))
+        } catch (error) {
+            setIsLoading(false)
+            toast.error("Gagal menghapus simpanan")
+        }
+    }
 
     const handleClickSaveBtn = (hotel) => {
         const id = hotel.id
 
         if (checkSaved(id)){
-            setSavedHotels(savedHotels => (savedHotels.filter(hotel => hotel.id !== id)))
+            handleDeleteFavorite(hotel)
         }
         else {
-            setSavedHotels(savedHotels => [...savedHotels, hotel])
+            handleSaveFavorite(hotel)
         }
     }
 
     const checkSaved = id => {
-        for (let hotel of savedHotels){
-            if (hotel.id === id){
-                return true
+        if (favorites !== null){
+            for (let { favorite } of favorites){
+                if (favorite.id === id){
+                    return true
+                }
             }
+    
+            return false
         }
-
-        return false
     }
 
     const getStars = stars => {
@@ -459,7 +510,13 @@ function HotelSearchGrid({ filters }){
                         <div className="hotel-right">
                             <div className="hotel-price">{getIdCurrency(hotel.price)}</div>
                         {
-                            isLogin &&
+                            isLogin && isLoading &&
+                            <div className="loader">
+                                <div className="spinner"></div>
+                            </div> 
+                        }
+                        {
+                            isLogin && !isLoading &&
                             <div className={`save-btn ${checkSaved(hotel.id) ? "saved" : ""}`} onClick={() => handleClickSaveBtn(hotel)}>
                                 <IconBookmark stroke={1.5} />
                             </div>

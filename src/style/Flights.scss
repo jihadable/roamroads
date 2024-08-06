@@ -455,6 +455,13 @@
                         align-items: center;
                         gap: 0.5rem;
                         align-self: self-end;
+
+                        .loader{
+                            padding: .45rem;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
     
                         .save{
                             cursor: pointer;
@@ -711,6 +718,13 @@
                     font-size: 1rem;
                     gap: .3rem;
 
+                    .loader{
+                        padding: .45rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
                     .save{
                         border-radius: 5rem;
                         display: flex;
@@ -786,6 +800,10 @@
             .search-input{
                 width: 100%;
             }
+        }
+
+        .result-container{
+            flex-direction: column;
         }
 
         .flight-search-filter{
@@ -919,6 +937,10 @@
         width: 90vw;
         flex-direction: column;
         font-size: 1rem;
+
+        .result-container{
+            flex-direction: column;
+        }
 
         .flight-search-filter{
             width: 50%;

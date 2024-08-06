@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import AuthProvider from "./contexts/AuthContext";
+import FavoritesProvider from "./contexts/FavoritesContext";
 import FlightProvider from "./contexts/FlightsContext";
 import HotelProvider from "./contexts/HotelsContext";
 import Account from "./pages/Account";
@@ -17,6 +18,7 @@ export default function Router(){
     return (
         <BrowserRouter>
             <AuthProvider>
+            <FavoritesProvider>
             <HotelProvider>
             <FlightProvider>
             <ToastContainer
@@ -40,6 +42,7 @@ export default function Router(){
             </Routes>
             </FlightProvider>
             </HotelProvider>
+            </FavoritesProvider>
             </AuthProvider>
         </BrowserRouter>
     )

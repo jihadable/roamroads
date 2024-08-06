@@ -219,6 +219,13 @@
                         color: $orange;
                         font-weight: 600;
                     }
+                
+                    .loader{
+                        padding: .45rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
 
                     .save-btn{
                         border-radius: 5rem;
@@ -290,13 +297,6 @@
                     &-right{
                         flex-direction: row;
                         padding-left: 5rem;
-
-                        .save-btn{
-                            svg{
-                                width: 1.5rem;
-                                height: 1.5rem;
-                            }
-                        }
                     }
                 }
             }

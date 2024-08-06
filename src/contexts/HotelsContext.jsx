@@ -5,11 +5,6 @@ export const HotelsContext = createContext()
 
 export default function HotelProvider({ children }){
     const [hotels, setHotels] = useState(null)
-    const [savedHotels, setSavedHotels] = useState(localStorage.getItem("savedHotels") ? JSON.parse(localStorage.getItem("savedHotels")) : [])
-
-    useEffect(() => {
-        localStorage.setItem("savedHotels", JSON.stringify(savedHotels))
-    }, [savedHotels])
 
     useEffect(() => {
         const getAllHotels = async() => {
@@ -27,7 +22,7 @@ export default function HotelProvider({ children }){
         getAllHotels()
     }, [])
     
-    return <HotelsContext.Provider value={{ hotels, setHotels, savedHotels, setSavedHotels }}>
+    return <HotelsContext.Provider value={{ hotels, setHotels }}>
         {children}
     </HotelsContext.Provider>
 }
